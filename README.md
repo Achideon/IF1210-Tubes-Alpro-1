@@ -18,5 +18,6 @@ Berikut merupakan command yang tersedia untuk fitur-fitur Rumah Sakit DIgital.
 * Command LIHAT_RUANGAN [IDRuangan] untuk melihat kapasitas, jumlah pasien, dan dokter pada IDRuangan.  
 * Command LIHAT_SEMUA_ANTRIAN untuk melihat antrian pasien beserta fitur tambahan seperti kapasitas, jumlah pasien, dan dokter tiap ruangan.  
 * Command SAVE untuk menyimpan pada folder data dengan nama tertentu.  
-* Command TAMBAH_DOKTER untuk menambahkan jumlah dokter pada rumah sakit.  
+* Command TAMBAH_DOKTER untuk menambahkan jumlah dokter pada rumah sakit.
+* Command ASSIGN_DOKTER untuk melakukan assign ruangan ke dokter tertentu yang belum mempunyai ruangan.
 * Command EXIT memberi opsi kepada pengguna untuk menyimpan file atau tidak dan keluar dari program.  

@@ -92,6 +92,7 @@ void ext(boolean *kondisi, ListUser l,Matrix m){
     char save;
     scanf("%c",&save);
     while ((save != 'y') && (save != 'n')){
+        printf("Apakah anda mau melakukan penyimpanan file yang sudah diubah? (y/n)");
         scanf("%c",&save);
     }
     if (save == 'y'){

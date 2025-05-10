@@ -131,7 +131,7 @@ void lupaPassword(ListUser *l, int *currentID){
         scanf("%s", unique);
     }// kode unik valid, lanjut masukkan password baru
 
-    printf("Halo %s %s silakan daftarkan ulang password anda!\n", getRoleByID(*l, *currentID) ,username);
+    printf("Halo %s %s silakan daftarkan ulang password anda!\n", getRoleByID(*l, getIDByUsername(*l, username)) ,username);
     scanf("%s", password);
     printf("Password baru anda adalah: %s\n", password);
     setPassword(l, getIDByUsername(*l, username), password);

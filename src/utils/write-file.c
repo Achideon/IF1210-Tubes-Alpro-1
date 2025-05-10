@@ -33,7 +33,7 @@ void writeFile_user(ListUser l, int nEff, const char* filename) {
 }
 
 void writeFile_config(const Matrix *M) {
-    FILE *file = fopen("config.txt", "w");
+    FILE *file = fopen("../src/file/config.txt", "w");
     if (file == NULL) {
         printf("Gagal membuka file untuk penulisan.\n");
         return;

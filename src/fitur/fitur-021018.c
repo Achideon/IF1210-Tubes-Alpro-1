@@ -95,7 +95,7 @@ void ext(boolean *kondisi, ListUser l,Matrix m){
         scanf("%c",&save);
     }
     if (save == 'y'){
-        writeFile_user(l,l.nEff,"user.csv");
+        writeFile_user(l,l.nEff,"../src/file/user.csv");
         writeFile_config(&m);
     }
     

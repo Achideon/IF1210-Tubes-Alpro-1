@@ -10,13 +10,14 @@ void regist(ListUser *l, int currentId){
         printf("Password: ");
         scanf("%s",pass);  /*Memasukkan password dari akun yang ingin didaftarkan.*/
         if (!(isUniqueUser(*l, username))){
-            printf("Registrasi pasien gagal! Ada %s dengan nama %s sudah terdaftar.\n", getRoleByID(*l,getIDByUsername(*l, username)), username); 
+            printf("Registrasi pasien gagal! %s dengan nama %s sudah terdaftar.\n", getRoleByID(*l,getIDByUsername(*l, username)), username); 
             /*Sudah ada pasien yang teregristasi dengan nama yang sama.*/
         }else{
             addNewUser(l, username, pass); /*Menambah akun pasien baru*/
             setRole(l, getIDByUsername(*l, username), "Pasien");
             /*Setelah berhasil mendaftar, pasien akan otomatis terdaftar sebagai pasien*/
         }
+        printf("\n");
     } else {
         return;
     }
@@ -39,6 +40,7 @@ void addDoctor(ListUser *l, int currentId){
             setRole(l, getIDByUsername(*l, username), "Dokter");
             /*Setelah berhasil mendaftar, dokter akan otomatis terdaftar sebagai dokter*/
         }
+        printf("\n");
     }else {
         return;
     }
@@ -73,7 +75,8 @@ void assignDoctor(ListUser *l, int currentId, Matrix *M){
             col -= 1;
             M->data[row][col].idDoktor = getIDByUsername(*l,username);
             printf("Dokter %s sudah diassign ke ruangan %s\n",username,ruang);
-        } 
+        }
+        printf("\n");
         /*tercatat di matrix bahwa ada dokter di ruangan tersebut.*/
     }else {
         return;

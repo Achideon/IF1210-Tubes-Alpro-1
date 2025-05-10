@@ -4,7 +4,28 @@
 #include <math.h>
 #include "fitur-01030405.h"
 
-// gcc user-list.c fitur-01030405.c driver.c -o p
+/*
+login
+    - Meminta username dan password
+    - Mengecek apakah username dan password valid
+    - Jika valid, set currentID ke ID user yang login
+    - Jika tidak valid, tampilkan pesan error
+logout
+    - Mengubah currentID menjadi MARK_INT
+lupaPassword
+    - Meminta username dan kode unik
+    - Mengecek apakah username valid
+    - Jika valid, lakukan RLE pada username
+    - Jika kode unik sesuai dengan hasil RLE, minta password baru
+    - Set password baru untuk user yang bersangkutan
+    - Tampilkan pesan sukses
+menuHelp
+    - Menampilkan menu bantuan sesuai dengan role yang sedang login
+    - Jika belum login, tampilkan menu login dan register
+    - Jika sudah login, tampilkan menu sesuai dengan role
+    - Tampilkan footnote tentang cara menggunakan aplikasi
+*/
+
 void login(ListUser *l, int *currentID){
     if(isUserLoggedIn(*currentID) == 1){
         printf("Anda sudah login!\n\n");
@@ -54,10 +75,7 @@ void lupaPassword(ListUser *l, int *currentID){
     char username[MAX_USERNAME_LENGTH], unique[MAX_USERNAME_LENGTH], rle[MAX_USERNAME_LENGTH], password[MAX_PASSWORD_LENGTH];
     char present;
     int count = 1, idx = 0;
-    // if(*currentID != MARK_INT){
-    //     printf("Anda sudah login!\n\n");
-    //     return;
-    // }else{
+    
     printf("Username anda: ");
     scanf("%s", username);
     printf("Kode unik: ");
@@ -118,7 +136,6 @@ void lupaPassword(ListUser *l, int *currentID){
     printf("Password baru anda adalah: %s\n", password);
     setPassword(l, getIDByUsername(*l, username), password);
     printf("Silakan login!\n\n");
-    // }
 }
 
 void menuHelp(ListUser *l, int *currentID){
@@ -175,12 +192,3 @@ void menuHelp(ListUser *l, int *currentID){
     printf("    1. Untuk menggunakan aplikasi, silahkan masukkan nama fungsi yang terdaftar\n");
     printf("    2. Jangan lupa untuk memasukkan input yang valid\n");
 }
-
-/*
-LIHAT_DENAH: Menampilkan denah rumah sakit secara keseluruhan
-LIHAT_RUANGAN: Menampilkan informasi kapasitas, jumlah pasien, dan jumlah dokter pada ruangan tertentu berdasarkan ID ruangan
-LIHAT_SEMUA_ANTRIAN: Menampilkan seluruh antrian pasien beserta kapasitas, jumlah pasien, dan dokter dari tiap ruangan
-SAVE: Menyimpan data program saat ini ke dalam folder data dengan nama tertentu
-TAMBAH_DOKTER: Menambahkan jumlah dokter pada rumah sakit
-EXIT: Memberikan pilihan kepada pengguna untuk menyimpan data terlebih dahulu atau langsung keluar dari program
-*/

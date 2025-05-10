@@ -6,7 +6,7 @@
 #include "../adt/boolean.h"
 #include "../adt/user-list.h"
 #include "../adt/matrix-denah.h"
-#include "../utils/writeFile.h"
+#include "../utils/write-file.h"
 
 void regist(ListUser *l, int currentId);
 /*F02 : Prosedur untuk melakukan registrasi bagi pasien yang belum memiliki akun. Hanya bisa dijalankan jika belum login dan username bersifat case-insensitive.*/

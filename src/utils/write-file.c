@@ -1,4 +1,4 @@
-#include "writeFile.h"
+#include "write-file.h"
 
 void writeFile_user(ListUser l, int nEff, const char* filename) {
     FILE *file = fopen(filename, "w");

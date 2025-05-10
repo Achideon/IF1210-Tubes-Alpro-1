@@ -1,7 +1,5 @@
 #include <stdio.h>
-#include "../.gitignore"/
-#include "../adt/user-list.h"
-#include "../adt/queue.h"
+#include "read-file.h"
 
 void parsing(char *input, char *format, int dataCount, ...){
     va_list args;

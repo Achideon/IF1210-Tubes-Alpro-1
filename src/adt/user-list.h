@@ -7,7 +7,7 @@
 
 #include <stdio.h>
 #include <string.h>
-#include "boolean.h"
+#include "../utils/boolean.h"
 #include <stdlib.h>
 
 /*  Kamus Umum */

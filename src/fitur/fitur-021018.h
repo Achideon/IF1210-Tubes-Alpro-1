@@ -3,7 +3,7 @@
 
 #include<stdio.h>
 #include<string.h>
-#include "../adt/boolean.h"
+#include "../utils/boolean.h"
 #include "../adt/user-list.h"
 #include "../adt/matrix-denah.h"
 #include "../utils/write-file.h"

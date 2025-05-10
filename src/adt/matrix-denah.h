@@ -11,7 +11,7 @@ type indeks : integer { indeks baris, kolom }
 #define MATRIXDENAH_H
 
 #include <stdio.h>
-#include "boolean.h"
+#include "../utils/boolean.h"
 #include "queue.h"
 #include "user-list.h"
 

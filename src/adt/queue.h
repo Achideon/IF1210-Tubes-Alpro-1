@@ -2,7 +2,7 @@
 #define QUEUE_H
 
 #include <stdio.h>
-#include "boolean.h"
+#include "../utils/boolean.h"
 #include "user-list.h"
 
 #define IDX_UNDEF -1

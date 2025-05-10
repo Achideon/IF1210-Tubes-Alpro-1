@@ -42,7 +42,7 @@ void parsing(char *input, char *format, int dataCount, ...){
 void readFileUser(ListUser *l) 
 {
     createListUser(l);
-    FILE *file = fopen("../file/user.csv", "r");
+    FILE *file = fopen("../src/file/user.csv", "r");
 
     char line[MAX_LINE_LENGTH];
     int idxUser = 1;
@@ -147,7 +147,8 @@ void readDigits(FILE *input, int *number, int *chr){
 }
 
 void readConfig(Matrix *M){
-    FILE *config = fopen("../file/config.txt", "r");
+    FILE *config = fopen("../src/file/config.txt", "r");
+    if(config == NULL) printf("oh nyo! there is no file!\nwe are deeply sorry for this inconvenience >w<'\n");
     int number, chr;
     readDigits(config, &number, &chr);
     int row = number;

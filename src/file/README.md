@@ -1,0 +1,1 @@
+Directory tempat menyimpan file data program

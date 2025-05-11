@@ -19,9 +19,9 @@ Berikut adalah daftar anggota kami:<br/>
 5. Leonardus Brain Fatolosja NIM. 13524146<br/>
 
 <h2 id="how-to-run">Cara Menjalankan Program</h2>
-Program dijalankan menggunakan wsl di Root. Pastikan gcc dan makefile sudah terinstall.
+Program dijalankan menggunakan wsl di root folder. Pastikan gcc dan makefile sudah terinstall.
 
-### Compile
+### Compile (Jalankan di folder yang memiliki makefile)
 ```bash
 make
 ```

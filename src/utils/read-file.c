@@ -141,7 +141,7 @@ void readDigits(FILE *input, int *number, int *chr){
     }
 
     while(*chr >= 48 && *chr <= 57){ /* baca setiap digit */
-        *number = *number * 10 + (*chr - 48);
+        *number = *number * 10 + (*chr - '0');
         *chr = fgetc(input);
     }
 }

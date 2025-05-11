@@ -21,15 +21,14 @@ Berikut adalah daftar anggota kami:<br/>
 <h2 id="how-to-run">Cara Menjalankan Program</h2>
 Program dijalankan menggunakan wsl di root folder. Pastikan gcc dan makefile sudah terinstall.
 
-### Compile (Jalankan di folder yang memiliki makefile)
+### Compile
 ```bash
 make
 ```
 
 ### Run Program
 ```bash
-cd build
-./hospital_app
+make run
 ```
 
 <h2 id="command">Daftar Command</h2>

@@ -56,6 +56,8 @@ boolean setElement(Matrix *M, int row, int col, Ruangan value);
 /* F.S. Jika row dan col valid, elemen M pada baris row dan kolom col bernilai value, mengembalikan true */
 /*      Jika row atau col tidak valid, mengembalikan false */
 
+boolean isRoomValid (Matrix M, char* ruangan);
+
 boolean isDoctorAssigned (Matrix M, int id);
 
 char* getRoomByDoctor (Matrix M, int id);

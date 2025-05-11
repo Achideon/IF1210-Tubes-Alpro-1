@@ -55,7 +55,10 @@ void assignDoctor(ListUser *l, int currentId, Matrix *M){
         scanf("%s",username);
         printf("Ruangan: ");
         scanf("%s",ruang);
-        if ((isDoctorAssigned(*M, getIDByUsername(*l,username))) && (isRoomAssigned(*M,ruang))){
+        if(!isRoomValid(*M, ruang)){
+            printf("Tidak ada ruangan %s, tidak bisa menempatkan Dokter %s\n", ruang, username);
+        }
+        else if ((isDoctorAssigned(*M, getIDByUsername(*l,username))) && (isRoomAssigned(*M,ruang))){
             /*Jika dokter sudah di assign ke ruangan lain dan ruangan yang dituju sudah ada dokter lain.*/
             printf("Dokter %s sudah menempati ruangan %s\n", username, getRoomByDoctor(*M,getIDByUsername(*l,username)));
             printf("Ruangan %s juga sudah ditempati dokter %s\n",ruang,getDoctorByRoom(*M,ruang,*l));

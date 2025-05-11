@@ -33,6 +33,18 @@ boolean setElement(Matrix *M, int row, int col, Ruangan value){
     } else return false;
 }
 
+boolean isRoomValid (Matrix M, char* ruangan){
+  int row,col;
+  char rowf;
+  sscanf(ruangan, "%c%d", &rowf,&col);
+  row = rowf - 'A';
+  col -= 1;
+  if (row < M.rows && col < M.cols && row >= 0 && col >= 0){
+    return true;
+  }
+  return false;
+}
+
 boolean isDoctorAssigned (Matrix M, int id){
     for (int i=0;i<M.rows;i++){
         for (int j=0;j<M.cols;j++){

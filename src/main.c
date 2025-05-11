@@ -47,7 +47,10 @@ int main(){
             printDenah(M);
         }else if(strcmp(input, "LIHAT_RUANGAN") == 0){
             scanf("%s", ruangan);
-            printRuangan(M, ruangan, l);
+            if(!isRoomValid(M, ruangan)){
+                printf("Ruangan tidak ada! Coba cari ruangan lain\n");
+            }
+            else printRuangan(M, ruangan, l);
         }else if(strcmp(input, "EXIT") == 0){
             ext(&status, l, M);
         }else{

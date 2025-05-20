@@ -13,11 +13,11 @@ void createLinkedList (Address *L){
     *L = NULL;
 }
 
-boolean isEmpty (Address L){
-    return (L==NULL);
+boolean isLinkedListEmpty (Address L){
+    return (L == NULL);
 }
 
-int length (Address L){
+int lengthLinkedList (Address L){
     int len = 0;
     while (L != NULL){
         len += 1;
@@ -37,7 +37,7 @@ void insertFirst(Address *L, ElType val){
 void insertLast(Address *L, ElType val){
     Address new = newNode(val);
     if (new != NULL){
-        if (isEmpty(L)){
+        if (isLinkedListEmpty(*L)){
             *L = new;
         }else{
             Address Ltemp = *L;

@@ -5,12 +5,13 @@
 #define LINKED_LIST_H
 
 typedef int ElType;
+typedef struct node* Address;
 typedef struct node
 {
     ElType info;
     Address next;
 }Node;
-typedef struct node* Address;
+
 
 
 #define INFO(L) (L)->info
@@ -23,10 +24,10 @@ void createLinkedList (Address *L);
 /*I.S. Linked list sembarang
 F.S. Terbentuk Linked List kosong*/
 
-boolean isEmpty (Address *L);
+boolean isLinkedListEmpty (Address L);
 /*Menghasilkan true jika L kosong dan false jika tidak kosong*/
 
-int length (Address *L);
+int lengthLinkedList (Address L);
 /*Menghasilkan banyaknya elemen di Linked List*/
 
 void insertFirst(Address *L, ElType val);

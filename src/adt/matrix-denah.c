@@ -4,7 +4,7 @@
 void createRuangan(Ruangan *R, int capacity){
     R->kapasitas = capacity;
     R->idDoktor = MARK_INT;
-    createQueue(&R->antriPasien, capacity); // 100 = kapasitas queue, bisa diganti
+    createQueue(&R->antriPasien);
 }
 
 /* Konstruktor */
@@ -134,8 +134,12 @@ void printRuangan(Matrix M, char * ruangan, ListUser dataUser){
     else printf(" -\n");
     printf("Pasien di dalam ruangan:\n");
     if(queueLength(M.data[i][j].antriPasien) != 0){
-      for(int k = M.data[i][j].antriPasien.firstIdx; k <= M.data[i][j].antriPasien.lastIdx; k++){
-        printf("   %d. %s\n", k+1, getUsernameByID(dataUser, getQueueContents(M.data[i][j].antriPasien, k)));
-      }
+      int k = 1;
+      Address temp = M.data[i][j].antriPasien.head;
+      while(temp != M.data[i][j].antriPasien.tail){
+        printf("   %d. %s\n", k, getUsernameByID(dataUser, temp->info));
+        k++;
+        temp = temp->next;
+      } printf("   %d. %s\n", k, getUsernameByID(dataUser, temp->info)); // print tail queue
     } else printf("   Tidak ada pasien di dalam ruangan saat ini\n");
 }

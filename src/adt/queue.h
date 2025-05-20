@@ -2,6 +2,7 @@
 #define QUEUE_H
 
 #include <stdio.h>
+#include "linked-list.h"
 #include "../utils/boolean.h"
 #include "user-list.h"
 
@@ -10,27 +11,19 @@
 typedef int Qtype;
 typedef struct
 {
-    Qtype *contents;
-    int firstIdx;
-    int lastIdx;
-    int nEff; /*Jumlah pasien. Kalo 0 berarti belum ada pasien.*/
-    int capacity; /*Maksimal Pasien di antrian. Jadi dalam Queue maksimal indeksnya capacity karena termasuk dokter.*/
+    Address head;
+    Address tail;
 } Queue;
 
-#define NEFF(Q) (Q).nEff
-#define ISI(Q) (Q).contents
-#define ELMT(Q,i) (Q).contents[i]
-#define CAPACITY(Q) (Q).capacity
+#define HEAD(Q) (Q)->head
+#define TAIL(Q) (Q)->tail
 
-void createQueue(Queue *Q, int capacity);
+void createQueue(Queue *Q);
 /*I.S. Q sembarang dengan capacity>0*/
 /*F.S. Q akan diisi mark dengan kapasitas (capacity)*/
 
 int queueLength (Queue Q);
 /*Mengembalikan Panjang dari antrian.*/
-
-boolean isQueueFull(Queue Q);
-/*Mengembalikan true jika antrian penuh*/
 
 boolean isQueueEmpty(Queue Q);
 /*Mengembalikan true jika antrian kosong*/

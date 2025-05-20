@@ -57,8 +57,12 @@ void writeFile_config(const Matrix *M) {
                 fprintf(file, "0\n");
             } else {
                 fprintf(file, "%d", R.idDoktor);
-                for (int k = 0; k < R.antriPasien.nEff; k++) {
-                    fprintf(file, " %d", R.antriPasien.contents[k]);
+                if(!isQueueEmpty(R.antriPasien)){
+                    Address temp = R.antriPasien.head;
+                    while(temp != R.antriPasien.tail){
+                        fprintf(file, " %d", temp->info);
+                        temp = temp->next;
+                    } fprintf(file, " %d", temp->info);
                 }
                 fprintf(file, "\n");
             }

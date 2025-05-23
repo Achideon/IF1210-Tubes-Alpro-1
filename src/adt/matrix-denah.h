@@ -24,8 +24,10 @@ type indeks : integer { indeks baris, kolom }
 
 typedef struct {
     int idDoktor;
-    Queue antriPasien;
+    Queue antriPasienDalam;
+    Queue antriPasienLuar;
     int kapasitas;
+    int kapasitasAntrian;
 } Ruangan;
 
 #define MAX_ROWS 100
@@ -39,9 +41,9 @@ typedef struct
 } Matrix;
 
 /* Konstruktor */
-void createRuangan(Ruangan *R, int capacity);
+void createRuangan(Ruangan *R, int capacityDalam, int capacityLuar);
 
-void createMatrix(int rows, int cols, Matrix *M, int capacity);
+void createMatrix(int rows, int cols, Matrix *M, int capacityDalam, int capacityLuar);
 /* I.S. rows dan cols terdefinisi dan valid (1 <= rows,cols <= MAX) */
 /* F.S. Terbentuk matrix M dengan ukuran rows x cols */
 /* Semua elemen diinisialisasi dengan 0.0 */

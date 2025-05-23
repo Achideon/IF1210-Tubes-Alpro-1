@@ -1,19 +1,21 @@
 #include <stdio.h>
 #include "matrix-denah.h"
 
-void createRuangan(Ruangan *R, int capacity){
-    R->kapasitas = capacity;
+void createRuangan(Ruangan *R, int capacityDalam, int capacityLuar){
+    R->kapasitas = capacityDalam;
+    R->kapasitasAntrian = capacityLuar;
     R->idDoktor = MARK_INT;
-    createQueue(&R->antriPasien);
+    createQueue(&R->antriPasienDalam);
+    createQueue(&R->antriPasienLuar);
 }
 
 /* Konstruktor */
-void createMatrix(int rows, int cols, Matrix *M, int capacity){
+void createMatrix(int rows, int cols, Matrix *M, int capacityDalam, int capacityLuar){
     M->rows = rows;
     M->cols = cols;
     for(int i = 0; i < rows; i++){
         for(int j = 0; j < cols; j++){
-            createRuangan(&M->data[i][j], capacity);
+            createRuangan(&M->data[i][j], capacityDalam, capacityLuar);
         }
     }
 }
@@ -133,10 +135,10 @@ void printRuangan(Matrix M, char * ruangan, ListUser dataUser){
     if(M.data[i][j].idDoktor > 0) printf("%s\n", getUsernameByID(dataUser, M.data[i][j].idDoktor)); // dataUser == placeholder list user
     else printf(" -\n");
     printf("Pasien di dalam ruangan:\n");
-    if(queueLength(M.data[i][j].antriPasien) != 0){
+    if(queueLength(M.data[i][j].antriPasienDalam) != 0){
       int k = 1;
-      Address temp = M.data[i][j].antriPasien.head;
-      while(temp != M.data[i][j].antriPasien.tail){
+      Address temp = M.data[i][j].antriPasienDalam.head;
+      while(temp != M.data[i][j].antriPasienDalam.tail){
         printf("   %d. %s\n", k, getUsernameByID(dataUser, temp->info));
         k++;
         temp = temp->next;

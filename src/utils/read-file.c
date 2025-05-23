@@ -155,21 +155,30 @@ void readConfig(Matrix *M){
     readDigits(config, &number, &chr);
     int col = number;
     readDigits(config, &number, &chr);
-    int capacity = number;
-    createMatrix(row, col, M, capacity);
+    int capacityDalam = number;
+    readDigits(config, &number, &chr);
+    int capacityLuar = number;
+    createMatrix(row, col, M, capacityDalam, capacityLuar);
     for(int i = 0; i < row; i++){
         for(int j = 0; j < col; j++){
-            M->data[i][j].kapasitas = capacity;
+            M->data[i][j].kapasitas = capacityDalam;
+            M->data[i][j].kapasitasAntrian = capacityLuar;
             int k = 0;
             readDigits(config, &number, &chr);
             if(number > 0){ 
                 M->data[i][j].idDoktor = number;
             }
             else M->data[i][j].idDoktor = MARK_INT;
-            createQueue(&M->data[i][j].antriPasien);
-            while(k < capacity && chr == ' '){
+            createQueue(&M->data[i][j].antriPasienDalam);
+            createQueue(&M->data[i][j].antriPasienLuar);
+            while(k < capacityDalam && chr == ' '){
                 readDigits(config, &number, &chr);
-                addQueue(&M->data[i][j].antriPasien, number);
+                addQueue(&M->data[i][j].antriPasienDalam, number);
+                k++;
+            } 
+            while(k == capacityDalam && k < capacityDalam + capacityLuar && chr == ' '){
+                readDigits(config, &number, &chr);
+                addQueue(&M->data[i][j].antriPasienLuar, number);
                 k++;
             } 
         }

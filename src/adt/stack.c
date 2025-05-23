@@ -38,8 +38,8 @@ void push(Stack *s, ElType val)
  * I.S.: s mungkin kosong, tidak penuh
  * F.S.: val menjadi TOP baru, TOP bertambah 1 */
 {
-    if (isFull(*s)) return;
-    if (isEmpty(*s)) {
+    if (isStackFull(*s)) return;
+    if (isStackEmpty(*s)) {
         s->idxTop = 0;
     } else {
         s->idxTop++;
@@ -52,7 +52,7 @@ void pop(Stack *s, ElType *val)
  * I.S.: s tidak kosong
  * F.S.: val berisi nilai TOP lama, TOP berkurang 1 */
 {
-    if (isEmpty(*s)) {
+    if (isStackEmpty(*s)) {
         return;
     }
 

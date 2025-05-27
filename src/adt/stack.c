@@ -1,67 +1,67 @@
 #include "stack.h"
+#include <stdio.h>
 
-void CreateStack(Stack *s)
-/* Membuat stack 
- * I.S.: s sembarang
- * F.S.: s menjadi stack kosong dengan idxTop = IDX_UNDEF */
-{
-    s->idxTop = IDX_UNDEF;
-}
 
-ElType top(Stack s)
-/* Mengembalikan elemen teratas tanpa menghapus
- * Pra-kondisi: stack tidak kosong */
-{
-    return s.contents[s.idxTop];
-}
-
-int length(Stack s)
-/* Mengembalikan jumlah elemen dalam stack */
-{
-    return s.idxTop + 1;
-}
-
-boolean isStackEmpty(Stack s)
-/* Mengecek apakah stack masih empty */
-{
-    return (s.idxTop == IDX_UNDEF);
-}
-
-boolean isStackFull(Stack s)
-/* Mengecek apakah stack sudah full */
-{
-    return (s.idxTop == CAPACITY - 1);
-}
-
-void push(Stack *s, ElType val)
-/* Menambahkan elemen 
- * I.S.: s mungkin kosong, tidak penuh
- * F.S.: val menjadi TOP baru, TOP bertambah 1 */
-{
-    if (isStackFull(*s)) return;
-    if (isStackEmpty(*s)) {
-        s->idxTop = 0;
-    } else {
-        s->idxTop++;
+//ListPerut
+void createListPerut(ListPerut *l) {
+    for (int i = 1; i < MAX_USERS; i++) {
+        (*l).contents[i].top = IDX_UNDEF;
+        for (int j = 0; j < STACK_CAPACITY; j++) {
+            (*l).contents[i].contents[j] = MARK_OBAT;
+        }
     }
-    s->contents[s->idxTop] = val;
+    (*l).nEff = 0;
 }
 
-void pop(Stack *s, ElType *val)
-/* Menghapus elemen 
- * I.S.: s tidak kosong
- * F.S.: val berisi nilai TOP lama, TOP berkurang 1 */
-{
-    if (isStackEmpty(*s)) {
+boolean isListPerutEmpty(ListPerut l) {
+    return (l.nEff == 0);
+}
+
+boolean isListPerutFull(ListPerut l) {
+    return (l.nEff == MAX_USERS - 1);
+}
+
+boolean isUserPerutEmpty(ListPerut *l, int userID) {
+    return ((*l).contents[userID].top == IDX_UNDEF);
+}
+
+//StackIsiDalamPerut
+void pushObat(ListPerut *l, int userID, int obatID) {
+    if ((*l).contents[userID].top == STACK_CAPACITY - 1) {
+        printf("Stack perut penuh untuk user %d!\n", userID);
         return;
     }
-
-    *val = s->contents[s->idxTop];
     
-    if (s->idxTop == 0) {
-        s->idxTop = IDX_UNDEF;
-    } else {
-        s->idxTop--;
+    (*l).contents[userID].top++;
+    (*l).contents[userID].contents[(*l).contents[userID].top] = obatID;
+    
+    if ((*l).contents[userID].top == 0) { // Jika sebelumnya kosong
+        (*l).nEff++;
     }
 }
 
+void popObat(ListPerut *l, int userID, int *outObatID) {
+    if ((*l).contents[userID].top == IDX_UNDEF) {
+        printf("Stack perut kosong untuk user %d!\n", userID);
+        *outObatID = MARK_OBAT;
+        return;
+    }
+    
+    *outObatID = (*l).contents[userID].contents[(*l).contents[userID].top];
+    (*l).contents[userID].contents[(*l).contents[userID].top] = MARK_OBAT;
+    (*l).contents[userID].top--;
+    
+    if ((*l).contents[userID].top == IDX_UNDEF) {
+        (*l).nEff--;
+    }
+}
+
+void peekObat(ListPerut l, int userID, int *outObatID) {
+    if (l.contents[userID].top == IDX_UNDEF) {
+        printf("Stack perut kosong untuk user %d!\n", userID);
+        *outObatID = MARK_OBAT;
+        return;
+    }
+    
+    *outObatID = l.contents[userID].contents[l.contents[userID].top];
+}

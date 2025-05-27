@@ -1,67 +1,34 @@
 #include "stack.h"
 
-void CreateStack(Stack *s)
-/* Membuat stack 
- * I.S.: s sembarang
- * F.S.: s menjadi stack kosong dengan idxTop = IDX_UNDEF */
-{
-    s->idxTop = IDX_UNDEF;
+/* ********** OPERASI DASAR STACK ********** */
+
+void CreateStackPerut(StackPerut *s) {
+    s->top = IDX_UNDEF;
 }
 
-ElType top(Stack s)
-/* Mengembalikan elemen teratas tanpa menghapus
- * Pra-kondisi: stack tidak kosong */
-{
-    return s.contents[s.idxTop];
+boolean isStackPerutEmpty(StackPerut s) {
+    return (s.top == IDX_UNDEF);
 }
 
-int length(Stack s)
-/* Mengembalikan jumlah elemen dalam stack */
-{
-    return s.idxTop + 1;
+boolean isStackPerutFull(StackPerut s) {
+    return (s.top == STACK_CAPACITY - 1);
 }
 
-boolean isStackEmpty(Stack s)
-/* Mengecek apakah stack masih empty */
-{
-    return (s.idxTop == IDX_UNDEF);
-}
-
-boolean isStackFull(Stack s)
-/* Mengecek apakah stack sudah full */
-{
-    return (s.idxTop == CAPACITY - 1);
-}
-
-void push(Stack *s, ElType val)
-/* Menambahkan elemen 
- * I.S.: s mungkin kosong, tidak penuh
- * F.S.: val menjadi TOP baru, TOP bertambah 1 */
-{
-    if (isStackFull(*s)) return;
-    if (isStackEmpty(*s)) {
-        s->idxTop = 0;
-    } else {
-        s->idxTop++;
-    }
-    s->contents[s->idxTop] = val;
-}
-
-void pop(Stack *s, ElType *val)
-/* Menghapus elemen 
- * I.S.: s tidak kosong
- * F.S.: val berisi nilai TOP lama, TOP berkurang 1 */
-{
-    if (isStackEmpty(*s)) {
+void pushObat(StackPerut *s, int obatID) {
+    if (isStackPerutFull(*s)) {
+        printf("Stack perut penuh! Tidak bisa menambah obat lagi.\n");
         return;
     }
-
-    *val = s->contents[s->idxTop];
-    
-    if (s->idxTop == 0) {
-        s->idxTop = IDX_UNDEF;
-    } else {
-        s->idxTop--;
-    }
+    s->top++;
+    s->contents[s->top] = obatID;
 }
 
+void popObat(StackPerut *s, int *obatID) {
+    if (isStackPerutEmpty(*s)) {
+        printf("Stack perut kosong! Tidak ada obat untuk dikeluarkan.\n");
+        *obatID = IDX_UNDEF;
+        return;
+    }
+    *obatID = s->contents[s->top];
+    s->top--;
+}

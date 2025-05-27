@@ -73,7 +73,7 @@ void printSemuaAntrian(Matrix M, ListUser dataUser){
               temp = temp->next;
             } printf("   %d. %s\n", k - M.data[i][j].kapasitas + 1, getUsernameByID(dataUser, temp->info)); // print tail queue
           } else printf("   Tidak ada pasien di antrian saat ini\n");
-          printf("\n")
+          printf("\n");
         }
       }
     }

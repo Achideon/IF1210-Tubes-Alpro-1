@@ -1,49 +1,40 @@
-#ifndef STACK_H
-#define STACK_H
-
-#define CAPACITY 100  
-#define IDX_UNDEF -1  
+#ifndef STACK_PERUT_H
+#define STACK_PERUT_H
 
 #include <stdio.h>
+#include <string.h>
 #include "../utils/boolean.h"
+#include "../adt/obat-penyakit.h"
 
-typedef int ElType;   // Tipe data elemen stack
+/* Kamus Umum */
+#define STACK_CAPACITY 20
+#define IDX_UNDEF -1
 
+/* Definisi Stack */
 typedef struct {
-    ElType contents[CAPACITY];  
-    int idxTop;               // Indeks elemen teratas
-} Stack;
+    int contents[STACK_CAPACITY];  // Menyimpan ID obat
+    int top;                       // Indeks elemen teratas
+} StackPerut;
 
-void CreateStack(Stack *s);
-/* Membuat stack kosong
- * I.S.: Sembarang
- * F.S.: Stack s terdefinisi dengan idxTop = IDX_UNDEF */
+void CreateStackPerut(StackPerut *s);
+// I.S. s sembarang
+// F.S. Membuat stack s kosong dengan top = IDX_UNDEF
 
-ElType top(Stack s);
-/* Mengembalikan elemen teratas stack tanpa menghapus
- * Pre-kondisi: Stack tidak kosong
- * Return: Nilai elemen teratas stack */
+/* Predikat */
+boolean isStackPerutEmpty(StackPerut s);
+// Mengembalikan true jika stack kosong
 
-int length(Stack s);
-/* Mengembalikan jumlah elemen dalam stack
- * Return: Panjang stack saat ini */
+boolean isStackPerutFull(StackPerut s);
+// Mengembalikan true jika stack penuh
 
-boolean isStackEmpty(Stack s);
-/* Mengecek apakah stack kosong
- * Return: true jika kosong (idxTop == IDX_UNDEF) */
+void pushObat(StackPerut *s, int obatID);
+// I.S. s terdefinisi, mungkin kosong, tidak penuh
+// F.S. obatID menjadi elemen teratas stack
 
-boolean isStackFull(Stack s);
-/* Mengecek apakah stack penuh
- * Return: true jika penuh (idxTop == CAPACITY-1) */
+void popObat(StackPerut *s, int *obatID);
+// I.S. s terdefinisi, tidak kosong
+// F.S. obatID berisi nilai elemen teratas yang dihapus, 
+//      elemen teratas stack dihapus
 
-void push(Stack *s, ElType val);
-/* Menambahkan elemen ke atas stack
- * I.S.: Stack boleh kosong, tidak penuh
- * F.S.: val menjadi elemen teratas, idxTop bertambah 1 */
-
-void pop(Stack *s, ElType *val);
-/* Mengambil elemen teratas stack
- * I.S.: Stack tidak kosong
- * F.S.: val berisi nilai elemen teratas, idxTop berkurang 1 */
 
 #endif

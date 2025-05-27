@@ -1,40 +1,32 @@
 #ifndef STACK_PERUT_H
 #define STACK_PERUT_H
 
-#include <stdio.h>
-#include <string.h>
 #include "../utils/boolean.h"
-#include "../adt/obat-penyakit.h"
 
-/* Kamus Umum */
 #define STACK_CAPACITY 20
+#define MAX_USERS 300
 #define IDX_UNDEF -1
+#define MARK_OBAT -1
 
-/* Definisi Stack */
 typedef struct {
-    int contents[STACK_CAPACITY];  // Menyimpan ID obat
-    int top;                       // Indeks elemen teratas
+    int contents[STACK_CAPACITY];
+    int top;
 } StackPerut;
 
-void CreateStackPerut(StackPerut *s);
-// I.S. s sembarang
-// F.S. Membuat stack s kosong dengan top = IDX_UNDEF
+typedef struct {
+    StackPerut contents[MAX_USERS];
+    int nEff;
+} ListPerut;
 
-/* Predikat */
-boolean isStackPerutEmpty(StackPerut s);
-// Mengembalikan true jika stack kosong
+//ListPerut
+void createListPerut(ListPerut *l);
+boolean isListPerutEmpty(ListPerut l);
+boolean isListPerutFull(ListPerut l);
+boolean isUserPerutEmpty(ListPerut *l, int userID);
 
-boolean isStackPerutFull(StackPerut s);
-// Mengembalikan true jika stack penuh
-
-void pushObat(StackPerut *s, int obatID);
-// I.S. s terdefinisi, mungkin kosong, tidak penuh
-// F.S. obatID menjadi elemen teratas stack
-
-void popObat(StackPerut *s, int *obatID);
-// I.S. s terdefinisi, tidak kosong
-// F.S. obatID berisi nilai elemen teratas yang dihapus, 
-//      elemen teratas stack dihapus
-
+//StackIsiDalamPerut
+void pushObat(ListPerut *l, int userID, int obatID);
+void popObat(ListPerut *l, int userID, int *outObatID);
+void peekObat(ListPerut l, int userID, int *outObatID);
 
 #endif

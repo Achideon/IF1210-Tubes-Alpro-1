@@ -92,15 +92,14 @@ void ext(boolean *kondisi, ListUser l,Matrix m){
     /*Dengan membuatnya false, maka program utama akan berhenti setelah command ini dijalankan.*/
     /*loop program utama akan berakhir dan selanjutnya, akan ada pertanyaan tentang save file*/
     printf("Apakah anda mau melakukan penyimpanan file yang sudah diubah? (y/n)");
-    char save[2];
-    scanf("%s",&save);
-    while ((strcmp(save,"y")!=0) && (strcmp(save,"n")!=0)){
+    char saveOption[2];
+    scanf("%s",&saveOption);
+    while ((strcmp(saveOption,"y")!=0) && (strcmp(saveOption,"n")!=0)){
     	printf("Apakah anda mau melakukan penyimpanan file yang sudah diubah? (y/n)");
-        scanf("%s",&save);
+        scanf("%s",&saveOption);
     }
-    if (strcmp(save,"y")==0){
-        writeFile_user(l,l.nEff,"src/file/user.csv");
-        writeFile_config(&m);
+    if (strcmp(saveOption,"y")==0){
+        save(m, l);
     }
     
 }

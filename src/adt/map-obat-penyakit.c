@@ -48,7 +48,8 @@ ListValue mapGetListObatID (MapObatPenyakit *m, int keyPenyakit) {
 char (* mapGetListObatName(MapObatPenyakit *m, int keyPenyakit))[MAX_NAME] {
     for (int i = 0; i < m->length; i++) {
         if (m->contents[i].keyPenyakit == keyPenyakit) {
-            return m->contents[i].valueListName; 
+            return m->contents[i].valueListName;
+        }
     }
     printf("Nama Obat tidak ada di bagian ini!");
     return NULL;
@@ -69,8 +70,7 @@ char * mapObatNameByID(MapObatPenyakit *m, int keyPenyakit, int obatID){
 char * mapObatNameByUrutan(MapObatPenyakit *m, int keyPenyakit, int urutan){
     for (int i = 0; i < m->length; i++) {
         if (m->contents[i].keyPenyakit == keyPenyakit) {
-                return m->contents[i].valueListName[urutan];
-            }
+            return m->contents[i].valueListName[urutan];
         }
     }
     printf("Nama Obat tidak ada di bagian ini!");

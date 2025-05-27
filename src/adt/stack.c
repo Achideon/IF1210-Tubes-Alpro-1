@@ -1,34 +1,67 @@
 #include "stack.h"
+#include <stdio.h>
 
-/* ********** OPERASI DASAR STACK ********** */
 
-void CreateStackPerut(StackPerut *s) {
-    s->top = IDX_UNDEF;
+//ListPerut
+void createListPerut(ListPerut *l) {
+    for (int i = 1; i < MAX_USERS; i++) {
+        (*l).contents[i].top = IDX_UNDEF;
+        for (int j = 0; j < STACK_CAPACITY; j++) {
+            (*l).contents[i].contents[j] = MARK_OBAT;
+        }
+    }
+    (*l).nEff = 0;
 }
 
-boolean isStackPerutEmpty(StackPerut s) {
-    return (s.top == IDX_UNDEF);
+boolean isListPerutEmpty(ListPerut l) {
+    return (l.nEff == 0);
 }
 
-boolean isStackPerutFull(StackPerut s) {
-    return (s.top == STACK_CAPACITY - 1);
+boolean isListPerutFull(ListPerut l) {
+    return (l.nEff == MAX_USERS - 1);
 }
 
-void pushObat(StackPerut *s, int obatID) {
-    if (isStackPerutFull(*s)) {
-        printf("Stack perut penuh! Tidak bisa menambah obat lagi.\n");
+boolean isUserPerutEmpty(ListPerut *l, int userID) {
+    return ((*l).contents[userID].top == IDX_UNDEF);
+}
+
+//StackIsiDalamPerut
+void pushObat(ListPerut *l, int userID, int obatID) {
+    if ((*l).contents[userID].top == STACK_CAPACITY - 1) {
+        printf("Stack perut penuh untuk user %d!\n", userID);
         return;
     }
-    s->top++;
-    s->contents[s->top] = obatID;
+    
+    (*l).contents[userID].top++;
+    (*l).contents[userID].contents[(*l).contents[userID].top] = obatID;
+    
+    if ((*l).contents[userID].top == 0) { // Jika sebelumnya kosong
+        (*l).nEff++;
+    }
 }
 
-void popObat(StackPerut *s, int *obatID) {
-    if (isStackPerutEmpty(*s)) {
-        printf("Stack perut kosong! Tidak ada obat untuk dikeluarkan.\n");
-        *obatID = IDX_UNDEF;
+void popObat(ListPerut *l, int userID, int *outObatID) {
+    if ((*l).contents[userID].top == IDX_UNDEF) {
+        printf("Stack perut kosong untuk user %d!\n", userID);
+        *outObatID = MARK_OBAT;
         return;
     }
-    *obatID = s->contents[s->top];
-    s->top--;
+    
+    *outObatID = (*l).contents[userID].contents[(*l).contents[userID].top];
+    (*l).contents[userID].contents[(*l).contents[userID].top] = MARK_OBAT;
+    (*l).contents[userID].top--;
+    
+    if ((*l).contents[userID].top == IDX_UNDEF) {
+        (*l).nEff--;
+    }
+}
+
+void peekObat(ListPerut l, int userID, int *outObatID) {
+    if (l.contents[userID].top == IDX_UNDEF) {
+        printf("Stack perut kosong untuk user %d!\n", userID);
+        *outObatID = MARK_OBAT;
+        return;
+    }
+    
+    *outObatID = l.contents[userID].contents[l.contents[userID].top];
 }

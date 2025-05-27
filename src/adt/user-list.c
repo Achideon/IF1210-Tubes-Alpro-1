@@ -23,7 +23,6 @@ void createUser(User *user)
     user->beratBadan = MARK_F;
     user->tinggiBadan = MARK_INT;
     user->kadarKolesterol = MARK_INT;
-    user->kadarKolesterolLDL = MARK_INT;
     user->trombosit = MARK_INT;
 }
 
@@ -45,7 +44,6 @@ void createListUser(ListUser *l)
         BERAT(*l, i) = MARK_F;
         TINGGI(*l, i) = MARK_INT;
         KOLESTEROL(*l, i) = MARK_INT;
-        KOLESTEROLLDL(*l, i) = MARK_INT;
         TROMBOSIT(*l, i)= MARK_INT;
     }
     (*l).nEff = 0;
@@ -78,6 +76,10 @@ void setRole(ListUser *l, int currentID, char * role){
     strcpy(ROLE(*l, currentID), role);
 }
 
+void setRiwayatPenyakit(ListUser *l, int currentID, char * namaPenyakit){
+    strcpy(PENYAKIT(*l,currentID), namaPenyakit);
+}
+
 
 /* ********** OPERASI DASAR PENGGUNA ********** */
 
@@ -100,7 +102,6 @@ void addNewUser(ListUser *l, char * username, char * password)
         BERAT(*l, lastIdx) = MARK_F;
         TINGGI(*l, lastIdx) = MARK_INT;
         KOLESTEROL(*l, lastIdx) = MARK_INT;
-        KOLESTEROLLDL(*l, lastIdx) = MARK_INT;
         TROMBOSIT(*l, lastIdx)= MARK_INT;
         nEff(*l) += 1;
     }
@@ -131,6 +132,13 @@ char * getRoleByID(ListUser l, int currentID)
     char* username = malloc(100);
     strcpy(username, ROLE(l, currentID));
     return (username);
+}
+
+char * getRiwayatByID(ListUser l, int currentID)
+{
+    char* riwayat = malloc(100);
+    strcpy(riwayat, PENYAKIT(l, currentID));
+    return (riwayat);
 }
 
 boolean isUserLoggedIn(int currentID)

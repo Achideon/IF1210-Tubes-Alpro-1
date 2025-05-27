@@ -1,6 +1,6 @@
 #include "write-file.h"
 
-void writeFile_user(ListUser l, char* filepath, boolean *status) {
+void writeFileUser(ListUser l, char* filepath, boolean *status) {
     FILE *file = fopen(filepath, "w");
     
     if (file == NULL) {
@@ -32,7 +32,7 @@ void writeFile_user(ListUser l, char* filepath, boolean *status) {
     fclose(file);
 }
 
-void writeFile_config(Matrix *M, char* filepath, boolean *status) {
+void writeFileConfig(Matrix *M, char* filepath, boolean *status) {
     FILE *file = fopen(filepath, "w");
 
     if (file == NULL) {

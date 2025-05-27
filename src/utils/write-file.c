@@ -1,15 +1,16 @@
 #include "write-file.h"
 
-void writeFile_user(ListUser l, int nEff, const char* filename) {
-    FILE *file = fopen(filename, "w");
+void writeFile_user(ListUser l, char* filepath, boolean *status) {
+    FILE *file = fopen(filepath, "w");
     
     if (file == NULL) {
+        status = false;
         return;
     }
     
     fprintf(file, "id;username;password;role;riwayat_penyakit;suhu_tubuh;tekanan_darah_sistolik;tekanan_darah_diastolik;detak_jantung;saturasi_oksigen;kadar_gula_darah;berat_badan;tinggi_badan;kadar_kolesterol;kadar_kolesterol_ldl;trombosit\n");
 
-    for (int i = 1; i <= nEff; i++) {
+    for (int i = 1;l.nEff; i++) {
         fprintf(file, "%d;%s;%s;%s;%s;%.2f;%d;%d;%d;%.2f;%d;%.2f;%d;%d;%d;%d\n",
                 ID(l, i),
                 USERNAME(l, i),
@@ -32,10 +33,11 @@ void writeFile_user(ListUser l, int nEff, const char* filename) {
     fclose(file);
 }
 
-void writeFile_config(const Matrix *M) {
-    FILE *file = fopen("src/file/config.txt", "w");
+void writeFile_config(Matrix *M, char* filepath, boolean *status) {
+    FILE *file = fopen(filepath, "w");
+
     if (file == NULL) {
-        printf("Gagal membuka file untuk penulisan.\n");
+        status = false;
         return;
     }
 

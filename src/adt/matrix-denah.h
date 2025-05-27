@@ -24,8 +24,7 @@ type indeks : integer { indeks baris, kolom }
 
 typedef struct {
     int idDoktor;
-    Queue antriPasienDalam;
-    Queue antriPasienLuar;
+    Queue antriPasien;
     int kapasitas;
     int kapasitasAntrian;
 } Ruangan;

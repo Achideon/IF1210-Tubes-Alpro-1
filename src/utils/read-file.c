@@ -169,18 +169,12 @@ void readConfig(Matrix *M){
                 M->data[i][j].idDoktor = number;
             }
             else M->data[i][j].idDoktor = MARK_INT;
-            createQueue(&M->data[i][j].antriPasienDalam);
-            createQueue(&M->data[i][j].antriPasienLuar);
-            while(k < capacityDalam && chr == ' '){
+            createQueue(&M->data[i][j].antriPasien);
+            while(k < capacityDalam + capacityLuar && chr == ' '){
                 readDigits(config, &number, &chr);
-                addQueue(&M->data[i][j].antriPasienDalam, number);
+                addQueue(&M->data[i][j].antriPasien, number);
                 k++;
-            } 
-            while(k == capacityDalam && k < capacityDalam + capacityLuar && chr == ' '){
-                readDigits(config, &number, &chr);
-                addQueue(&M->data[i][j].antriPasienLuar, number);
-                k++;
-            } 
+            }
         }
     }
     fclose(config);

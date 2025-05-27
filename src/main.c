@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "fitur/fitur-01030405.h"
 #include "fitur/fitur-021018.h"
+#include "fitur/fitur-060915.h"
 #include "adt/user-list.h"
 #include "adt/matrix-denah.h"
 #include "adt/queue.h"

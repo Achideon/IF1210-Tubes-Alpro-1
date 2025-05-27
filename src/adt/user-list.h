@@ -11,7 +11,7 @@
 #include <stdlib.h>
 
 /*  Kamus Umum */
-#define MAX_USERS 100
+#define MAX_USERS 300
 /* Kapasitas penyimpanan */
 #define IDX_MIN 0
 /* Indeks minimum list */
@@ -20,8 +20,8 @@
 #define MARK_INT -1
 #define MARK_F -1.0
 #define MARK_STR "KOSONG"
+#define SEHAT "SEHAT"
 
-#define MAX_USERS 100
 #define MAX_USERNAME_LENGTH 40
 #define MAX_PASSWORD_LENGTH 40
 
@@ -40,7 +40,6 @@ typedef struct {
     float beratBadan;
     int tinggiBadan;
     int kadarKolesterol;
-    int kadarKolesterolLDL;
     int trombosit;
 } User;
 
@@ -69,7 +68,6 @@ typedef struct{
 #define TINGGI(l, i) (l).contents[(i)].tinggiBadan
 
 #define KOLESTEROL(l, i) (l).contents[(i)].kadarKolesterol
-#define KOLESTEROLLDL(l, i) (l).contents[(i)].kadarKolesterolLDL
 #define TROMBOSIT(l, i) (l).contents[(i)].trombosit
 
 /* ********** OPERASI DASAR LIST PENGGUNA ********** */
@@ -103,6 +101,7 @@ void setPassword(ListUser *l, int currentID, char * password);
 
 void setRole(ListUser *l, int currentID, char * role);
 
+void setRiwayatPenyakit(ListUser *l, int currentID, char * namaPenyakit);
 
 /* ********** OPERASI DASAR PENGGUNA ********** */
 
@@ -118,6 +117,9 @@ char * getUsernameByID(ListUser l, int currentID);
 
 char * getRoleByID(ListUser l, int currentID);
 // Mencari role pengguna apabila telah login akun
+
+char * getRiwayatByID(ListUser l, int currentID);
+// Mencari riwayat pengguna 
 
 boolean isUserLoggedIn(int currentID);
 // Mengecek apakah pengguna telah melakukan login

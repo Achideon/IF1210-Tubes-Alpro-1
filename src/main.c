@@ -2,17 +2,27 @@
 #include <stdlib.h>
 #include "fitur/fitur-01030405.h"
 #include "fitur/fitur-021018.h"
+#include "fitur/fitur-060915.h"
 #include "adt/user-list.h"
 #include "adt/matrix-denah.h"
 #include "adt/queue.h"
 #include "utils/write-file.h"
 #include "utils/read-file.h"
+#include "fitur/fitur-1112.h"
+#include "adt/map-obat-penyakit.h"
+#include "adt/inventory-list.h"
+#include "adt/obat-penyakit.h"
 
 int main(){
 /* ----------- INISIALISASI -----------*/
     Matrix M;
     ListUser l;
-
+    ListObat lo;
+    ListPenyakit lp;
+    ListObatPenyakit lop;
+    ListInventory inv;
+    MapObatPenyakit mop;
+    
     boolean status = true;
     int currentID = MARK_INT;
     int id = 0;
@@ -21,8 +31,13 @@ int main(){
     char password[MAX_PASSWORD_LENGTH];
     char input[20], ruangan[10];
 /* ----------- BACA FILE -----------*/
-    readConfig(&M);
+    createListInventory(&inv);
     readFileUser(&l);
+    readConfig(&M,&inv);
+    readFileObat(&lo);
+    readFileObatPenyakit(&lop);
+    readFilePenyakit(&lp);
+    createMapObatPenyakit (lo, lop, &mop);
 
 /* ----------- PROGRAM UTAMA -----------*/
     printf("Selamat datang di sistem informasi rumah sakit!\n");
@@ -51,6 +66,10 @@ int main(){
                 printf("Ruangan tidak ada! Coba cari ruangan lain\n");
             }
             else printRuangan(M, ruangan, l);
+        }else if(strcmp(input, "DIAGNOSIS") == 0){
+            diagnosis(M, lp, &l, currentID);
+        }else if(strcmp(input, "NGOBATIN") == 0){
+            ngobatin(M,mop,lp,&inv,&l,currentID);
         }else if(strcmp(input, "EXIT") == 0){
             ext(&status, l, M);
         }else{

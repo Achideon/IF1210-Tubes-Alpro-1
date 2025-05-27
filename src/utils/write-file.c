@@ -26,7 +26,6 @@ void writeFile_user(ListUser l, char* filepath, boolean *status) {
                 BERAT(l, i),
                 TINGGI(l, i),
                 KOLESTEROL(l, i),
-                KOLESTEROLLDL(l, i),
                 TROMBOSIT(l, i));
     }
     
@@ -46,9 +45,9 @@ void writeFile_config(Matrix *M, char* filepath, boolean *status) {
 
     // Baris 2: Kapasitas maksimum setiap ruangan
     if (M->rows > 0 && M->cols > 0) {
-        fprintf(file, "%d\n", M->data[0][0].kapasitas);
+        fprintf(file, "%d %d\n", M->data[0][0].kapasitas, M->data[0][0].kapasitasAntrian);
     } else {
-        fprintf(file, "0\n");
+        fprintf(file, "0 0\n");
     }
 
     // Baris 3 - (2 + rows*cols): State tiap ruangan
@@ -59,16 +58,9 @@ void writeFile_config(Matrix *M, char* filepath, boolean *status) {
                 fprintf(file, "0\n");
             } else {
                 fprintf(file, "%d", R.idDoktor);
-                if(!isQueueEmpty(R.antriPasienDalam)){
-                    Address temp = R.antriPasienDalam.head;
-                    while(temp != R.antriPasienDalam.tail){
-                        fprintf(file, " %d", temp->info);
-                        temp = temp->next;
-                    } fprintf(file, " %d", temp->info);
-                }
-                if(!isQueueEmpty(R.antriPasienLuar)){
-                    Address temp = R.antriPasienLuar.head;
-                    while(temp != R.antriPasienLuar.tail){
+                if(!isQueueEmpty(R.antriPasien)){
+                    Address temp = R.antriPasien.head;
+                    while(temp != R.antriPasien.tail){
                         fprintf(file, " %d", temp->info);
                         temp = temp->next;
                     } fprintf(file, " %d", temp->info);

@@ -88,4 +88,10 @@ void printRuangan(Matrix M, char * ruangan, ListUser dataUser);
 /* I.S. M dan ruangan terdefinisi */
 /* F.S. Mencetak data kapasitas, dokter, dan pasien ke layar */
 
+Ruangan *pasienRuangan(Matrix *M, int currentId);
+/*Mengembalikan pointer ruangan dimana pasien dengan id "currentId" berada*/
+
+boolean cekPasienQueue(Matrix *M, int currentId);
+/*Mengembalikan true jika pasien ada di antrian apa pun di matrix denah rumah sakit dan false jika tidak*/
+
 #endif

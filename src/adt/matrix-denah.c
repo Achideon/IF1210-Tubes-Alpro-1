@@ -96,3 +96,33 @@ char* getDoctorByRoom (Matrix M,char* ruangan, ListUser L){
   }
   return "KOSONG";
 }
+
+Ruangan *pasienRuangan(Matrix *M, int currentId){
+  int idtemp;
+  for (int i=0;i<M->rows;i++){
+      for (int j=0;j<M->cols;j++){
+          idtemp = M->data[i][j].idDoktor;
+          if(idtemp!=MARK_INT){
+              for (int k=0;k<queueLength(M->data[i][j].antriPasien);k++){
+                  if (getQueueContents(M->data[i][j].antriPasien, k) == currentId) return &M->data[i][j];
+              }
+          }
+      }
+  }
+  return NULL;
+}
+
+boolean cekPasienQueue(Matrix *M, int currentId){
+  int idtemp;
+  for (int i=0;i<M->rows;i++){
+      for (int j=0;j<M->cols;j++){
+          idtemp = M->data[i][j].idDoktor;
+          if(idtemp!=MARK_INT){
+              for (int k=0;k<queueLength(M->data[i][j].antriPasien);k++){
+                  if (getQueueContents(M->data[i][j].antriPasien, k) == currentId) return true;
+              }
+          }
+      }
+  }
+  return false;
+}

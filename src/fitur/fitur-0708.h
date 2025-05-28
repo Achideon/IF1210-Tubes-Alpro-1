@@ -20,10 +20,6 @@ void printListUser(ListUser l, int role);
 
 void printUser(ListUser l, int index, int role);
 
-int userSearchByID(ListUser l, int x);
-
-int userSearchByName(ListUser l, char *x);
-
 void lihatUser(ListUser l, int role, int currentID);
 
 void cariUser(ListUser l, int role, int currentID);

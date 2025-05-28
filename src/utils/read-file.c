@@ -39,7 +39,7 @@ void parsing(char *input, char *format, int dataCount, ...){
     va_end(args);
 }
 
-void readFileUser(ListUser *l) 
+void readFileUser(ListUser *l, char path) 
 {
     createListUser(l);
     FILE *file = fopen("file/user.csv", "r");
@@ -372,8 +372,8 @@ void readDigits(FILE *input, int *number, int *chr){
     }
 }
 
-void readConfig(Matrix *M, ListInventory *Li){
-    FILE *config = fopen("file/config.txt", "r");
+void readConfig(Matrix *M, char path, ListInventory *Li){
+    FILE *config = fopen(path, "r");
     if(config == NULL) printf("oh nyo! there is no file!\nwe are deeply sorry for this inconvenience >w<'\n");
     int number, chr;
     readDigits(config, &number, &chr);

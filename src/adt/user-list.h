@@ -133,4 +133,9 @@ boolean isValidPassword(ListUser l, char * password, int currentID);
 boolean isUniqueUser(ListUser l, char * username);
 // Mengecek apakah Username yang akan diregister unik
 
+
+int userSearchByID(ListUser l, int x);
+
+int userSearchByName(ListUser l, char *x);'
+'
 #endif

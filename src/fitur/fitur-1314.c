@@ -1,0 +1,203 @@
+#include "fitur-1314.h"
+boolean urutanBenar (ListPerut L1, ListPenyakit L2, MapObatPenyakit M, char penyakit, int currentId){
+    ListValue obat = mapGetListObatID(&M, getPenyakitIDByName(&L2, penyakit));
+    ListPerut dummyPerut = L1;
+    int idxobat = obat.nEff-1;
+    while(dummyPerut.contents[currentId].top != IDX_UNDEF){
+        if (obat.contents[idxobat] != dummyPerut.contents[currentId].contents[dummyPerut.contents[currentId].top]){
+            return false;
+        }
+        idxobat -= 1;
+        int obatOut;
+        popObat(&dummyPerut, currentId, &obatOut);
+    }
+    return true;
+}
+
+void pulangDok(ListObat *Lobat,ListPenyakit *Listp,MapObatPenyakit *Map,ListPerut *Perut,ListUser *L, Matrix *M, ListInventory *I, int currentId){
+    if (strcmp(getRiwayatByID(*L,currentId),MARK_STR) == 0){/*Belum didiagnosa*/
+        printf("Anda masih belum didiagnosis!\n");
+        return;
+    }else if (!(isListInventoryEmpty(*I))){ 
+        printf("Dokter sedang memeriksa keadaanmu...\n");
+        printf("Masih ada obat yang belum kamu habiskan, minum semuanya dulu yukk!\n");
+        return;
+    }else if (!urutanBenar(*Perut,*Listp, *Map, getRiwayatByID(*L, currentId), currentId)){ /*Obat salah susunan*/
+        printf("Dokter sedang memeriksa keadaanmu... \n");
+        printf("Maaf, tapi kamu masih belum bisa pulang!\n");
+        printf("Urutan peminuman obat yang diharapkan: \n");
+        ListValue obat = mapGetListObatID(&M, getPenyakitIDByName(&Listp, getRiwayatByID(*L,currentId)));
+        for (int i=0;i<obat.nEff;i++){
+            printf("%s", getNameByObatID(Lobat, obat.contents[i]));
+            if (i!=obat.nEff-1) printf(" -> ");
+        }
+        printf("Urutan obat yang kamu minum\n");
+        ListPerut dummyPerut = *Perut;
+        for (int i=0;i<obat.nEff;i++){
+            printf("%s", getNameByObatID(Lobat, dummyPerut.contents[currentId].contents[dummyPerut.contents[currentId].top]));
+            if (i!=obat.nEff-1) printf(" -> ");
+            int obatOut;
+            popObat(&dummyPerut, currentId, &obatOut);
+        }
+        printf("Silahkan kunjungi dokter untuk meminta penawar yang sesuai !\n");
+        return;
+    }else { 
+        printf("Dokter sedang memeriksa keadaanmu... \n");
+        if ((getFirst(pasienRuangan(M, currentId)->antriPasien)) == currentId){
+            L->contents[currentId].suhuTubuh          = MARK_F;
+            L->contents[currentId].tekananSistolik    = MARK_INT;
+            L->contents[currentId].tekananDiastolik   = MARK_INT;
+            L->contents[currentId].detakJantung       = MARK_INT;
+            L->contents[currentId].saturasiOksigen    = MARK_F;
+            L->contents[currentId].kadarGulaDarah     = MARK_INT;
+            L->contents[currentId].beratBadan         = MARK_F;
+            L->contents[currentId].tinggiBadan        = MARK_INT;
+            L->contents[currentId].kadarKolesterol    = MARK_INT;
+            L->contents[currentId].trombosit          = MARK_INT;
+            int id;
+            nextQueue(pasienQueue(M, currentId),id);
+            printf("Selamat! Kamu sudah dinyatakan sembuh oleh dokter. Silahkan pulang dan semoga sehat selalu!");
+            return;
+        }else{
+            printf("Sabar! Masih ada orang di depanmu.");
+            return;
+        }
+    }   
+}
+
+void checkUp(ListUser *L, Matrix *M, int currentId){
+    if ((strcmp(getRoleByID(*L,currentId), "Pasien") == 0) && (!cekPasienQueue(M,currentId))){  
+        /*Syaratnya adalah ketika pasien dengan id "currentId" belum terdaftar di antrian apa pun (Dengan arti lain adalah dia tidak berada di matrix denah juga.)*/
+        int idx=currentId;    /*indeks diakses berdasarkan id*/
+        printf("Silahkan masukkan data check-up Anda: \n");
+
+        printf("Suhu Tubuh (Celcius): ");
+        scanf("%f", &L->contents[idx].suhuTubuh);
+        while (L->contents[idx].suhuTubuh < 0) {
+            printf("Suhu tubuh harus bernilai positif.\n");
+            printf("Suhu Tubuh (Celcius): ");
+            scanf("%f", &L->contents[idx].suhuTubuh);
+        }
+
+        printf("Tekanan Darah (sistol/diastol, contoh 120 80): ");
+        scanf("%d %d", &L->contents[idx].tekananSistolik, &L->contents[idx].tekananDiastolik);
+        while (L->contents[idx].tekananSistolik < 0 || L->contents[idx].tekananDiastolik < 0) {
+            printf("Tekanan darah harus bernilai positif.\n");
+            printf("Tekanan Darah (sistol/diastol): ");
+            scanf("%d %d", &L->contents[idx].tekananSistolik, &L->contents[idx].tekananDiastolik);
+        }
+
+        printf("Detak Jantung (bpm): ");
+        scanf("%d", &L->contents[idx].detakJantung);
+        while (L->contents[idx].detakJantung < 0) {
+            printf("Detak Jantung harus bernilai positif.\n");
+            printf("Detak Jantung (bpm): ");
+            scanf("%d", &L->contents[idx].detakJantung);
+        }
+
+        printf("Saturasi Oksigen (%%): ");
+        scanf("%f", &L->contents[idx].saturasiOksigen);
+        while (L->contents[idx].saturasiOksigen < 0) {
+            printf("Saturasi Oksigen harus bernilai positif.\n");
+            printf("Saturasi Oksigen (%%): ");
+            scanf("%f", &L->contents[idx].saturasiOksigen);
+        }
+
+        printf("Kadar Gula Darah (mg/dL): ");
+        scanf("%d", &L->contents[idx].kadarGulaDarah);
+        while (L->contents[idx].kadarGulaDarah < 0) {
+            printf("Kadar Gula Darah harus bernilai positif.\n");
+            printf("Kadar Gula Darah (mg/dL): ");
+            scanf("%d", &L->contents[idx].kadarGulaDarah);
+        }
+
+        printf("Berat Badan (kg): ");
+        scanf("%f", &L->contents[idx].beratBadan);
+        while (L->contents[idx].beratBadan < 0) {
+            printf("Berat Badan harus bernilai positif.\n");
+            printf("Berat Badan (kg): ");
+            scanf("%f", &L->contents[idx].beratBadan);
+        }
+
+        printf("Tinggi Badan (cm): ");
+        scanf("%d", &L->contents[idx].tinggiBadan);
+        while (L->contents[idx].tinggiBadan < 0) {
+            printf("Tinggi Badan harus bernilai positif.\n");
+            printf("Tinggi Badan (cm): ");
+            scanf("%d", &L->contents[idx].tinggiBadan);
+        }
+
+        printf("Kadar Kolesterol (mg/dL): ");
+        scanf("%d", &L->contents[idx].kadarKolesterol);
+        while (L->contents[idx].kadarKolesterol < 0) {
+            printf("Kadar Kolesterol harus bernilai positif.\n");
+            printf("Kadar Kolesterol (mg/dL): ");
+            scanf("%d", &L->contents[idx].kadarKolesterol);
+        }
+
+        printf("Trombosit (ribu/µL): ");
+        scanf("%d", &L->contents[idx].trombosit);
+        while (L->contents[idx].trombosit < 0) {
+            printf("Trombosit harus bernilai positif.\n");
+            printf("Trombosit (ribu/µL): ");
+            scanf("%d", &L->contents[idx].trombosit);
+        }
+
+        /*Setelah pengisian data pasien, maka selanjutnya adalah proses untuk memilih dokter.*/
+        printf("Berikut adalah dokter yang tersedia: \n");
+        int number=1,idtemp;    /*number berfungsi untuk penomoran dan idtemp berfungsi untuk penomoran id dokter agar lebih mudah*/
+        int row = M->rows, col = M->cols;
+        int arrayDokter[row*col];   /*Menyimpan id dokter yang tersedia*/
+        for (int i=0;i<M->rows;i++){
+            for (int j=0;j<M->cols;j++){
+                idtemp = M->data[i][j].idDoktor;
+                if(idtemp!=MARK_INT){
+                    printf("%d. Dr. %s - Ruangan %s (Antrian: %d orang)\n",number,getUsernameByID(*L,idtemp),getRoomByDoctor(*M,idtemp), queueLength(M->data[i][j].antriPasien));
+                    arrayDokter[number-1] = M->data[i][j].idDoktor;
+                    number += 1;
+                }
+            }
+        }
+        boolean found = false;
+        while (!found){
+            if (number == 1) printf("Pilih dokter (1): ");
+            else printf("Pilih dokter (1-%d): ",number);
+            int max = number;
+            scanf("%d",&number);   
+            while (number < 1 || number > max){
+                printf("Input kembali, pilih dokter yang tersedia : ");
+                scanf("%d",&number);  
+            }
+            idtemp = arrayDokter[number-1];/*idtemp menjadi id dokter yang dipilih*/
+            /*Proses menambahkan pasien ke queue*/
+            /*Loop untuk mencari indeks ruangan*/
+            int antrian; /*Menunjukkan posisi antrian pasien setelah check-up*/
+            for (int i=0;i<M->rows && !found;i++){
+                for (int j=0;j<M->cols;j++){
+                    if(M->data[i][j].idDoktor==idtemp){
+                        if (queueLength(M->data[i][j].antriPasien)<M->data[i][j].kapasitasAntrian){ 
+                            addQueue(&M->data[i][j].antriPasien, currentId);
+                            antrian = getLast(M->data[i][j].antriPasien);
+                            found = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            if (found){
+                printf("Pendaftaran check-up berhasil!\n");
+                printf("Anda terdaftar pada antrian Dr. %s di ruangan %s.\n", getUsernameByID(*L, idtemp), getRoomByDoctor(*M, idtemp));
+                printf("Posisi antrian Anda: %d\n", antrian);
+            }else if (!found){
+                printf("Mohon maaf antrian sudah penuh!\n");
+                printf("Mohon pilih ulang dokter yang berbeda!\n");
+            }
+            /*Pesan terakhir*/
+        }
+    }else if ((cekPasienQueue(M,currentId))){   
+        printf("Anda sudah terdaftar dalam antrian check-up!\n");
+        printf("Silakan selesaikan check-up yang sudah terdaftar terlebih dahulu.\n");
+    }
+}
+
+	

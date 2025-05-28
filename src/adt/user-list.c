@@ -169,3 +169,33 @@ boolean isUniqueUser(ListUser l, char * username)
     }
     return true;
 }
+
+int userSearchByID(ListUser l, int x){
+    int low = 1, high = l.nEff;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+
+        // Check if x is present at mid
+        if (l.contents[mid].id == x)
+            return mid;
+
+        // If x greater, ignore left half
+        if (l.contents[mid].id < x)
+            low = mid + 1;
+
+        // If x is smaller, ignore right half
+        else
+            high = mid - 1;
+    }
+    // If we reach here, then element was not present
+    return MARK_INT;
+}
+
+int userSearchByName(ListUser l, char *x){
+    for(int i = 1; i <= l.nEff; i++){
+        if(!strcasecmp(l.contents[i].username, x)){
+            return i;
+        }
+    }
+    return MARK_INT;
+}

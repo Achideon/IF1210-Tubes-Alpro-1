@@ -46,9 +46,11 @@ typedef struct {
 typedef struct{
     User contents[MAX_USERS]; /* Memori tempat penyimpan elemen (container) */
     int nEff; /* Nilai efektif dari suatu list */
+    int maxID; /* Nilai dari ID terbesar */
 } ListUser;
 
 #define nEff(l) (l).nEff
+#define MAX(l) (l).maxID
 #define ID(l, i) (l).contents[(i)].id
 #define USERNAME(l, i) (l).contents[(i)].username
 #define PASSWORD(l, i) (l).contents[(i)].password
@@ -137,4 +139,5 @@ boolean isUniqueUser(ListUser l, char * username);
 int userSearchByID(ListUser l, int x);
 
 int userSearchByName(ListUser l, char *x);
+
 #endif

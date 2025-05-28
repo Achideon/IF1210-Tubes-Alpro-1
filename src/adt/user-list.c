@@ -47,6 +47,7 @@ void createListUser(ListUser *l)
         TROMBOSIT(*l, i)= MARK_INT;
     }
     (*l).nEff = 0;
+    (*l).maxID = -999; // Nilai pasti terganti apabila file sedang dibaca dan terdapat isi
 }
 /* ********** SELEKTOR ********** */
 
@@ -63,21 +64,24 @@ boolean isListUserFull(ListUser l)
 
 int getLastIdx(ListUser l)
 {
-    return (l.nEff);
+    return (l.nEff-1);
 }
 
 /* ********** OPERASI PRIMITIF LAINNYA ********** */
 void setPassword(ListUser *l, int currentID, char * password)
 {
-    strcpy(PASSWORD(*l, currentID), password);
+    int idx = userSearchByID(*l,currentID);
+    strcpy(PASSWORD(*l, idx), password);
 }
 
 void setRole(ListUser *l, int currentID, char * role){
-    strcpy(ROLE(*l, currentID), role);
+    int idx = userSearchByID(*l,currentID);
+    strcpy(ROLE(*l, idx), role);
 }
 
 void setRiwayatPenyakit(ListUser *l, int currentID, char * namaPenyakit){
-    strcpy(PENYAKIT(*l,currentID), namaPenyakit);
+    int idx = userSearchByID(*l,currentID);
+    strcpy(PENYAKIT(*l,idx), namaPenyakit);
 }
 
 
@@ -113,7 +117,7 @@ void addNewUser(ListUser *l, char * username, char * password)
 
 int getIDByUsername(ListUser l, char * username)
 {
-    for(int i = 1; i <= nEff(l); i++)
+    for(int i = 0; i < nEff(l); i++)
     {
         if (!(strcmp(USERNAME(l,i), username))) return ID(l,i);
     }
@@ -122,22 +126,25 @@ int getIDByUsername(ListUser l, char * username)
 
 char * getUsernameByID(ListUser l, int currentID)
 {
+    int idx = userSearchByID(l,currentID);
     char* username = malloc(100);
-    strcpy(username, USERNAME(l, currentID));
+    strcpy(username, USERNAME(l, idx));
     return (username);
 }
 
 char * getRoleByID(ListUser l, int currentID)
 {
+    int idx = userSearchByID(l,currentID);
     char* username = malloc(100);
-    strcpy(username, ROLE(l, currentID));
+    strcpy(username, ROLE(l, idx));
     return (username);
 }
 
 char * getRiwayatByID(ListUser l, int currentID)
 {
+    int idx = userSearchByID(l,currentID);
     char* riwayat = malloc(100);
-    strcpy(riwayat, PENYAKIT(l, currentID));
+    strcpy(riwayat, PENYAKIT(l, idx));
     return (riwayat);
 }
 
@@ -148,7 +155,7 @@ boolean isUserLoggedIn(int currentID)
 
 boolean isValidUsername(ListUser l, char * username)
 {
-    for(int i = 1; i <= nEff(l); i++)
+    for(int i = 0; i < nEff(l); i++)
     {
         if (!(strcmp(USERNAME(l,i), username))) return true;
     }
@@ -163,7 +170,7 @@ boolean isValidPassword(ListUser l, char * password, int currentID)
 
 boolean isUniqueUser(ListUser l, char * username)
 {
-    for(int i = 1; i <= nEff(l); i++)
+    for(int i = 0; i < nEff(l); i++)
     {
         if (!(strcasecmp(USERNAME(l,i), username))) return false;
     }
@@ -171,7 +178,7 @@ boolean isUniqueUser(ListUser l, char * username)
 }
 
 int userSearchByID(ListUser l, int x){
-    int low = 1, high = l.nEff;
+    int low = 0, high = l.nEff;
     while (low <= high) {
         int mid = low + (high - low) / 2;
 
@@ -192,7 +199,7 @@ int userSearchByID(ListUser l, int x){
 }
 
 int userSearchByName(ListUser l, char *x){
-    for(int i = 1; i <= l.nEff; i++){
+    for(int i = 0; i <= l.nEff; i++){
         if(!strcasecmp(l.contents[i].username, x)){
             return i;
         }

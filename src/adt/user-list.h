@@ -136,6 +136,5 @@ boolean isUniqueUser(ListUser l, char * username);
 
 int userSearchByID(ListUser l, int x);
 
-int userSearchByName(ListUser l, char *x);'
-'
+int userSearchByName(ListUser l, char *x);
 #endif

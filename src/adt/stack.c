@@ -4,7 +4,7 @@
 
 //ListPerut
 void createListPerut(ListPerut *l) {
-    for (int i = 1; i < MAX_USERS; i++) {
+    for (int i = 0; i < MAX_USERS; i++) {
         (*l).contents[i].top = IDX_UNDEF;
         for (int j = 0; j < STACK_CAPACITY; j++) {
             (*l).contents[i].contents[j] = MARK_OBAT;
@@ -25,25 +25,27 @@ boolean isUserPerutEmpty(ListPerut *l, int userID) {
     return ((*l).contents[userID].top == IDX_UNDEF);
 }
 
+boolean isUserPerutFull(ListPerut *l, int userID) {
+    return ((*l).contents[userID].top == STACK_CAPACITY - 1);
+}
+
 //StackIsiDalamPerut
 void pushObat(ListPerut *l, int userID, int obatID) {
     if ((*l).contents[userID].top == STACK_CAPACITY - 1) {
-        printf("Stack perut penuh untuk user %d!\n", userID);
-        return;
+        return; //Kondisi kapasitas perut user penuh
     }
     
     (*l).contents[userID].top++;
-    (*l).contents[userID].contents[(*l).contents[userID].top] = obatID;
+    (*l).contents[userID].contents[(*l).contents[userID].top] = obatID; //Memasukkan obat ke index paling atas 
     
-    if ((*l).contents[userID].top == 0) { // Jika sebelumnya kosong
+    if ((*l).contents[userID].top == 0) { //Jika sebelumnya kosong
         (*l).nEff++;
     }
 }
 
 void popObat(ListPerut *l, int userID, int *outObatID) {
     if ((*l).contents[userID].top == IDX_UNDEF) {
-        printf("Stack perut kosong untuk user %d!\n", userID);
-        *outObatID = MARK_OBAT;
+        *outObatID = MARK_OBAT; //Kondisi kapasitas perut user kosong
         return;
     }
     
@@ -56,9 +58,8 @@ void popObat(ListPerut *l, int userID, int *outObatID) {
     }
 }
 
-void peekObat(ListPerut l, int userID, int *outObatID) {
+void topObat(ListPerut l, int userID, int *outObatID) {
     if (l.contents[userID].top == IDX_UNDEF) {
-        printf("Stack perut kosong untuk user %d!\n", userID);
         *outObatID = MARK_OBAT;
         return;
     }

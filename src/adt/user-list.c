@@ -92,7 +92,7 @@ void addNewUser(ListUser *l, char * username, char * password)
     if (!(isListUserFull(*l)))
     {
         int lastIdx = nEff(*l) + 1;
-        ID(*l, lastIdx) = lastIdx;
+        ID(*l, lastIdx) = (*l).maxID + 1;
         strcpy(USERNAME(*l, lastIdx), username);
         strcpy(PENYAKIT(*l, lastIdx), MARK_STR);
         strcpy(PASSWORD(*l, lastIdx), password);
@@ -107,7 +107,8 @@ void addNewUser(ListUser *l, char * username, char * password)
         TINGGI(*l, lastIdx) = MARK_INT;
         KOLESTEROL(*l, lastIdx) = MARK_INT;
         TROMBOSIT(*l, lastIdx)= MARK_INT;
-        nEff(*l) += 1;
+        nEff(*l)++;
+        MAX(*l)++;
     }
     else
     {

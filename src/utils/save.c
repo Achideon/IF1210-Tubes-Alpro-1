@@ -6,7 +6,7 @@ void save(Matrix M, ListUser l, ListInventory Li, ListPerut Lp){
     char user_path[100];
     char config_path[100];
 
-    const char *base_path = "../data/";
+    const char *base_path = "data/";
     const char *user_file = "user.csv";
     const char *config_file = "config.txt"; 
 

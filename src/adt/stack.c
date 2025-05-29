@@ -1,12 +1,11 @@
 #include "stack.h"
 #include <stdio.h>
 
-
-//ListPerut
 void createListPerut(ListPerut *l) {
     for (int i = 0; i < MAX_USERS; i++) {
-        (*l).contents[i].top = IDX_UNDEF;
-        for (int j = 0; j < STACK_CAPACITY; j++) {
+        (*l).contents[i].contents[0] = MARK_OBAT;  
+        (*l).contents[i].top = IDX_UNDEF;                  
+        for (int j = 1; j < STACK_CAPACITY; j++) {
             (*l).contents[i].contents[j] = MARK_OBAT;
         }
     }
@@ -22,47 +21,71 @@ boolean isListPerutFull(ListPerut l) {
 }
 
 boolean isUserPerutEmpty(ListPerut *l, int userID) {
-    return ((*l).contents[userID].top == IDX_UNDEF);
+    for (int i = 0; i < MAX_USERS; i++) {
+        if ((*l).contents[i].contents[0] == userID) {
+            return ((*l).contents[i].top == 0);
+        }
+    }
+    return true;  
 }
 
 boolean isUserPerutFull(ListPerut *l, int userID) {
-    return ((*l).contents[userID].top == STACK_CAPACITY - 1);
+    for (int i = 0; i < MAX_USERS; i++) {
+        if ((*l).contents[i].contents[0] == userID) {
+            return ((*l).contents[i].top == STACK_CAPACITY - 1);
+        }
+    }
+    return false;  
 }
 
-//StackIsiDalamPerut
 void pushObat(ListPerut *l, int userID, int obatID) {
-    if ((*l).contents[userID].top == STACK_CAPACITY - 1) {
-        return; //Kondisi kapasitas perut user penuh
-    }
-    
-    (*l).contents[userID].top++;
-    (*l).contents[userID].contents[(*l).contents[userID].top] = obatID; //Memasukkan obat ke index paling atas 
-    
-    if ((*l).contents[userID].top == 0) { //Jika sebelumnya kosong
-        (*l).nEff++;
+    for (int i = 0; i < MAX_USERS; i++) {
+        if ((*l).contents[i].contents[0] == userID) {
+            if ((*l).contents[i].top == STACK_CAPACITY - 1) { //perut penuh
+                return;
+            }
+            (*l).contents[i].top++;
+            (*l).contents[i].contents[(*l).contents[i].top] = obatID; //memasukkan obat ke index paling atas    
+            return;
+        }
+        if ((*l).contents[i].contents[0] == MARK_OBAT) {
+            (*l).nEff++;  
+        }
     }
 }
 
 void popObat(ListPerut *l, int userID, int *outObatID) {
-    if ((*l).contents[userID].top == IDX_UNDEF) {
-        *outObatID = MARK_OBAT; //Kondisi kapasitas perut user kosong
-        return;
+    for (int i = 0; i < MAX_USERS; i++) {
+        if ((*l).contents[i].contents[0] == userID) {
+            if ((*l).contents[i].top == 0) { //perut kosong
+                *outObatID = MARK_OBAT;
+                return;
+            }
+            
+            *outObatID = (*l).contents[i].contents[(*l).contents[i].top];
+            (*l).contents[i].contents[(*l).contents[i].top] = MARK_OBAT;
+            (*l).contents[i].top--;
+            
+            if ((*l).contents[i].top == 0) {
+                (*l).contents[i].contents[0] = MARK_OBAT;
+                (*l).nEff--;
+            }
+            return;
+        }
     }
-    
-    *outObatID = (*l).contents[userID].contents[(*l).contents[userID].top];
-    (*l).contents[userID].contents[(*l).contents[userID].top] = MARK_OBAT;
-    (*l).contents[userID].top--;
-    
-    if ((*l).contents[userID].top == IDX_UNDEF) {
-        (*l).nEff--;
-    }
+    *outObatID = MARK_OBAT;
 }
 
 void topObat(ListPerut l, int userID, int *outObatID) {
-    if (l.contents[userID].top == IDX_UNDEF) {
-        *outObatID = MARK_OBAT;
-        return;
+    for (int i = 0; i < MAX_USERS; i++) {
+        if (l.contents[i].contents[0] == userID) {
+            if (l.contents[i].top == 0) {
+                *outObatID = MARK_OBAT;
+                return;
+            }
+            *outObatID = l.contents[i].contents[l.contents[i].top];
+            return;
+        }
     }
-    
-    *outObatID = l.contents[userID].contents[l.contents[userID].top];
+    *outObatID = MARK_OBAT;
 }

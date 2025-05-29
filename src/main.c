@@ -22,6 +22,7 @@ int main(){
     ListObatPenyakit lop;
     ListInventory inv;
     MapObatPenyakit mop;
+    ListPerut lpe;
     
     boolean status = true;
     int currentID = MARK_INT;
@@ -31,9 +32,7 @@ int main(){
     char password[MAX_PASSWORD_LENGTH];
     char input[20], ruangan[10];
 /* ----------- BACA FILE -----------*/
-    createListInventory(&inv);
-    readFileUser(&l);
-    readConfig(&M,&inv);
+    load(&M, &l, &inv, &lpe, &status);
     readFileObat(&lo);
     readFileObatPenyakit(&lop);
     readFilePenyakit(&lp);

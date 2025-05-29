@@ -9,9 +9,11 @@
 #include "read-file.h"
 #include "../adt/user-list.h"
 #include "../adt/matrix-denah.h"
+#include "../adt/inventory-list.h"
+#include "../adt/stack.h"
 
 int isFolderExist(char *path);
 
-void load(Matrix *M, ListUser *l, ListInventory *li, boolean *status);
+void load(Matrix *M, ListUser *l, ListInventory *li, ListPerut *lp, boolean *status);
 
 #endif

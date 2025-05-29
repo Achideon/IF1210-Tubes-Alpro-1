@@ -1,5 +1,5 @@
 #include "fitur-1314.h"
-boolean urutanBenar (ListPerut L1, ListPenyakit L2, MapObatPenyakit M, char penyakit, int currentId){
+boolean urutanBenar (ListPerut L1, ListPenyakit L2, MapObatPenyakit M, char * penyakit, int currentId){
     ListValue obat = mapGetListObatID(&M, getPenyakitIDByName(&L2, penyakit));
     ListPerut dummyPerut = L1;
     int idxobat = obat.nEff-1;
@@ -28,7 +28,7 @@ void pulangDok(ListObat *Lobat,ListPenyakit *Listp,MapObatPenyakit *Map,ListPeru
         printf("Maaf, tapi kamu masih belum bisa pulang!\n");
         printf("Urutan peminuman obat yang diharapkan: \n");
         /*List obat yang benar*/
-        ListValue obat = mapGetListObatID(&M, getPenyakitIDByName(&Listp, getRiwayatByID(*L,currentId)));
+        ListValue obat = mapGetListObatID(Map, getPenyakitIDByName(Listp, getRiwayatByID(*L,currentId)));
         for (int i=0;i<obat.nEff;i++){
             printf("%s", getNameByObatID(Lobat, obat.contents[i]));
             if (i!=obat.nEff-1) printf(" -> ");
@@ -63,8 +63,8 @@ void pulangDok(ListObat *Lobat,ListPenyakit *Listp,MapObatPenyakit *Map,ListPeru
             L->contents[currentId].tinggiBadan        = MARK_INT;
             L->contents[currentId].kadarKolesterol    = MARK_INT;
             L->contents[currentId].trombosit          = MARK_INT;
-            int id;
-            nextQueue(pasienQueue(M, currentId),id);
+            int val;
+            nextQueue(&pasienRuangan(M, currentId)->antriPasien,&val);
             printf("Selamat! Kamu sudah dinyatakan sembuh oleh dokter. Silahkan pulang dan semoga sehat selalu!");
             return;
         }else{

@@ -11,7 +11,7 @@ void load(Matrix *M, ListUser *l, ListInventory *li, ListPerut *lp, boolean *sta
     char path[50];
     char user_path[100];
     char config_path[100];
-    const char *base_path = "data/";
+    const char *base_path = "../data/";
     const char *user_file = "user.csv";
     const char *config_file = "config.txt";
 

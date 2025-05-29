@@ -6,8 +6,6 @@
 #include "../adt/map-obat-penyakit.h"
 #include <stdio.h>
 
-#define MAX_NAME 100
-
 void minumObat(ListInventory *inventory, ListPerut *perut, MapObatPenyakit *mapObat, int userID);
 //F16: Prosedur untuk meminum obat dari inventory ke perut
 void minumPenawar(ListInventory *inventory, ListPerut *perut, MapObatPenyakit *mapObat, int userID);

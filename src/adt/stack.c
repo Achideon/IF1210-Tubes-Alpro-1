@@ -38,6 +38,13 @@ boolean isUserPerutFull(ListPerut *l, int userID) {
     return false;  
 }
 
+void addUserPerut(ListPerut *l, int userID){
+    int n = l->nEff;
+    l->contents[n].contents[0] = userID;
+    l->contents[n].top = 0;
+    l->nEff++;
+}
+
 void pushObat(ListPerut *l, int userID, int obatID) {
     for (int i = 0; i < MAX_USERS; i++) {
         if ((*l).contents[i].contents[0] == userID) {

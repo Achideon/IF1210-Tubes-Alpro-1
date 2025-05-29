@@ -4,13 +4,13 @@
 #include<string.h>
 #include "../adt/user-list.h"
 
-void sortbyNama(ListUser *l, int sort);
+void sortByNama(ListUser *l, int sort);
 
-void sortbyID(ListUser *l, int sort);
+void sortByID(ListUser *l, int sort);
 
-ListUser lihatUserbyName(ListUser l1, int role, int sort);
+ListUser lihatUserByName(ListUser l1, int role, int sort);
 
-ListUser lihatUserbyID(ListUser l1, int role, int sort);
+ListUser lihatUserByID(ListUser l1, int role, int sort);
 
 ListUser lihatUserByPenyakit(ListUser l1, int sortby, int sort, char* penyakit);
 

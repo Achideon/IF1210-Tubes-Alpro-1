@@ -15,6 +15,7 @@
 #include "../adt/user-list.h"
 #include "../adt/matrix-denah.h"
 #include "../adt/queue.h"
+#include "../adt/stack.h"
 // #include "matrix-denah.h"
 // #include "queue.h"
 
@@ -30,10 +31,10 @@
 
 /* ********** OPERASI PEMBACAAN FILE ********** */
 
-void readFileUser(ListUser *l);
+void readFileUser(ListUser *l, char * path);
 // Memindahkan data dari File User ke databaseUser sementara
 
-void readFilePenyakit(ListPenyakit *l, char path);
+void readFilePenyakit(ListPenyakit *l);
 // Memindahkan data dari File Penyakit ke databasePenyakit sementara
 
 void readFileObat(ListObat *l);
@@ -42,7 +43,7 @@ void readFileObat(ListObat *l);
 void readFileObatPenyakit(ListObatPenyakit *l);
 // Memindahkan data dari File Obat-Penyakit ke databaseObatPenyakit sementara
 
-void readConfig(Matrix *M, char path, ListInventory *Li);
+void readConfig(Matrix *M, ListInventory *Li, ListPerut *Lp, char * path);
 // Memindahkan data dari File Config ke databaseMatriks
 
 /* ********** OPERASI PENDUKUNG PEMBACAAN FILE ********** */

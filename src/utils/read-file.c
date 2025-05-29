@@ -39,7 +39,7 @@ void parsing(char *input, char *format, int dataCount, ...){
     va_end(args);
 }
 
-void readFileUser(ListUser *l, char path) 
+void readFileUser(ListUser *l, char * path) 
 {
     createListUser(l);
     FILE *file = fopen("file/user.csv", "r");
@@ -372,7 +372,7 @@ void readDigits(FILE *input, int *number, int *chr){
     }
 }
 
-void readConfig(Matrix *M, char path, ListInventory *Li){
+void readConfig(Matrix *M, ListInventory *Li, ListPerut *Lp, char * path){
     FILE *config = fopen(path, "r");
     if(config == NULL) printf("oh nyo! there is no file!\nwe are deeply sorry for this inconvenience >w<'\n");
     int number, chr;
@@ -384,8 +384,11 @@ void readConfig(Matrix *M, char path, ListInventory *Li){
     int capacityDalam = number;
     readDigits(config, &number, &chr);
     int capacityLuar = number;
+    // Create empty lists and matrix
     createMatrix(row, col, M, capacityDalam, capacityLuar);
     createListInventory(Li);
+    createListPerut(Lp);
+    // start reading matrix :o
     for(int i = 0; i < row; i++){
         for(int j = 0; j < col; j++){
             M->data[i][j].kapasitas = capacityDalam;
@@ -404,16 +407,29 @@ void readConfig(Matrix *M, char path, ListInventory *Li){
             }
         }
     }
+    // start reading inventory :]
     readDigits(config, &number, &chr);
-    int inventory = number;
-    for(int i = 0; i < inventory; i++){
+    int n = number;
+    for(int i = 0; i < n; i++){
         readDigits(config, &number, &chr);
-        int j = number;
         int k = 1;
-        Li->contents[j].contents[0] = MARK_USED;
+        Li->contents[i].contents[0] = number;
         while(chr == ' '){
             readDigits(config, &number, &chr);
-            Li->contents[j].contents[k] = number;
+            Li->contents[i].contents[k] = number;
+            k++;
+        }
+    }
+    // start reading stack :s
+    readDigits(config, &number, &chr);
+    int m = number;
+    for(int i = 0; i < m; i++){
+        readDigits(config, &number, &chr);
+        int k = 1;
+        Lp->contents[i].contents[0] = number;
+        while(chr == ' '){
+            readDigits(config, &number, &chr);
+            pushObat(Lp, Lp->contents[i].contents[0], number);
             k++;
         }
     }

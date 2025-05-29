@@ -18,7 +18,7 @@ void addDoctor(ListUser *l, int currentId);
 void assignDoctor(ListUser *l, int currentId, Matrix *M);
 /*F10 : Prosedur untuk assign dokter ke ruangan.*/
 
-void ext(boolean *kondisi, ListUser l,Matrix m);
+void ext(boolean *kondisi, ListUser l, Matrix m, ListInventory Li, ListPerut Lp);
 /*F18 : Prosedur untuk menghentikan program yang sedang berlangsung. Kemudian, akan ada opsi untuk dipilih antara save semua progress yang ada atau tidak save.*/
 
 #endif

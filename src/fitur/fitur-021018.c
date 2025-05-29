@@ -86,20 +86,20 @@ void assignDoctor(ListUser *l, int currentId, Matrix *M){
     }
 }
 
-void ext(boolean *kondisi, ListUser l,Matrix m){
+void ext(boolean *kondisi, ListUser l, Matrix m, ListInventory Li, ListPerut Lp){
     /*Kondisi adalah boolean yang membuat program utama mengulang terus jika bernilai true.*/
     *kondisi = false;
     /*Dengan membuatnya false, maka program utama akan berhenti setelah command ini dijalankan.*/
     /*loop program utama akan berakhir dan selanjutnya, akan ada pertanyaan tentang save file*/
     printf("Apakah anda mau melakukan penyimpanan file yang sudah diubah? (y/n)");
     char saveOption[2];
-    scanf("%s",&saveOption);
+    scanf("%s",saveOption);
     while ((strcmp(saveOption,"y")!=0) && (strcmp(saveOption,"n")!=0)){
     	printf("Apakah anda mau melakukan penyimpanan file yang sudah diubah? (y/n)");
-        scanf("%s",&saveOption);
+        scanf("%s",saveOption);
     }
     if (strcmp(saveOption,"y")==0){
-        save(m, l);
+        save(m, l, Li, Lp);
     }
     
 }

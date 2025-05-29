@@ -8,7 +8,6 @@ int isFolderExist(char *path){
 }
 
 void load(Matrix *M, ListUser *l, ListInventory *li, ListPerut *lp, boolean *status, char *folder_name){
-    char folder_name[30] = "";
     char path[50];
     char user_path[100];
     char config_path[100];

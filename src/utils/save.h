@@ -10,6 +10,6 @@
 #include "load.h"
 #include "write-file.h"
 
-void save(Matrix M, ListUser l);
+void save(Matrix M, ListUser l, ListInventory Li, ListPerut Lp);
 
 #endif

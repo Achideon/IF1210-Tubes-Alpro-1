@@ -1,12 +1,12 @@
 #include "save.h"
 
-void save(Matrix M, ListUser l){
+void save(Matrix M, ListUser l, ListInventory Li, ListPerut Lp){
     char folder_name[30];
     char path[50];
     char user_path[100];
     char config_path[100];
 
-    const char *base_path = "/src/file/";
+    const char *base_path = "../data/";
     const char *user_file = "user.csv";
     const char *config_file = "config.txt"; 
 
@@ -19,7 +19,7 @@ void save(Matrix M, ListUser l){
         printf("\n");
     
         // Gabungkan base_path dan folder_name
-        snprintf(path, sizeof(path), "%s%s/", base_path, folder_name);
+        snprintf(path, sizeof(path), "%s%s", base_path, folder_name);
 
         if(isFolderExist(path)){
             if (mkdir(path, 0755) == 0) {
@@ -32,12 +32,12 @@ void save(Matrix M, ListUser l){
             snprintf(user_path, sizeof(user_path), "%s%s", path, user_file);
             writeFileUser(l, user_path, &status);
             snprintf(config_path, sizeof(config_path), "%s%s", path, config_file);
-            writeFileConfig(&M, config_path, &status);
+            writeFileConfig(&M, &Li, &Lp, config_path, &status);
         }else{
             snprintf(user_path, sizeof(user_path), "%s%s", path, user_file);
             writeFileUser(l, user_path, &status);
             snprintf(config_path, sizeof(config_path), "%s%s", path, config_file);
-            writeFileConfig(&M, config_path, &status);
+            writeFileConfig(&M, &Li, &Lp, config_path, &status);
         }
         if(status){
             printf("Berhasil menyimpan data di folder %s\n", folder_name);

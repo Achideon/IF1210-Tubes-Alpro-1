@@ -7,17 +7,15 @@ int isFolderExist(char *path){
     }return 0;
 }
 
-void load(Matrix *M, ListUser *l, ListInventory *li, ListPerut *lp, boolean *status){
+void load(Matrix *M, ListUser *l, ListInventory *li, ListPerut *lp, boolean *status, char *folder_name){
     char folder_name[30] = "";
     char path[50];
     char user_path[100];
     char config_path[100];
-    const char *base_path = "/src/file/";
+    const char *base_path = "/data/";
     const char *user_file = "user.csv";
     const char *config_file = "config.txt";
 
-    scanf("%29s", folder_name); // baca nama folder dari pengguna
-    // Gabungkan base_path dan folder_name
     snprintf(path, sizeof(path), "%s%s", base_path, folder_name);
     
     if(!strcmp(path, base_path) || !isFolderExist(&path)){

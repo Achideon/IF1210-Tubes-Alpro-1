@@ -39,7 +39,6 @@ ListValue mapGetListObatID (MapObatPenyakit *m, int keyPenyakit) {
             return *l;
         }
     }
-
     ListValue empty;
     empty.nEff = 0;
     return empty;
@@ -78,7 +77,9 @@ char * mapObatNameByUrutan(MapObatPenyakit *m, int keyPenyakit, int urutan){
 }
 
 char * getNameByObatID (ListObat *l, int obatID){
-    if ((*l).contents[obatID].obatID == obatID) return (*l).contents[obatID].namaObat;
+    for (int i = 0; i < (*l).nEff; i++){
+        if ((*l).contents[i].obatID == obatID) return (*l).contents[i].namaObat;
+    }
     printf("Obat tidak ada di database!");
     return MARK_STR;
 }

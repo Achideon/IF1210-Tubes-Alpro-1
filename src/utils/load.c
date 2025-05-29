@@ -7,7 +7,7 @@ int isFolderExist(char *path){
     }return 0;
 }
 
-void load(Matrix *M, ListUser *l){
+void load(Matrix *M, ListUser *l, ListInventory *li, boolean *status){
     char folder_name[30];
     char path[50];
     char user_path[100];
@@ -29,11 +29,12 @@ void load(Matrix *M, ListUser *l){
             printf("Tidak ada nama folder yang diberikan!");
             printf("Usage : ./make <<nama_folder>>");
         }
+        *status = false;
     }
     if(isFolderExist(path)){
         snprintf(user_path, sizeof(user_path), "%s%s", path, user_file);
-        readFileUser(&l, user_path);
+        readFileUser(l, user_path);
         snprintf(config_path, sizeof(config_path), "%s%s", path, config_file);
-        readConfig(&l, config_path);
+        readConfig(l, config_path, li);
     }
 }

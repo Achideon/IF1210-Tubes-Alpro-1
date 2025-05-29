@@ -33,7 +33,7 @@
 void readFileUser(ListUser *l);
 // Memindahkan data dari File User ke databaseUser sementara
 
-void readFilePenyakit(ListPenyakit *l);
+void readFilePenyakit(ListPenyakit *l, char path);
 // Memindahkan data dari File Penyakit ke databasePenyakit sementara
 
 void readFileObat(ListObat *l);
@@ -42,7 +42,7 @@ void readFileObat(ListObat *l);
 void readFileObatPenyakit(ListObatPenyakit *l);
 // Memindahkan data dari File Obat-Penyakit ke databaseObatPenyakit sementara
 
-void readConfig(Matrix *M, ListInventory *Li);
+void readConfig(Matrix *M, char path, ListInventory *Li);
 // Memindahkan data dari File Config ke databaseMatriks
 
 /* ********** OPERASI PENDUKUNG PEMBACAAN FILE ********** */

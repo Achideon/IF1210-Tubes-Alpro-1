@@ -32,7 +32,7 @@ void writeFileUser(ListUser l, char* filepath, boolean *status) {
     fclose(file);
 }
 
-void writeFileConfig(Matrix *M, char* filepath, boolean *status) {
+void writeFileConfig(Matrix *M, ListInventory *Li, ListPerut *Lp, char* filepath, boolean *status) {
     FILE *file = fopen(filepath, "w");
 
     if (file == NULL) {
@@ -68,6 +68,24 @@ void writeFileConfig(Matrix *M, char* filepath, boolean *status) {
                 fprintf(file, "\n");
             }
         }
+    }
+    fprintf(file, "%d\n", Li->nEff);
+    // writing list inventory :/
+    for(int i  = 0; i < Li->nEff; i++){
+        fprintf(file, "%d", Li->contents[i].contents[0]);
+        for(int j = 0; j < Li->contents[i].nEff; i++){
+            fprintf(file, " %d", Li->contents[i].contents[j+1]);
+        }
+        fprintf(file, "\n");
+    }
+    // writing list perut :v
+    fprintf(file, "%d\n", Lp->nEff);
+    for(int i  = 0; i < Lp->nEff; i++){
+        fprintf(file, "%d", Lp->contents[i].contents[0]);
+        for(int j = 0; j < Lp->contents[i].top; i++){
+            fprintf(file, " %d", Li->contents[i].contents[j+1]);
+        }
+        fprintf(file, "\n");
     }
 
     fclose(file);

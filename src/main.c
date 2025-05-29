@@ -3,6 +3,7 @@
 #include "fitur/fitur-01030405.h"
 #include "fitur/fitur-021018.h"
 #include "fitur/fitur-060915.h"
+#include "fitur/fitur-0708.h"
 #include "adt/user-list.h"
 #include "adt/matrix-denah.h"
 #include "adt/queue.h"
@@ -13,7 +14,13 @@
 #include "adt/inventory-list.h"
 #include "adt/obat-penyakit.h"
 
-int main(){
+int main(int argc, char *argv[]){
+    char *folder_name;
+    if (argc > 1) {
+        folder_name = argv[1];
+    } else {
+        folder_name = "";
+    }
 /* ----------- INISIALISASI -----------*/
     Matrix M;
     ListUser l;
@@ -32,7 +39,7 @@ int main(){
     char password[MAX_PASSWORD_LENGTH];
     char input[20], ruangan[10];
 /* ----------- BACA FILE -----------*/
-    load(&M, &l, &inv, &lpe, &status);
+    load(&M, &l, &inv, &lpe, &status, folder_name);
     readFileObat(&lo);
     readFileObatPenyakit(&lop);
     readFilePenyakit(&lp);
@@ -57,20 +64,31 @@ int main(){
             addDoctor(&l, currentID);
         }else if(strcmp(input, "ASSIGN_DOKTER") == 0){
             assignDoctor(&l, currentID, &M);
+        }else if(strcmp(input, "LIHAT_USER") == 0){
+            lihatUser(l, 0, currentID);
+        }else if(strcmp(input, "LIHAT_PASIEN") == 0){
+            lihatUser(l, 1, currentID);
+        }else if(strcmp(input, "LIHAT_DOKTER") == 0){
+            lihatUser(l, 2, currentID);
+        }else if(strcmp(input, "CARI_USER") == 0){
+            cariUser(l, 0, currentID);
+        }else if(strcmp(input, "CARI_PASIEN") == 0){
+            cariUser(l, 1, currentID);
+        }else if(strcmp(input, "CARI_DOKTER") == 0){
+            cariUser(l, 2, currentID);
         }else if(strcmp(input, "LIHAT_DENAH") == 0){
             printDenah(M);
         }else if(strcmp(input, "LIHAT_RUANGAN") == 0){
             scanf("%s", ruangan);
             if(!isRoomValid(M, ruangan)){
                 printf("Ruangan tidak ada! Coba cari ruangan lain\n");
-            }
-            else printRuangan(M, ruangan, l);
+            }else printRuangan(M, ruangan, l);
         }else if(strcmp(input, "DIAGNOSIS") == 0){
             diagnosis(M, lp, &l, currentID);
         }else if(strcmp(input, "NGOBATIN") == 0){
             ngobatin(M,mop,lp,&inv,&l,currentID);
         }else if(strcmp(input, "EXIT") == 0){
-            ext(&status, l, M);
+            ext(&status, l, M, inv, lp);
         }else{
             printf("Fungsi tidak terdaftar!\n\n");
         }

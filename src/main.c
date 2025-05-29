@@ -88,7 +88,7 @@ int main(int argc, char *argv[]){
         }else if(strcmp(input, "NGOBATIN") == 0){
             ngobatin(M,mop,lp,&inv,&l,currentID);
         }else if(strcmp(input, "EXIT") == 0){
-            ext(&status, l, M, inv, lp);
+            ext(&status, l, M, inv, lpe);
         }else{
             printf("Fungsi tidak terdaftar!\n\n");
         }

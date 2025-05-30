@@ -43,7 +43,9 @@ int main(int argc, char *argv[]){
     char password[MAX_PASSWORD_LENGTH];
     char input[20], ruangan[10];
 /* ----------- BACA FILE -----------*/
-    load(&M, &l, &inv, &lpe, &status, folder_path, folder_name);
+    folder_path[50];
+    strcpy(folder_path, "../data");
+    load(&M, &l, &inv, &lpe, &status, folder_name);
     if(status){
         readFileObat(&lo, folder_path);
         readFileObatPenyakit(&lop, folder_path);
@@ -106,6 +108,8 @@ int main(int argc, char *argv[]){
             minumObat(&inv, &lpe, &mop, currentID, &lp, l);
         }else if(strcmp(input, "PENAWAR") == 0){
             minumPenawar(&inv, &lpe, &mop, currentID, &lp, l);
+        }else if(strcmp(input, "SAVE") == 0){
+            save(M, l, inv, lpe);
         }else if(strcmp(input, "EXIT") == 0){
             ext(&status, l, M, inv, lpe);
         }else{

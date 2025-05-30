@@ -14,6 +14,6 @@
 
 int isFolderExist(char *path);
 
-void load(Matrix *M, ListUser *l, ListInventory *li, ListPerut *lp, boolean *status, char *folder_path, char *folder_name);
+void load(Matrix *M, ListUser *l, ListInventory *li, ListPerut *lp, boolean *status, char *folder_name);
 
 #endif

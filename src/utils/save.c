@@ -21,7 +21,7 @@ void save(Matrix M, ListUser l, ListInventory Li, ListPerut Lp){
         // Gabungkan base_path dan folder_name
         snprintf(path, sizeof(path), "%s%s", base_path, folder_name);
 
-        if(isFolderExist(path)){
+        if(!isFolderExist(path)){
             if (mkdir(path, 0755) == 0) {
                 printf("Membuat Folder %s\n", path);
                 status = true;
@@ -29,14 +29,16 @@ void save(Matrix M, ListUser l, ListInventory Li, ListPerut Lp){
                 perror("Gagal membuat folder\n");
                 break;
             }
-            snprintf(user_path, sizeof(user_path), "%s%s", path, user_file);
+            snprintf(user_path, sizeof(user_path), "%s/%s", path, user_file);
+            printf("%s\n", user_path);
             writeFileUser(l, user_path, &status);
-            snprintf(config_path, sizeof(config_path), "%s%s", path, config_file);
+            snprintf(config_path, sizeof(config_path), "%s/%s", path, config_file);
+            printf("%s\n", config_path);
             writeFileConfig(&M, &Li, &Lp, config_path, &status);
         }else{
-            snprintf(user_path, sizeof(user_path), "%s%s", path, user_file);
+            snprintf(user_path, sizeof(user_path), "%s/%s", path, user_file);
             writeFileUser(l, user_path, &status);
-            snprintf(config_path, sizeof(config_path), "%s%s", path, config_file);
+            snprintf(config_path, sizeof(config_path), "%s/%s", path, config_file);
             writeFileConfig(&M, &Li, &Lp, config_path, &status);
         }
         if(status){

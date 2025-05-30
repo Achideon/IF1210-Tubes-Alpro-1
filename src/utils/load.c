@@ -7,7 +7,7 @@ int isFolderExist(char *path){
     }return 0;
 }
 
-void load(Matrix *M, ListUser *l, ListInventory *li, ListPerut *lp, boolean *status, char *folder_path, char *folder_name){
+void load(Matrix *M, ListUser *l, ListInventory *li, ListPerut *lp, boolean *status, char *folder_name){
     char path[50];
     char user_path[100];
     char config_path[100];
@@ -31,6 +31,5 @@ void load(Matrix *M, ListUser *l, ListInventory *li, ListPerut *lp, boolean *sta
         readFileUser(l, user_path);
         snprintf(config_path, sizeof(config_path), "%s/%s", path, config_file);
         readConfig(M, li, lp, config_path);
-        strcpy(folder_path, path);
     }
 }

@@ -83,14 +83,16 @@ void ngobatin(Matrix m, MapObatPenyakit mOP, ListPenyakit p, ListInventory *inv,
             return;
         }
         else{
+
             printf("Pasien memiliki penyakit %s\n",(*l).contents[pasienID].riwayatPenyakit);
             printf("Obat yang harus diberikan:\n");
             int penyakitID = getPenyakitIDByName(&p, (*l).contents[pasienID].riwayatPenyakit);
             char (*obat)[MAX_NAME] = mapGetListObatName(&mOP, penyakitID);
             ListValue listObat = mapGetListObatID(&mOP, penyakitID);
             int idx = (*inv).nEff;
+            (*inv).contents[idx].contents[0] = pasienID;
             for (int i = 0; i < listObat.nEff; i++){
-                (*inv).contents[idx].contents[i] = listObat.contents[i];
+                (*inv).contents[idx].contents[i+1] = listObat.contents[i];
                 printf("%i. %s", i+1,obat[i]);
             }
             printf("\n");

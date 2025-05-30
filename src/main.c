@@ -103,9 +103,9 @@ int main(int argc, char *argv[]){
         }else if(strcmp(input, "ANTRIAN") == 0){
             antrianSaya(M, l, currentID);
         }else if(strcmp(input, "MINUM_OBAT") == 0){
-            minumObat(&inv, &lpe, &lop, currentID, &lp, l);
+            minumObat(&inv, &lpe, &mop, currentID, &lp, l);
         }else if(strcmp(input, "PENAWAR") == 0){
-            minumPenawar(&inv, &lpe, &lop, currentID, &lp, l);
+            minumPenawar(&inv, &lpe, &mop, currentID, &lp, l);
         }else if(strcmp(input, "EXIT") == 0){
             ext(&status, l, M, inv, lpe);
         }else{

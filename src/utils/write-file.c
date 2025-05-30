@@ -69,11 +69,12 @@ void writeFileConfig(Matrix *M, ListInventory *Li, ListPerut *Lp, char* filepath
             }
         }
     }
+
     fprintf(file, "%d\n", Li->nEff);
     // writing list inventory :/
     for(int i  = 0; i < Li->nEff; i++){
         fprintf(file, "%d", Li->contents[i].contents[0]);
-        for(int j = 0; j < Li->contents[i].nEff; i++){
+        for(int j = 0; j < Li->contents[i].nEff; j++){
             fprintf(file, " %d", Li->contents[i].contents[j+1]);
         }
         fprintf(file, "\n");
@@ -82,8 +83,8 @@ void writeFileConfig(Matrix *M, ListInventory *Li, ListPerut *Lp, char* filepath
     fprintf(file, "%d\n", Lp->nEff);
     for(int i  = 0; i < Lp->nEff; i++){
         fprintf(file, "%d", Lp->contents[i].contents[0]);
-        for(int j = 0; j < Lp->contents[i].top; i++){
-            fprintf(file, " %d", Li->contents[i].contents[j+1]);
+        for(int j = 0; j < Lp->contents[i].top; j++){
+            fprintf(file, " %d", Lp->contents[i].contents[j+1]);
         }
         fprintf(file, "\n");
     }

@@ -432,16 +432,15 @@ void readConfig(Matrix *M, ListInventory *Li, ListPerut *Lp, char * path){
             Li->contents[i].contents[k] = number;
             k++;
         }
-        Li->contents[i].nEff = k;
+        Li->contents[i].nEff = k-1;
     }
     // start reading stack :s
     readDigits(config, &number, &chr);
     int m = number;
-    Lp->nEff = m;
     for(int i = 0; i < m; i++){
         readDigits(config, &number, &chr);
         int k = 1;
-        Lp->contents[i].contents[0] = number;
+        addUserPerut(Lp, number);
         while(chr == ' '){
             readDigits(config, &number, &chr);
             pushObat(Lp, Lp->contents[i].contents[0], number);

@@ -33,4 +33,6 @@ void printSemuaAntrian(Matrix M, ListUser dataUser);
 /* I.S. M dan ruangan terdefinisi */
 /* F.S. Mencetak semua data kapasitas, dokter, dan pasien ke layar */
 
+void antrianSaya(Matrix M, ListUser dataUser, int userID);
+
 #endif

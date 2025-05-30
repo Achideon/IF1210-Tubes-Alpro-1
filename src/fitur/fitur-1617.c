@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "fitur-1617.h"
 
-void minumObat(ListInventory *inventory, ListPerut *perut, MapObatPenyakit *mapObat, int userID) {
+void minumObat(ListInventory *inventory, ListPerut *perut, MapObatPenyakit *mapObat, int userID, User *user, ListPenyakit *listpenyakit) {
     int choice;
     int obatID;
     char namaObat[MAX_NAME];
@@ -11,10 +11,12 @@ void minumObat(ListInventory *inventory, ListPerut *perut, MapObatPenyakit *mapO
         return;
     }
 
+    int keyPenyakit = getPenyakitIDByName(listpenyakit, user->riwayatPenyakit);
+
     printf("Daftar obat yang tersedia:\n");
     for (int i = 0; i < inventory[userID].nEff; i++) {
-        strcpy(namaObat, mapObatNameByID(mapObat, -1, (*inventory).contents[userID].contents[i]));
-        printf("%d. %s\n", i+1, namaObat);
+        strcpy(namaObat, mapObatNameByID(mapObat, keyPenyakit, (*inventory).contents[userID].contents[i]));
+        printf("%d. %s\n", i, namaObat);
     }
 
     while(1) {
@@ -42,7 +44,7 @@ void minumObat(ListInventory *inventory, ListPerut *perut, MapObatPenyakit *mapO
     }
 }
 
-void minumPenawar(ListInventory *inventory, ListPerut *perut, MapObatPenyakit *mapObat, int userID) {
+void minumPenawar(ListInventory *inventory, ListPerut *perut, MapObatPenyakit *mapObat, int userID, User *user, ListPenyakit *listpenyakit) {
     int salahObat;
     char namaObat[MAX_NAME];
     
@@ -50,11 +52,12 @@ void minumPenawar(ListInventory *inventory, ListPerut *perut, MapObatPenyakit *m
         printf("Perut kosong! Belum ada obat yang dimakan.\n");
         return;
     }
+
+    int keyPenyakit = getPenyakitIDByName(listpenyakit, user->riwayatPenyakit);
     
     popObat(perut, userID, &salahObat);
     
-    strcpy(namaObat, mapObatNameByID(mapObat, salahObat, salahObat));
-    
+    strcpy(namaObat, mapObatNameByID(mapObat, keyPenyakit, salahObat));
     insertInventory(inventory, userID, salahObat);
     printf("Uwekkk!!! obat %s keluar dan kembali ke inventory\n", namaObat);
 }

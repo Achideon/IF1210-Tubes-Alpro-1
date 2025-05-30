@@ -19,7 +19,8 @@ void createMapObatPenyakit (ListObat l1, ListObatPenyakit l2, MapObatPenyakit *m
         
         // Apabila tidak ada (bernilai -1), maka program akan mencari penyakitID yang sesuai
         if (idx == -1) {
-            idx = m->length++;
+            m->length++;
+            idx = m->length;
             m->contents[idx].keyPenyakit = penyakitID;
             m->contents[idx].valueListID.nEff = 0;
         }
@@ -39,7 +40,6 @@ ListValue mapGetListObatID (MapObatPenyakit *m, int keyPenyakit) {
             return *l;
         }
     }
-
     ListValue empty;
     empty.nEff = 0;
     return empty;
@@ -78,7 +78,9 @@ char * mapObatNameByUrutan(MapObatPenyakit *m, int keyPenyakit, int urutan){
 }
 
 char * getNameByObatID (ListObat *l, int obatID){
-    if ((*l).contents[obatID].obatID == obatID) return (*l).contents[obatID].namaObat;
+    for (int i = 0; i < (*l).nEff; i++){
+        if ((*l).contents[i].obatID == obatID) return (*l).contents[i].namaObat;
+    }
     printf("Obat tidak ada di database!");
     return MARK_STR;
 }

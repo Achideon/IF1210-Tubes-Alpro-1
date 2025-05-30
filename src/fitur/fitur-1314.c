@@ -1,5 +1,5 @@
 #include "fitur-1314.h"
-boolean urutanBenar (ListPerut L1, ListPenyakit L2, MapObatPenyakit M, char penyakit, int currentId){
+boolean urutanBenar (ListPerut L1, ListPenyakit L2, MapObatPenyakit M, char * penyakit, int currentId){
     ListValue obat = mapGetListObatID(&M, getPenyakitIDByName(&L2, penyakit));
     ListPerut dummyPerut = L1;
     int idxobat = obat.nEff-1;
@@ -15,7 +15,8 @@ boolean urutanBenar (ListPerut L1, ListPenyakit L2, MapObatPenyakit M, char peny
 }
 
 void pulangDok(ListObat *Lobat,ListPenyakit *Listp,MapObatPenyakit *Map,ListPerut *Perut,ListUser *L, Matrix *M, ListInventory *I, int currentId){
-    if (strcmp(getRiwayatByID(*L,currentId),MARK_STR) == 0){/*Belum didiagnosa*/
+    if (strcmp(getRoleByID(*L, currentId),"Pasien")!=0) return;
+    if (strcmp(getRiwayatByID(*L,currentId),MARK_STR) == 0){/*Belum didiagnosis*/
         printf("Anda masih belum didiagnosis!\n");
         return;
     }else if (!(isListInventoryEmpty(*I))){ 
@@ -26,18 +27,26 @@ void pulangDok(ListObat *Lobat,ListPenyakit *Listp,MapObatPenyakit *Map,ListPeru
         printf("Dokter sedang memeriksa keadaanmu... \n");
         printf("Maaf, tapi kamu masih belum bisa pulang!\n");
         printf("Urutan peminuman obat yang diharapkan: \n");
-        ListValue obat = mapGetListObatID(&M, getPenyakitIDByName(&Listp, getRiwayatByID(*L,currentId)));
+        /*List obat yang benar*/
+        ListValue obat = mapGetListObatID(Map, getPenyakitIDByName(Listp, getRiwayatByID(*L,currentId)));
         for (int i=0;i<obat.nEff;i++){
             printf("%s", getNameByObatID(Lobat, obat.contents[i]));
             if (i!=obat.nEff-1) printf(" -> ");
-        }
+        }/*Penulisan : dari yang pertama dimakan sampai terakhir dimakan*/
+        printf("\n");
+        /*Setelah sudah diprint list obat yang benar*/
+        /*Buat salinan ListPerut *Perut supaya tidak mengubah-ubah isi Perut. Lalu, ada ListValue obatPerut memuat obat-obat yang ada di perut dengan pengurutan sesuai indeks.*/
         printf("Urutan obat yang kamu minum\n");
         ListPerut dummyPerut = *Perut;
+        ListValue obatPerut;
         for (int i=0;i<obat.nEff;i++){
-            printf("%s", getNameByObatID(Lobat, dummyPerut.contents[currentId].contents[dummyPerut.contents[currentId].top]));
-            if (i!=obat.nEff-1) printf(" -> ");
+            obatPerut.contents[i] = dummyPerut.contents[currentId].contents[dummyPerut.contents[currentId].top];
             int obatOut;
             popObat(&dummyPerut, currentId, &obatOut);
+        }   /*Pengisian ListValue obatPerut dari yang terbaru dimakan sampai yang terlama dimakan*/
+        for (int i=obat.nEff-1;i>=0;i--){
+            printf("%s", getNameByObatID(Lobat, obatPerut.contents[i]) );
+            if (i!=obat.nEff-1) printf(" -> ");
         }
         printf("Silahkan kunjungi dokter untuk meminta penawar yang sesuai !\n");
         return;
@@ -54,8 +63,8 @@ void pulangDok(ListObat *Lobat,ListPenyakit *Listp,MapObatPenyakit *Map,ListPeru
             L->contents[currentId].tinggiBadan        = MARK_INT;
             L->contents[currentId].kadarKolesterol    = MARK_INT;
             L->contents[currentId].trombosit          = MARK_INT;
-            int id;
-            nextQueue(pasienQueue(M, currentId),id);
+            int val;
+            nextQueue(&pasienRuangan(M, currentId)->antriPasien,&val);
             printf("Selamat! Kamu sudah dinyatakan sembuh oleh dokter. Silahkan pulang dan semoga sehat selalu!");
             return;
         }else{
@@ -66,6 +75,7 @@ void pulangDok(ListObat *Lobat,ListPenyakit *Listp,MapObatPenyakit *Map,ListPeru
 }
 
 void checkUp(ListUser *L, Matrix *M, int currentId){
+    if (strcmp(getRoleByID(*L, currentId),"Pasien")!=0) return;    
     if ((strcmp(getRoleByID(*L,currentId), "Pasien") == 0) && (!cekPasienQueue(M,currentId))){  
         /*Syaratnya adalah ketika pasien dengan id "currentId" belum terdaftar di antrian apa pun (Dengan arti lain adalah dia tidak berada di matrix denah juga.)*/
         int idx=currentId;    /*indeks diakses berdasarkan id*/

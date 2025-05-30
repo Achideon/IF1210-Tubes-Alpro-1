@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <strings.h>
+#include <ctype.h>
 #include "read-file.h"
 
 void parsing(char *input, char *format, int dataCount, ...){
@@ -39,13 +41,13 @@ void parsing(char *input, char *format, int dataCount, ...){
     va_end(args);
 }
 
-void readFileUser(ListUser *l) 
+void readFileUser(ListUser *l, char * path) 
 {
     createListUser(l);
-    FILE *file = fopen("file/user.csv", "r");
+    FILE *file = fopen(path, "r");
 
     char line[MAX_LINE_LENGTH];
-    int idxUser = 1;
+    int idxUser = 0;
     
     // Pengecekan apakah file ada atau tidak
     if (!(file)) 
@@ -76,7 +78,6 @@ void readFileUser(ListUser *l)
         strcpy(USERNAME(*l, idxUser), username);
         strcpy(PENYAKIT(*l, idxUser), riwayatPenyakit);
         strcpy(PASSWORD(*l, idxUser), password);
-        strcpy(ROLE(*l, idxUser), role);
         SUHU(*l, idxUser) = suhu;
         TSISTOLIK(*l, idxUser) = sistolik;
         DSISTOLIK(*l, idxUser) = diastolik;
@@ -88,6 +89,9 @@ void readFileUser(ListUser *l)
         KOLESTEROL(*l, idxUser) = kolesterol;
         TROMBOSIT(*l, idxUser) = trombosit;
         nEff(*l) += 1;
+        if (!(strcasecmp(role,"pasien"))) strcpy(ROLE(*l, idxUser), "Pasien");
+        else if (!(strcasecmp(role,"manager"))) strcpy(ROLE(*l, idxUser), "Manager");
+        else if (!(strcasecmp(role,"dokter"))) strcpy(ROLE(*l, idxUser), "Dokter");
         idxUser++;
     } 
     
@@ -111,7 +115,6 @@ void readFileUser(ListUser *l)
         strcpy(USERNAME(*l, idxUser), username);
         strcpy(PENYAKIT(*l, idxUser), riwayatPenyakit);
         strcpy(PASSWORD(*l, idxUser), password);
-        strcpy(ROLE(*l, idxUser), role);
         SUHU(*l, idxUser) = suhu;
         TSISTOLIK(*l, idxUser) = sistolik;
         DSISTOLIK(*l, idxUser) = diastolik;
@@ -123,6 +126,9 @@ void readFileUser(ListUser *l)
         KOLESTEROL(*l, idxUser) = kolesterol;
         TROMBOSIT(*l, idxUser) = trombosit;
         nEff(*l) += 1;
+        if (!(strcasecmp(role,"pasien"))) strcpy(ROLE(*l, idxUser), "Pasien");
+        else if (!(strcasecmp(role,"manager"))) strcpy(ROLE(*l, idxUser), "Manager");
+        else if (!(strcasecmp(role,"dokter"))) strcpy(ROLE(*l, idxUser), "Dokter");
         idxUser++;
     }
 
@@ -132,10 +138,12 @@ void readFileUser(ListUser *l)
 
 
 
-void readFilePenyakit(ListPenyakit *l)
+void readFilePenyakit(ListPenyakit *l, char * folder_path)
 {
     createListPenyakit(l);
-    FILE *file = fopen("file/penyakit.csv", "r");
+    char path[50];
+    snprintf(path, sizeof(path), "%s/penyakit.csv", folder_path);
+    FILE *file = fopen(path, "r");
 
     char line[MAX_LINE_LENGTH];
     int idx = 0;
@@ -248,10 +256,12 @@ void readFilePenyakit(ListPenyakit *l)
     return;
 }
 
-void readFileObat(ListObat *l)
+void readFileObat(ListObat *l, char * folder_path)
 {
     createListObat(l);
-    FILE *file = fopen("file/obat.csv", "r");
+    char path[50];
+    snprintf(path, sizeof(path), "%s/obat.csv", folder_path);
+    FILE *file = fopen(path, "r");
 
     char line[MAX_LINE_LENGTH];
     
@@ -301,10 +311,12 @@ void readFileObat(ListObat *l)
     return;
 }
 
-void readFileObatPenyakit(ListObatPenyakit *l)
+void readFileObatPenyakit(ListObatPenyakit *l, char * folder_path)
 {
     createListObatPenyakit(l);
-    FILE *file = fopen("file/obat_penyakit.csv", "r");
+    char path[50];
+    snprintf(path, sizeof(path), "%s/obat_penyakit.csv", folder_path);
+    FILE *file = fopen(path, "r");
 
     char line[MAX_LINE_LENGTH];
     int idx = 0;
@@ -372,8 +384,8 @@ void readDigits(FILE *input, int *number, int *chr){
     }
 }
 
-void readConfig(Matrix *M, ListInventory *Li){
-    FILE *config = fopen("file/config.txt", "r");
+void readConfig(Matrix *M, ListInventory *Li, ListPerut *Lp, char * path){
+    FILE *config = fopen(path, "r");
     if(config == NULL) printf("oh nyo! there is no file!\nwe are deeply sorry for this inconvenience >w<'\n");
     int number, chr;
     readDigits(config, &number, &chr);
@@ -384,8 +396,11 @@ void readConfig(Matrix *M, ListInventory *Li){
     int capacityDalam = number;
     readDigits(config, &number, &chr);
     int capacityLuar = number;
+    // Create empty lists and matrix
     createMatrix(row, col, M, capacityDalam, capacityLuar);
     createListInventory(Li);
+    createListPerut(Lp);
+    // start reading matrix :o
     for(int i = 0; i < row; i++){
         for(int j = 0; j < col; j++){
             M->data[i][j].kapasitas = capacityDalam;
@@ -404,16 +419,31 @@ void readConfig(Matrix *M, ListInventory *Li){
             }
         }
     }
+    // start reading inventory :]
     readDigits(config, &number, &chr);
-    int inventory = number;
-    for(int i = 0; i < inventory; i++){
+    int n = number;
+    Li->nEff = n;
+    for(int i = 0; i < n; i++){
         readDigits(config, &number, &chr);
-        int j = number;
         int k = 1;
-        Li->contents[j].contents[0] = MARK_USED;
+        Li->contents[i].contents[0] = number;
         while(chr == ' '){
             readDigits(config, &number, &chr);
-            Li->contents[j].contents[k] = number;
+            Li->contents[i].contents[k] = number;
+            k++;
+        }
+        Li->contents[i].nEff = k-1;
+    }
+    // start reading stack :s
+    readDigits(config, &number, &chr);
+    int m = number;
+    for(int i = 0; i < m; i++){
+        readDigits(config, &number, &chr);
+        int k = 1;
+        addUserPerut(Lp, number);
+        while(chr == ' '){
+            readDigits(config, &number, &chr);
+            pushObat(Lp, Lp->contents[i].contents[0], number);
             k++;
         }
     }

@@ -40,6 +40,8 @@ boolean isUserPerutFull(ListPerut *l, int userID);
 /* I.S.: l terdefinisi, userID valid */
 /* F.S.: mengembalikan true jika stack perut user dengan ID tertentu penuh (top == STACK_CAPACITY-1) */
 
+void addUserPerut(ListPerut *l, int userID);
+
 // StackIsiDalamPerut
 void pushObat(ListPerut *l, int userID, int obatID);
 /* I.S.: l terdefinisi, userID valid, obatID valid */

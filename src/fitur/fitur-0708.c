@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "fitur-0708.h"
 
-void sortbyNama(ListUser *l, int sort){
+void sortByNama(ListUser *l, int sort){
     User temp;
     int pass = 0;
     boolean tukar = true;
@@ -34,7 +34,7 @@ void sortbyNama(ListUser *l, int sort){
     }
 }
 
-void sortbyID(ListUser *l, int sort){
+void sortByID(ListUser *l, int sort){
     User temp;
     int pass = 0;
     boolean tukar = true;
@@ -67,65 +67,42 @@ void sortbyID(ListUser *l, int sort){
     }
 }
 
-ListUser lihatUserbyName(ListUser l1, int role, int sort){
-    // role 0 = user, 1 = pasien, 2 = dokter
+ListUser sortByRole(ListUser l1, int role){
     ListUser l2;
     createListUser(&l2);
+    nEff(l2) = 0;
     if(role == 0){
-        l2 = l1;
+        int N = 0;
+        for(int i = 0; i < nEff(l1); i++){
+            if(strcmp(ROLE(l1,i), "Pasien") == 0 || strcmp(ROLE(l1,i), "Dokter") == 0){
+                l2.contents[N] = l1.contents[i];
+                nEff(l2) += 1;
+                N += 1;
+            }
+        }
     }else if(role == 1){
         int N = 0;
-        for(int i =1; i <= l1.nEff; i++){
-            if(strcmp(l1.contents[i].role, "Pasien") == 0){
-                N += 1;
+        for(int i = 0; i < nEff(l1); i++){
+            if(strcmp(ROLE(l1,i), "Pasien") == 0){
                 l2.contents[N] = l1.contents[i];
-                l2.nEff += 1;
+                nEff(l2) += 1;
+                N += 1;
             }
         }
     }else if(role == 2){
         int N = 0;
-        for(int i =1; i <= l1.nEff; i++){
-            if(strcmp(l1.contents[i].role, "Dokter") == 0){
-                N += 1;
+        for(int i = 0; i < nEff(l1); i++){
+            if(strcmp(ROLE(l1,i), "Dokter") == 0){
                 l2.contents[N] = l1.contents[i];
-                l2.nEff += 1;
+                nEff(l2) += 1;
+                N += 1;
             }
         }
     }
-    sortbyNama(&l2, sort);
     return l2;
 }
 
-ListUser lihatUserbyID(ListUser l1, int role, int sort){
-    // role 0 = user, 1 = pasien, 2 = dokter
-    ListUser l2;
-    createListUser(&l2);
-    if(role == 0){
-        l2 = l1;
-    }else if(role == 1){
-        int N = 0;
-        for(int i =1; i <= l1.nEff; i++){
-            if(strcmp(l1.contents[i].role, "Pasien") == 0){
-                N += 1;
-                l2.contents[N] = l1.contents[i];
-                l2.nEff += 1;
-            }
-        }
-    }else if(role == 2){
-        int N = 0;
-        for(int i =1; i <= l1.nEff; i++){
-            if(strcmp(l1.contents[i].role, "Dokter") == 0){
-                N += 1;
-                l2.contents[N] = l1.contents[i];
-                l2.nEff += 1;
-            }
-        }
-    }
-    sortbyID(&l2,sort);
-    return l2;
-}
-
-ListUser lihatUserByPenyakit(ListUser l1, int sortby, int sort, char* penyakit){
+ListUser sortByPenyakit(ListUser l1, int sortby, int sort, char* penyakit){
     // sortby ( 1 = ID, 2 = Nama), sort (1 = asc, 2 = desc)
     ListUser l2;
     createListUser(&l2);
@@ -138,9 +115,9 @@ ListUser lihatUserByPenyakit(ListUser l1, int sortby, int sort, char* penyakit){
         }
     }
     if(sortby == 1){
-        sortbyID(&l2, sort);
+        sortByID(&l2, sort);
     }else if(sortby == 2){
-        sortbyNama(&l2, sort);
+        sortByNama(&l2, sort);
     }
     return l2;
 }
@@ -152,7 +129,7 @@ void printSpace(int n){
 }
 
 void printListUser(ListUser l, int role){
-    for(int i = 1; i <= l.nEff; i++){
+    for(int i = 0; i < nEff(l); i++){
         printUser(l, i, role);
     }
 }
@@ -160,32 +137,32 @@ void printListUser(ListUser l, int role){
 void printUser(ListUser l, int i, int role){
     int digits = 0, n = 0;
     // print ID
-    printf("%d", l.contents[i].id);
-    if(l.contents[i].id < 10) n = 2;
-    else if(l.contents[i].id >= 10 && l.contents[i].id < 100) n =1;
+    printf("%d", ID(l, i));
+    if(ID(l, i) < 10) n = 2;
+    else if(ID(l, i) >= 10 && ID(l, i) < 100) n = 1;
     else n = 0;
     printSpace(n);
     
     // print nama
     printf("|  ");
-    printf("%s", l.contents[i].username);
-    digits = strlen(l.contents[i].username);
+    printf("%s", USERNAME(l, i));
+    digits = strlen(USERNAME(l, i));
     n = 16 - digits;
     printSpace(n);
 
     // print Role untuk LIHAT_USER
     if(role == 0){
         printf("| ");
-        printf("%s  ", l.contents[i].role);
+        printf("%s  ", ROLE(l, i));
     }
 
     // print Penyakit untuk LIHAT_USER dan LIHAT_PASIEN
     if(role == 0 || role == 1){
         printf("| ");
-        if(!strcmp(l.contents[i].role, "Dokter")){
+        if(!strcmp(ROLE(l, i), "Dokter")){
             printf("-");
-        }else if(!strcmp(l.contents[i].role, "Pasien")){
-            printf("%s", l.contents[i].riwayatPenyakit);
+        }else if(!strcmp(ROLE(l, i), "Pasien")){
+            printf("%s", PENYAKIT(l, i));
         }
     }
     printf("\n");
@@ -234,9 +211,11 @@ void lihatUser(ListUser l, int role, int currentID){
         }
         
         if(pil1 == 1){
-            lSorted = lihatUserbyID(l, role, pil2);
+            lSorted = sortByRole(l, role);
+            sortByID(&lSorted, pil1);
         }else if(pil1 == 2){
-            lSorted = lihatUserbyName(l, role, pil2);
+            lSorted = sortByRole(l, role);
+            sortByNama(&lSorted, pil1);
         }
         printListUser(lSorted, role);
     }else{
@@ -300,7 +279,7 @@ void cariUser(ListUser l, int role, int currentID){
                 printf("2. DESC (Z-A)\n");
                 printf(">>Pilihan: ");
                 scanf("%d", &pil2);
-                lp = lihatUserByPenyakit(l, pil1, pil2, penyakit);
+                lp = sortByPenyakit(l, pil1, pil2, penyakit);
             }
             printf("ID  |  Nama            |  Penyakit \n");
             printf("------------------------------------\n");

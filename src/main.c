@@ -3,6 +3,10 @@
 #include "fitur/fitur-01030405.h"
 #include "fitur/fitur-021018.h"
 #include "fitur/fitur-060915.h"
+#include "fitur/fitur-0708.h"
+#include "fitur/fitur-1617.h"
+#include "fitur/fitur-1112.h"
+#include "fitur/fitur-1314.h"
 #include "adt/user-list.h"
 #include "adt/matrix-denah.h"
 #include "adt/queue.h"
@@ -13,7 +17,14 @@
 #include "adt/inventory-list.h"
 #include "adt/obat-penyakit.h"
 
-int main(){
+int main(int argc, char *argv[]){
+    char *folder_name;
+    char folder_path[100];
+    if (argc > 1) {
+        folder_name = argv[1];
+    } else {
+        folder_name = "";
+    }
 /* ----------- INISIALISASI -----------*/
     Matrix M;
     ListUser l;
@@ -22,6 +33,7 @@ int main(){
     ListObatPenyakit lop;
     ListInventory inv;
     MapObatPenyakit mop;
+    ListPerut lpe;
     
     boolean status = true;
     int currentID = MARK_INT;
@@ -31,16 +43,19 @@ int main(){
     char password[MAX_PASSWORD_LENGTH];
     char input[20], ruangan[10];
 /* ----------- BACA FILE -----------*/
-    createListInventory(&inv);
-    readFileUser(&l);
-    readConfig(&M,&inv);
-    readFileObat(&lo);
-    readFileObatPenyakit(&lop);
-    readFilePenyakit(&lp);
-    createMapObatPenyakit (lo, lop, &mop);
+    folder_path[50];
+    strcpy(folder_path, "../data");
+    load(&M, &l, &inv, &lpe, &status, folder_name);
+    if(status){
+        readFileObat(&lo, folder_path);
+        readFileObatPenyakit(&lop, folder_path);
+        readFilePenyakit(&lp, folder_path);
+        createMapObatPenyakit (lo, lop, &mop);
+    }
 
 /* ----------- PROGRAM UTAMA -----------*/
-    printf("Selamat datang di sistem informasi rumah sakit!\n");
+    sortByID(&l,2);
+    if(status) printf("Selamat datang di sistem informasi rumah sakit!\n");
     while(status){
         printf(">>>>");
         scanf("%s", input);
@@ -58,20 +73,45 @@ int main(){
             addDoctor(&l, currentID);
         }else if(strcmp(input, "ASSIGN_DOKTER") == 0){
             assignDoctor(&l, currentID, &M);
+        }else if(strcmp(input, "LIHAT_USER") == 0){
+            lihatUser(l, 0, currentID);
+        }else if(strcmp(input, "LIHAT_PASIEN") == 0){
+            lihatUser(l, 1, currentID);
+        }else if(strcmp(input, "LIHAT_DOKTER") == 0){
+            lihatUser(l, 2, currentID);
+        }else if(strcmp(input, "CARI_USER") == 0){
+            cariUser(l, 0, currentID);
+        }else if(strcmp(input, "CARI_PASIEN") == 0){
+            cariUser(l, 1, currentID);
+        }else if(strcmp(input, "CARI_DOKTER") == 0){
+            cariUser(l, 2, currentID);
         }else if(strcmp(input, "LIHAT_DENAH") == 0){
             printDenah(M);
         }else if(strcmp(input, "LIHAT_RUANGAN") == 0){
             scanf("%s", ruangan);
             if(!isRoomValid(M, ruangan)){
                 printf("Ruangan tidak ada! Coba cari ruangan lain\n");
-            }
-            else printRuangan(M, ruangan, l);
+            }else printRuangan(M, ruangan, l);
+        }else if(strcmp(input, "LIHAT_SEMUA_RUANGAN") == 0){
+            printSemuaAntrian(M, l, currentID);
         }else if(strcmp(input, "DIAGNOSIS") == 0){
             diagnosis(M, lp, &l, currentID);
         }else if(strcmp(input, "NGOBATIN") == 0){
             ngobatin(M,mop,lp,&inv,&l,currentID);
+        }else if(strcmp(input, "PULANGDOK") == 0){
+            pulangDok(&lo, &lp, &lop, &lpe, &l, &M, &inv, currentID);
+        }else if(strcmp(input, "DAFTAR_CHECKUP") == 0){
+            checkUp(&l, &M, currentID);
+        }else if(strcmp(input, "ANTRIAN") == 0){
+            antrianSaya(M, l, currentID);
+        }else if(strcmp(input, "MINUM_OBAT") == 0){
+            minumObat(&inv, &lpe, &mop, currentID, &lp, l);
+        }else if(strcmp(input, "PENAWAR") == 0){
+            minumPenawar(&inv, &lpe, &mop, currentID, &lp, l);
+        }else if(strcmp(input, "SAVE") == 0){
+            save(M, l, inv, lpe);
         }else if(strcmp(input, "EXIT") == 0){
-            ext(&status, l, M);
+            ext(&status, l, M, inv, lpe);
         }else{
             printf("Fungsi tidak terdaftar!\n\n");
         }

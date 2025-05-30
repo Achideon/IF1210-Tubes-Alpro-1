@@ -1,30 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <math.h>
 #include "fitur-01030405.h"
-
-/*
-login
-    - Meminta username dan password
-    - Mengecek apakah username dan password valid
-    - Jika valid, set currentID ke ID user yang login
-    - Jika tidak valid, tampilkan pesan error
-logout
-    - Mengubah currentID menjadi MARK_INT
-lupaPassword
-    - Meminta username dan kode unik
-    - Mengecek apakah username valid
-    - Jika valid, lakukan RLE pada username
-    - Jika kode unik sesuai dengan hasil RLE, minta password baru
-    - Set password baru untuk user yang bersangkutan
-    - Tampilkan pesan sukses
-menuHelp
-    - Menampilkan menu bantuan sesuai dengan role yang sedang login
-    - Jika belum login, tampilkan menu login dan register
-    - Jika sudah login, tampilkan menu sesuai dengan role
-    - Tampilkan footnote tentang cara menggunakan aplikasi
-*/
 
 void login(ListUser *l, int *currentID){
     if(isUserLoggedIn(*currentID) == 1){
@@ -147,7 +121,7 @@ void menuHelp(ListUser *l, int *currentID){
         printf("    2. REGISTER: Membuat akun baru\n");
         printf("    3. LUPA_PASSWORD: Mengganti password yang sudah tersimpan saat ini\n");
     }else{
-        if(strcmp(ROLE(*l, *currentID-1), "Manager") == 0){
+        if(strcmp(getRoleByID(*l, *currentID), "Manager") == 0){
             printf("Kamu sudah login sebagai Manager!\n\n");
             printf("    1. LOGOUT: Keluar dari akun yang sedang digunakan\n");
             printf("    2. LUPA PASSWORD: Mengganti password yang lupa\n");
@@ -163,8 +137,9 @@ void menuHelp(ListUser *l, int *currentID){
             printf("    12. LIHAT_RUANGAN: Menampilkan informasi kapasitas, jumlah pasien, dan jumlah dokter pada ruangan tertentu berdasarkan ID ruangan\n");
             printf("    13. LIHAT_SEMUA_ANTRIAN: Menampilkan seluruh antrian pasien beserta kapasitas, jumlah pasien, dan dokter dari tiap ruangan\n");
             printf("    14. EXIT: Keluar dari rumah sakit\n");
+            printf("    15. SAVE: Menyimpan kondisi rumah sakit saat ini\n");
             
-        }else if(strcmp(ROLE(*l, *currentID-1), "Dokter") == 0){
+        }else if(strcmp(getRoleByID(*l, *currentID), "Dokter") == 0){
             printf("Halo Dokter %s!\n\n", USERNAME(*l, *currentID));
             printf("    1. LOGOUT: Keluar dari akun yang sedang digunakan\n");
             printf("    2. LUPA PASSWORD: Mengganti password yang lupa\n");
@@ -173,8 +148,9 @@ void menuHelp(ListUser *l, int *currentID){
             printf("    5. LIHAT_DENAH: Menampilkan denah rumah sakit secara keseluruhan\n");
             printf("    6. LIHAT_RUANGAN: Menampilkan informasi kapasitas, jumlah pasien, dan jumlah dokter pada ruangan tertentu berdasarkan ID ruangan\n");
             printf("    7. EXIT: Keluar dari rumah sakit\n");
+            printf("    8. SAVE: Menyimpan kondisi rumah sakit saat ini\n");
             
-        }else if(strcmp(ROLE(*l, *currentID-1), "Pasien") == 0){
+        }else if(strcmp(getRoleByID(*l, *currentID), "Pasien") == 0){
             printf("Kamu sudah login sebagai Pasien!\n\n");
             printf("    1. LOGOUT: Keluar dari akun yang sedang digunakan\n");
             printf("    2. LUPA PASSWORD: Mengganti password yang lupa\n");
@@ -186,6 +162,7 @@ void menuHelp(ListUser *l, int *currentID){
             printf("    8. LIHAT_DENAH: Menampilkan denah rumah sakit secara keseluruhan\n");
             printf("    9. LIHAT_RUANGAN: Menampilkan informasi kapasitas, jumlah pasien, dan jumlah dokter pada ruangan tertentu berdasarkan ID ruangan\n");
             printf("    10. EXIT: Keluar dari rumah sakit\n");
+            printf("    11. SAVE: Menyimpan kondisi rumah sakit saat ini\n");
         }
     }
     printf("Footnote:\n");

@@ -13,6 +13,7 @@ void createListInventory(ListInventory *l){
         {
             (*l).contents[i].contents[i] = MARK_USED;
         } 
+        (*l).contents[i].nEff = 0;
     }
     (*l).nEff = 0;
 }
@@ -29,31 +30,48 @@ boolean isListInventoryFull(ListInventory l){
 }
 
 void useInventory(ListInventory *l, int userID, int obatID, int *outObatID){
-    for (int i=1; i<(*l).contents[userID].nEff; i++)
+    int idxUser;
+    for (int i=0; i<(*l).nEff; i++){
+        if((*l).contents[i].contents[0] == userID){
+            idxUser = i;
+        }
+    }
+
+    for (int i=0; i<(*l).contents[idxUser].nEff; i++)
     {
-        if ((*l).contents[userID].contents[i]==obatID) 
+        if ((*l).contents[idxUser].contents[i]==obatID) 
         {
             *outObatID = obatID;
-            for (int j = i; j < (*l).contents[userID].nEff - 1; j++) 
+            for (int j = i; j < (*l).contents[idxUser].nEff - 1; j++) 
             {
-                (*l).contents[userID].contents[j] = (*l).contents[userID].contents[j + 1];
+                (*l).contents[idxUser].contents[j] = (*l).contents[idxUser].contents[j + 1];
             }
-            (*l).contents[userID].nEff--;
+            (*l).contents[idxUser].nEff--;
         }
     }
 }
 
 void insertInventory(ListInventory *l, int userID, int obatID){
-    if ((*l).contents[userID].contents[0]==MARK_INT)
+    if ((*l).nEff == 0)
     {
-        (*l).contents[userID].contents[0] = MARK_USED;
-        (*l).contents[userID].contents[1] = obatID;
-        (*l).contents[userID].nEff++;
+        (*l).contents[0].contents[0] = userID;
+        (*l).contents[0].contents[1] = obatID;
+        (*l).contents[0].nEff++;
+        (*l).nEff++;
     }
     else
     {
-        int id = (*l).contents[userID].nEff + 1;
-        (*l).contents[userID].contents[id] = obatID;
+        int now = -999;
+        for (int i = 0; i < (*l).nEff; i++){
+            if (l->contents[i].contents[0] == userID) now = i;
+        }
+        if (now == -999){
+            now = l->nEff;
+            (*l).contents[now].contents[0] = userID;
+            (*l).contents[now].nEff = 0;
+        }
+        int id = (*l).contents[now].nEff + 1;
+        (*l).contents[now].contents[id] = obatID;
     }
 }
 
@@ -64,4 +82,3 @@ boolean isUserInventoryEmpty(ListInventory *l, int userID){
 int getLastIdxInventory(ListInventory l, int userID){
     return ((l).contents[userID].nEff);
 }
-

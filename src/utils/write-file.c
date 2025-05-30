@@ -8,10 +8,10 @@ void writeFileUser(ListUser l, char* filepath, boolean *status) {
         return;
     }
     
-    fprintf(file, "id;username;password;role;riwayat_penyakit;suhu_tubuh;tekanan_darah_sistolik;tekanan_darah_diastolik;detak_jantung;saturasi_oksigen;kadar_gula_darah;berat_badan;tinggi_badan;kadar_kolesterol;kadar_kolesterol_ldl;trombosit\n");
+    fprintf(file, "id;username;password;role;riwayat_penyakit;suhu_tubuh;tekanan_darah_sistolik;tekanan_darah_diastolik;detak_jantung;saturasi_oksigen;kadar_gula_darah;berat_badan;tinggi_badan;kadar_kolesterol;trombosit\n");
 
-    for (int i = 1;l.nEff; i++) {
-        fprintf(file, "%d;%s;%s;%s;%s;%.2f;%d;%d;%d;%.2f;%d;%.2f;%d;%d;%d;%d\n",
+    for (int i = 1; i < l.nEff; i++) {
+        fprintf(file, "%d;%s;%s;%s;%s;%.2f;%d;%d;%d;%.2f;%d;%.2f;%d;%d;%d\n",
                 ID(l, i),
                 USERNAME(l, i),
                 PASSWORD(l, i),
@@ -32,7 +32,7 @@ void writeFileUser(ListUser l, char* filepath, boolean *status) {
     fclose(file);
 }
 
-void writeFileConfig(Matrix *M, char* filepath, boolean *status) {
+void writeFileConfig(Matrix *M, ListInventory *Li, ListPerut *Lp, char* filepath, boolean *status) {
     FILE *file = fopen(filepath, "w");
 
     if (file == NULL) {
@@ -68,6 +68,25 @@ void writeFileConfig(Matrix *M, char* filepath, boolean *status) {
                 fprintf(file, "\n");
             }
         }
+    }
+
+    fprintf(file, "%d\n", Li->nEff);
+    // writing list inventory :/
+    for(int i  = 0; i < Li->nEff; i++){
+        fprintf(file, "%d", Li->contents[i].contents[0]);
+        for(int j = 0; j < Li->contents[i].nEff; j++){
+            fprintf(file, " %d", Li->contents[i].contents[j+1]);
+        }
+        fprintf(file, "\n");
+    }
+    // writing list perut :v
+    fprintf(file, "%d\n", Lp->nEff);
+    for(int i  = 0; i < Lp->nEff; i++){
+        fprintf(file, "%d", Lp->contents[i].contents[0]);
+        for(int j = 0; j < Lp->contents[i].top; j++){
+            fprintf(file, " %d", Lp->contents[i].contents[j+1]);
+        }
+        fprintf(file, "\n");
     }
 
     fclose(file);

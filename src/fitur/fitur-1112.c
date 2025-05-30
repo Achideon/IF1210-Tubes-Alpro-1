@@ -22,11 +22,11 @@ void diagnosis(Matrix m, ListPenyakit p, ListUser *l, int currentID){
         }
         int pasienID = getFirst(m.data[rowNow][colNow].antriPasien);
         if (strcmp(getRiwayatByID(*l, pasienID),"KOSONG")){
-            printf("Pasien %s telah didiagnosis! Silakan imbau untuk minum obat!\n", getUsernameByID(*l,pasienID));
+            printf("Pasien %s telah didiagnosis! Silakan imbau untuk minum obat!\n\n", getUsernameByID(*l,pasienID));
             return;
         }
         else if (!strcmp(getRiwayatByID(*l, pasienID), SEHAT)){
-            printf("%s tidak terdiagnosis penyakit apapun! Silakan mengimbau pasien untuk pulang.\n", getUsernameByID(*l,pasienID));
+            printf("%s tidak terdiagnosis penyakit apapun! Silakan mengimbau pasien untuk pulang.\n\n", getUsernameByID(*l,pasienID));
             return;
         }
         else{
@@ -46,7 +46,7 @@ void diagnosis(Matrix m, ListPenyakit p, ListUser *l, int currentID){
                             return;
                         }
             }
-            printf("Tidak ada penyakit yang cocok! Pasien sehat.\n");
+            printf("Tidak ada penyakit yang cocok! Pasien sehat.\n\n");
             strcpy((*l).contents[pasienID].riwayatPenyakit,SEHAT);
             return;
         }
@@ -54,13 +54,15 @@ void diagnosis(Matrix m, ListPenyakit p, ListUser *l, int currentID){
 
     }
 }
+
+
 void ngobatin(Matrix m, MapObatPenyakit mOP, ListPenyakit p, ListInventory *inv, ListUser *l, int currentID){
     if (strcmp(getRoleByID(*l,currentID),"Dokter")){
         printf("Anda bukanlah seorang Dokter!\n");
         return;
     }
     else{
-        printf("Dokter sedang mengobati pasien!");
+        printf("Dokter sedang mengobati pasien!\n");
         int rowNow, colNow;
         for (int i=0;i<m.rows;i++){
             for (int j=0;j<m.cols;j++){
@@ -81,17 +83,33 @@ void ngobatin(Matrix m, MapObatPenyakit mOP, ListPenyakit p, ListInventory *inv,
             return;
         }
         else{
-            printf("Pasien memiliki penyakit %s\n",(*l).contents[pasienID].riwayatPenyakit);
-            printf("Obat yang harus diberikan:\n");
-            int penyakitID = getPenyakitIDByName(&p, (*l).contents[pasienID].riwayatPenyakit);
-            char (*obat)[MAX_NAME] = mapGetListObatName(&mOP, penyakitID);
-            ListValue listObat = mapGetListObatID(&mOP, penyakitID);
-            for (int i = 1; i <= listObat.nEff; i++){
-                (*inv).contents[pasienID].contents[i] = listObat.contents[i];
-                printf("%i. %s", i+1,obat[i]);
+            int idx = -1;
+            for (int i = 0; i < (*inv).nEff; i++){
+                if ((*inv).nEff == 0) break;
+                if ((*inv).contents[i].contents[0] == pasienID){
+                    idx = i;
+                    break;
+                }
             }
+            if (idx == -1){
+                int idx = (*inv).nEff;
+                (*inv).nEff++;
+                (*inv).contents[idx].contents[0] = pasienID; 
+                printf("Pasien memiliki penyakit %s\n",(*l).contents[pasienID].riwayatPenyakit);
+                printf("Obat yang harus diberikan:\n");
+                int penyakitID = getPenyakitIDByName(&p, (*l).contents[pasienID].riwayatPenyakit);
+                char (*obat)[MAX_NAME] = mapGetListObatName(&mOP, penyakitID);
+                ListValue listObat = mapGetListObatID(&mOP, penyakitID);
+                for (int i = 0; i < listObat.nEff; i++){
+                    insertInventory(inv, pasienID, listObat.contents[i]);
+                    printf("%i. %s", i+1,obat[i]);
+                }
+                printf("\n\n");
+            }
+            else printf("Pasien sudah diobati! Silakan imbau untuk minum obat!\n\n");
             return;
         }
 
     }
 }
+

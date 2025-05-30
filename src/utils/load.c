@@ -18,7 +18,7 @@ void load(Matrix *M, ListUser *l, ListInventory *li, ListPerut *lp, boolean *sta
     snprintf(path, sizeof(path), "%s%s", base_path, folder_name);
     if(!strcmp(path, base_path) || !isFolderExist(path)){
         if(!isFolderExist(path)){
-            printf("Folder %s tidak ditemukan\n", folder_name);
+            printf("Folder %s tidak ditemukan!\n", folder_name);
         }else if(!strcmp(path, base_path)){
             printf("Tidak ada nama folder yang diberikan!\n");
             printf("Usage : ./main <<nama_folder>>");

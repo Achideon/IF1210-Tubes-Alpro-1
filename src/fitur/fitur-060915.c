@@ -3,7 +3,7 @@
 /* Output dari denah */
 void printDenah(Matrix M){
     printf("   ");
-    for(int i = 0; i < M.cols; i++) printf("   %d    ", i+1);
+    for(int i = 0; i < M.cols; i++) printf("   %d  ", i+1);
     printf("\n");
     for(int i = 0; i < M.rows; i++){
         if(i == 0){
@@ -12,7 +12,7 @@ void printDenah(Matrix M){
             if(M.cols > 0) printf("=====+\n");
         }
         printf(" %c ", i + 65);
-        for(int j = 0; j < M.cols; j++) printf("| %c%d    ", i + 65, j + 1);
+        for(int j = 0; j < M.cols; j++) printf("| %c%d  ", i + 65, j + 1);
         if(M.cols > 0) printf("|\n");
         if(i == 5 - 1){
             printf("   +");
@@ -47,7 +47,15 @@ void printRuangan(Matrix M, char * ruangan, ListUser dataUser){
     } else printf("   Tidak ada pasien di dalam ruangan saat ini\n");
 }
 
-void printSemuaAntrian(Matrix M, ListUser dataUser){
+void printSemuaAntrian(Matrix M, ListUser dataUser, int currentID){
+    if (currentID == -1){ 
+        printf("Anda belum login! Silakan login terlebih dahulu!\n");
+        return;
+    }
+    else if (strcmp(getRoleByID(dataUser,currentID),"Manager")){
+        printf("Anda bukanlah seorang Manager!\n");
+        return;
+    }
     printDenah(M);
     for(int i = 0; i < M.rows; i++){
         for(int j = 0; j < M.cols; j++){
@@ -79,7 +87,12 @@ void printSemuaAntrian(Matrix M, ListUser dataUser){
     }
 }
 
-void antrianSaya(Matrix M, ListUser dataUser, int userID){
+void antrianSaya(Matrix M, ListUser dataUser, int userID, int currentID){
+    if (currentID == -1) printf("Anda belum login! Silakan login terlebih dahulu!\n");
+    else if (strcmp(getRoleByID(*l,currentID),"Pasien")){
+        printf("Anda bukanlah seorang Pasien!\n");
+        return;
+    }
     Ruangan *lokasi;
     lokasi = pasienRuangan(&M, userID);
     if(lokasi != NULL){

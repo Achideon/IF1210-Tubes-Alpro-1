@@ -19,10 +19,8 @@ int main(int argc, char *argv[]){
     char folder_path[100];
     if (argc > 1) {
         folder_name = argv[1];
-        printf("folder adalah %s\n", folder_name);
     } else {
         folder_name = "";
-        printf("tidak ada input folder!\n");
     }
 /* ----------- INISIALISASI -----------*/
     Matrix M;
@@ -88,6 +86,8 @@ int main(int argc, char *argv[]){
             if(!isRoomValid(M, ruangan)){
                 printf("Ruangan tidak ada! Coba cari ruangan lain\n");
             }else printRuangan(M, ruangan, l);
+        }else if(strcmp(input, "LIHAT_SEMUA_RUANGAN") == 0){
+            printSemuaAntrian(M, l, currentID);
         }else if(strcmp(input, "DIAGNOSIS") == 0){
             diagnosis(M, lp, &l, currentID);
         }else if(strcmp(input, "NGOBATIN") == 0){

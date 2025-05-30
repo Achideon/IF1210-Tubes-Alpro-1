@@ -236,7 +236,7 @@ void lihatUser(ListUser l, int role, int currentID){
         if(pil1 == 1){
             lSorted = lihatUserByID(l, role, pil2);
         }else if(pil1 == 2){
-            lSorted = lihatUserbyName(l, role, pil2);
+            lSorted = lihatUserByName(l, role, pil2);
         }
         printListUser(lSorted, role);
     }else{

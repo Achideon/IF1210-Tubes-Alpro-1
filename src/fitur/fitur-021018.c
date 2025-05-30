@@ -82,6 +82,7 @@ void assignDoctor(ListUser *l, int currentId, Matrix *M){
         printf("\n");
         /*tercatat di matrix bahwa ada dokter di ruangan tersebut.*/
     }else {
+        printf("Maaf, Anda bukan seorang Manager!");
         return;
     }
 }

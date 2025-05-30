@@ -36,7 +36,7 @@ void printRuangan(Matrix M, char * ruangan, ListUser dataUser){
     if(M.data[i][j].idDoktor > 0) printf("%s\n", getUsernameByID(dataUser, M.data[i][j].idDoktor)); // dataUser == placeholder list user
     else printf(" -\n");
     printf("Pasien di dalam ruangan:\n");
-    if(queueLength(M.data[i][j].antriPasien) != 0){
+    if(queueLength(M.data[i][j].antriPasien) > 0){
         int k = 1;
         Address temp = M.data[i][j].antriPasien.head;
         while(temp != M.data[i][j].antriPasien.tail && k < M.data[i][j].kapasitas){
@@ -74,12 +74,13 @@ void printSemuaAntrian(Matrix M, ListUser dataUser, int currentID){
                     } printf("   %d. %s\n", k, getUsernameByID(dataUser, temp->info)); // print tail queue
                 } else printf("   Tidak ada pasien di dalam ruangan saat ini\n");
                 printf("Pasien di antrian:\n");
+                temp = temp->next;
                 if(queueLength(M.data[i][j].antriPasien) > M.data[i][j].kapasitas){
                     while(temp != M.data[i][j].antriPasien.tail && k < M.data[i][j].kapasitas + M.data[i][j].kapasitasAntrian){
                         printf("   %d. %s\n", k - M.data[i][j].kapasitas + 1, getUsernameByID(dataUser, temp->info));
                         k++;
                         temp = temp->next;
-                    } printf("   %d. %s\n", k - M.data[i][j].kapasitas + 1, getUsernameByID(dataUser, temp->info)); // print tail queue
+                    } printf("   %d. %s\n", k - M.data[i][j].kapasitas + 1, getUsernameByID(dataUser, temp->info));
                 } else printf("   Tidak ada pasien di antrian saat ini\n");
                 printf("\n");
             }

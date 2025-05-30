@@ -1,17 +1,22 @@
 #include <stdio.h>
 #include "fitur-1617.h"
 
-void minumObat(ListInventory *inventory, ListPerut *perut, MapObatPenyakit *mapObat, int userID, User *user, ListPenyakit *listpenyakit) {
+void minumObat(ListInventory *inventory, ListPerut *perut, MapObatPenyakit *mapObat, int userID, ListPenyakit *listpenyakit, ListUser listuser) {
     int choice;
     int obatID;
     char namaObat[MAX_NAME];
+
+    if (strcmp(getRoleByID(listuser,userID),"Pasien")){
+        printf("Anda bukan Pasien!\n");
+        return;
+    }
 
     if (isListInventoryEmpty(inventory[userID])) {
         printf("Obat belum tersedia!\n");
         return;
     }
 
-    int keyPenyakit = getPenyakitIDByName(listpenyakit, user->riwayatPenyakit);
+    int keyPenyakit = getPenyakitIDByName(&listpenyakit,getRiwayatByID(listuser,userID));
 
     printf("Daftar obat yang tersedia:\n");
     for (int i = 0; i < inventory[userID].nEff; i++) {
@@ -44,16 +49,21 @@ void minumObat(ListInventory *inventory, ListPerut *perut, MapObatPenyakit *mapO
     }
 }
 
-void minumPenawar(ListInventory *inventory, ListPerut *perut, MapObatPenyakit *mapObat, int userID, User *user, ListPenyakit *listpenyakit) {
+void minumPenawar(ListInventory *inventory, ListPerut *perut, MapObatPenyakit *mapObat, int userID, ListPenyakit *listpenyakit, ListUser listuser) {
     int salahObat;
     char namaObat[MAX_NAME];
+    
+    if (strcmp(getRoleByID(listuser,userID),"Pasien")){
+        printf("Anda bukan Pasien!\n");
+        return;
+    }
     
     if (isUserPerutEmpty(perut, userID)) {
         printf("Perut kosong! Belum ada obat yang dimakan.\n");
         return;
     }
 
-    int keyPenyakit = getPenyakitIDByName(listpenyakit, user->riwayatPenyakit);
+    int keyPenyakit = getPenyakitIDByName(&listpenyakit,getRiwayatByID(listuser,userID));
     
     popObat(perut, userID, &salahObat);
     

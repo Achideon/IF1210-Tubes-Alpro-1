@@ -5,6 +5,10 @@ void minumObat(ListInventory *inventory, ListPerut *perut, MapObatPenyakit *mapO
     int choice;
     int obatID;
     char namaObat[MAX_NAME];
+    if (strcmp(getRoleByID(*l,currentID),"Pasien")){
+        printf("Anda bukan Pasien!\n");
+        return;
+    }
 
     if (isListInventoryEmpty(inventory[userID])) {
         printf("Obat belum tersedia!\n");

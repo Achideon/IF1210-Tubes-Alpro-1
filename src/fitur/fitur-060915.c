@@ -89,7 +89,7 @@ void printSemuaAntrian(Matrix M, ListUser dataUser, int currentID){
 
 void antrianSaya(Matrix M, ListUser dataUser, int userID, int currentID){
     if (currentID == -1) printf("Anda belum login! Silakan login terlebih dahulu!\n");
-    else if (strcmp(getRoleByID(*l,currentID),"Pasien")){
+    else if (strcmp(getRoleByID(dataUser,currentID),"Pasien")){
         printf("Anda bukanlah seorang Pasien!\n");
         return;
     }

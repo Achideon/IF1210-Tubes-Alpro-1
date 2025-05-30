@@ -85,6 +85,7 @@ void ngobatin(Matrix m, MapObatPenyakit mOP, ListPenyakit p, ListInventory *inv,
         else{
             int idx = -1;
             for (int i = 0; i < (*inv).nEff; i++){
+                if ((*inv).nEff == 0) break;
                 if ((*inv).contents[i].contents[0] == pasienID){
                     idx = i;
                     break;
@@ -100,10 +101,10 @@ void ngobatin(Matrix m, MapObatPenyakit mOP, ListPenyakit p, ListInventory *inv,
                 char (*obat)[MAX_NAME] = mapGetListObatName(&mOP, penyakitID);
                 ListValue listObat = mapGetListObatID(&mOP, penyakitID);
                 for (int i = 0; i < listObat.nEff; i++){
-                    insertInventory(inv,pasienID, listObat.contents[i]);
+                    insertInventory(inv, pasienID, listObat.contents[i]);
                     printf("%i. %s", i+1,obat[i]);
                 }
-                printf("\n");
+                printf("\n\n");
             }
             else printf("Pasien sudah diobati! Silakan imbau untuk minum obat!\n\n");
             return;

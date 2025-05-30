@@ -42,7 +42,7 @@ void parsing(char *input, char *format, int dataCount, ...){
 void readFileUser(ListUser *l, char * path) 
 {
     createListUser(l);
-    FILE *file = fopen("file/user.csv", "r");
+    FILE *file = fopen(path, "r");
 
     char line[MAX_LINE_LENGTH];
     int idxUser = 1;
@@ -132,10 +132,12 @@ void readFileUser(ListUser *l, char * path)
 
 
 
-void readFilePenyakit(ListPenyakit *l)
+void readFilePenyakit(ListPenyakit *l, char * folder_path)
 {
     createListPenyakit(l);
-    FILE *file = fopen("file/penyakit.csv", "r");
+    char path[50];
+    snprintf(path, sizeof(path), "%s/penyakit.csv", folder_path);
+    FILE *file = fopen(path, "r");
 
     char line[MAX_LINE_LENGTH];
     int idx = 0;
@@ -248,10 +250,12 @@ void readFilePenyakit(ListPenyakit *l)
     return;
 }
 
-void readFileObat(ListObat *l)
+void readFileObat(ListObat *l, char * folder_path)
 {
     createListObat(l);
-    FILE *file = fopen("file/obat.csv", "r");
+    char path[50];
+    snprintf(path, sizeof(path), "%s/obat.csv", folder_path);
+    FILE *file = fopen(path, "r");
 
     char line[MAX_LINE_LENGTH];
     
@@ -301,10 +305,12 @@ void readFileObat(ListObat *l)
     return;
 }
 
-void readFileObatPenyakit(ListObatPenyakit *l)
+void readFileObatPenyakit(ListObatPenyakit *l, char * folder_path)
 {
     createListObatPenyakit(l);
-    FILE *file = fopen("file/obat_penyakit.csv", "r");
+    char path[50];
+    snprintf(path, sizeof(path), "%s/obat_penyakit.csv", folder_path);
+    FILE *file = fopen(path, "r");
 
     char line[MAX_LINE_LENGTH];
     int idx = 0;

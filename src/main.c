@@ -16,10 +16,13 @@
 
 int main(int argc, char *argv[]){
     char *folder_name;
+    char folder_path[100];
     if (argc > 1) {
         folder_name = argv[1];
+        printf("folder adalah %s\n", folder_name);
     } else {
         folder_name = "";
+        printf("tidak ada input folder!\n");
     }
 /* ----------- INISIALISASI -----------*/
     Matrix M;
@@ -39,14 +42,16 @@ int main(int argc, char *argv[]){
     char password[MAX_PASSWORD_LENGTH];
     char input[20], ruangan[10];
 /* ----------- BACA FILE -----------*/
-    load(&M, &l, &inv, &lpe, &status, folder_name);
-    readFileObat(&lo);
-    readFileObatPenyakit(&lop);
-    readFilePenyakit(&lp);
-    createMapObatPenyakit (lo, lop, &mop);
+    load(&M, &l, &inv, &lpe, &status, folder_path, folder_name);
+    if(status){
+        readFileObat(&lo, folder_path);
+        readFileObatPenyakit(&lop, folder_path);
+        readFilePenyakit(&lp, folder_path);
+        createMapObatPenyakit (lo, lop, &mop);
+    }
 
 /* ----------- PROGRAM UTAMA -----------*/
-    printf("Selamat datang di sistem informasi rumah sakit!\n");
+    if(status) printf("Selamat datang di sistem informasi rumah sakit!\n");
     while(status){
         printf(">>>>");
         scanf("%s", input);

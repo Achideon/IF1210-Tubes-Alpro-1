@@ -19,7 +19,8 @@ void createMapObatPenyakit (ListObat l1, ListObatPenyakit l2, MapObatPenyakit *m
         
         // Apabila tidak ada (bernilai -1), maka program akan mencari penyakitID yang sesuai
         if (idx == -1) {
-            idx = m->length++;
+            m->length++;
+            idx = m->length;
             m->contents[idx].keyPenyakit = penyakitID;
             m->contents[idx].valueListID.nEff = 0;
         }

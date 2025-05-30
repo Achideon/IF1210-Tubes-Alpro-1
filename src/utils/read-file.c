@@ -126,10 +126,10 @@ void readFileUser(ListUser *l, char * path)
         KOLESTEROL(*l, idxUser) = kolesterol;
         TROMBOSIT(*l, idxUser) = trombosit;
         nEff(*l) += 1;
-        idxUser++;
         if (!(strcasecmp(role,"pasien"))) strcpy(ROLE(*l, idxUser), "Pasien");
         else if (!(strcasecmp(role,"manager"))) strcpy(ROLE(*l, idxUser), "Manager");
         else if (!(strcasecmp(role,"dokter"))) strcpy(ROLE(*l, idxUser), "Dokter");
+        idxUser++;
     }
 
     fclose(file);

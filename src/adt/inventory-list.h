@@ -1,4 +1,4 @@
-/* SYSTEM LIST DINAMIS INVENTORY */
+/* SYSTEM LIST INVENTORY */
 /* Berisi definisi dan primitif pemrosesan list dinamis */
 /* Penempatan elemen selalu rapat kiri dan secara implisit */
 

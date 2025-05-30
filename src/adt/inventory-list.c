@@ -35,6 +35,7 @@ boolean isInventoryEmpty(ListInventory l, int userID){
             return l.contents[i].nEff == 0;
         }
     }
+    return true;
 }
 
 void useInventory(ListInventory *l, int userID, int obatID, int *outObatID){

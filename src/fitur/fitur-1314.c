@@ -1,5 +1,6 @@
 #include "fitur-1314.h"
 boolean urutanBenar (ListPerut L1, ListPenyakit L2, MapObatPenyakit M, char * penyakit, int currentId){
+    printf("cek urutan...\n");
     ListValue obat = mapGetListObatID(&M, getPenyakitIDByName(&L2, penyakit));
     ListPerut dummyPerut = L1;
     int idxobat = obat.nEff-1;
@@ -19,7 +20,7 @@ void pulangDok(ListObat *Lobat,ListPenyakit *Listp,MapObatPenyakit *Map,ListPeru
     if (strcmp(getRiwayatByID(*L,currentId),MARK_STR) == 0){/*Belum didiagnosis*/
         printf("Anda masih belum didiagnosis!\n");
         return;
-    }else if (!(isListInventoryEmpty(*I))){ 
+    }else if (!isInventoryEmpty(*I, currentId)){ 
         printf("Dokter sedang memeriksa keadaanmu...\n");
         printf("Masih ada obat yang belum kamu habiskan, minum semuanya dulu yukk!\n");
         return;

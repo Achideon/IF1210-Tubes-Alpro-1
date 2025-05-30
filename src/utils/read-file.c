@@ -422,6 +422,7 @@ void readConfig(Matrix *M, ListInventory *Li, ListPerut *Lp, char * path){
     // start reading inventory :]
     readDigits(config, &number, &chr);
     int n = number;
+    Li->nEff = n;
     for(int i = 0; i < n; i++){
         readDigits(config, &number, &chr);
         int k = 1;
@@ -431,10 +432,12 @@ void readConfig(Matrix *M, ListInventory *Li, ListPerut *Lp, char * path){
             Li->contents[i].contents[k] = number;
             k++;
         }
+        Li->contents[i].nEff = k;
     }
     // start reading stack :s
     readDigits(config, &number, &chr);
     int m = number;
+    Lp->nEff = m;
     for(int i = 0; i < m; i++){
         readDigits(config, &number, &chr);
         int k = 1;

@@ -19,6 +19,7 @@ void regist(ListUser *l, int currentId){
         }
         printf("\n");
     } else {
+        printf("Maaf, Anda sudah login!");
         return;
     }
 }
@@ -42,6 +43,7 @@ void addDoctor(ListUser *l, int currentId){
         }
         printf("\n");
     }else {
+        printf("Maaf, Anda bukan seorang Manager!");
         return;
     }
 }

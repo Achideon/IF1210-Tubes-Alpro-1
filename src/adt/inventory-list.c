@@ -13,6 +13,7 @@ void createListInventory(ListInventory *l){
         {
             (*l).contents[i].contents[i] = MARK_USED;
         } 
+        (*l).contents[i].nEff = 0;
     }
     (*l).nEff = 0;
 }
@@ -56,6 +57,7 @@ void insertInventory(ListInventory *l, int userID, int obatID){
         (*l).contents[0].contents[0] = userID;
         (*l).contents[0].contents[1] = obatID;
         (*l).contents[0].nEff++;
+        (*l).nEff++;
     }
     else
     {
@@ -66,11 +68,10 @@ void insertInventory(ListInventory *l, int userID, int obatID){
         if (now == -999){
             now = l->nEff;
             (*l).contents[now].contents[0] = userID;
-            (*l).contents[now].nEff = 0; 
+            (*l).contents[now].nEff = 0;
         }
-        int id = (*l).contents[now].nEff;
+        int id = (*l).contents[now].nEff + 1;
         (*l).contents[now].contents[id] = obatID;
-        (*l).contents[now].nEff++;
     }
 }
 

@@ -93,6 +93,7 @@ void readFileUser(ListUser *l, char * path)
         if (!(strcasecmp(role,"pasien"))) strcpy(ROLE(*l, idxUser), "Pasien");
         else if (!(strcasecmp(role,"manager"))) strcpy(ROLE(*l, idxUser), "Manager");
         else if (!(strcasecmp(role,"dokter"))) strcpy(ROLE(*l, idxUser), "Dokter");
+        l->maxID = id;
         idxUser++;
     } 
     
@@ -131,6 +132,7 @@ void readFileUser(ListUser *l, char * path)
         if (!(strcasecmp(role,"pasien"))) strcpy(ROLE(*l, idxUser), "Pasien");
         else if (!(strcasecmp(role,"manager"))) strcpy(ROLE(*l, idxUser), "Manager");
         else if (!(strcasecmp(role,"dokter"))) strcpy(ROLE(*l, idxUser), "Dokter");
+        if(id > l->maxID) l->maxID = id;
         idxUser++;
     }
 

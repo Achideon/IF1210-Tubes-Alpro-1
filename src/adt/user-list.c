@@ -118,7 +118,7 @@ void addNewUser(ListUser *l, char * username, char * password)
 
 int getIDByUsername(ListUser l, char * username)
 {
-    for(int i = 0; i < nEff(l); i++)
+    for(int i = 0; i <= nEff(l); i++)
     {
         if (!(strcmp(USERNAME(l,i), username))) return ID(l,i);
     }
@@ -142,7 +142,7 @@ char * getRoleByID(ListUser l, int currentID)
 }
 
 char * getRiwayatByID(ListUser l, int currentID)
-{
+{   
     int idx = userSearchByID(l,currentID);
     char* riwayat = malloc(100);
     strcpy(riwayat, PENYAKIT(l, idx));
@@ -156,7 +156,7 @@ boolean isUserLoggedIn(int currentID)
 
 boolean isValidUsername(ListUser l, char * username)
 {
-    for(int i = 0; i < nEff(l); i++)
+    for(int i = 0; i <= nEff(l); i++)
     {
         if (!(strcmp(USERNAME(l,i), username))) return true;
     }
@@ -172,7 +172,7 @@ boolean isValidPassword(ListUser l, char * password, int currentID)
 
 boolean isUniqueUser(ListUser l, char * username)
 {
-    for(int i = 0; i < nEff(l); i++)
+    for(int i = 0; i <= nEff(l); i++)
     {
         if (!(strcasecmp(USERNAME(l,i), username))) return false;
     }

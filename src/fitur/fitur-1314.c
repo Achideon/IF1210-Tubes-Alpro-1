@@ -46,7 +46,7 @@ void pulangDok(ListObat *Lobat,ListPenyakit *Listp,MapObatPenyakit *Map,ListPeru
         }   /*Pengisian ListValue obatPerut dari yang terbaru dimakan sampai yang terlama dimakan*/
         for (int i=obat.nEff-1;i>=0;i--){
             printf("%s", getNameByObatID(Lobat, obatPerut.contents[i]) );
-            if (i!=obat.nEff-1) printf(" -> ");
+            if (i!=0) printf(" -> ");
         }
         printf("Silahkan kunjungi dokter untuk meminta penawar yang sesuai !\n");
         return;

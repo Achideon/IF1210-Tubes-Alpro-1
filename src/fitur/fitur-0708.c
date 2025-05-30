@@ -42,7 +42,7 @@ void sortByID(ListUser *l, int sort){
         while(pass < nEff(*l) && tukar){
             tukar = false;
             for(int i = nEff(*l); i > pass; i--){
-                if(ID(*l, i) > ID(*l, i-1)){
+                if(ID(*l, i) < ID(*l, i-1)){
                     temp =  l->contents[i];
                     l->contents[i] = l->contents[i-1];
                     l->contents[i-1] = temp;
@@ -55,7 +55,7 @@ void sortByID(ListUser *l, int sort){
         while(pass < nEff(*l) && tukar){
             tukar = false;
             for(int i = nEff(*l); i > pass; i--){
-                if(ID(*l, i) < ID(*l, i-1)){
+                if(ID(*l, i) > ID(*l, i-1)){
                     temp =  l->contents[i];
                     l->contents[i] = l->contents[i-1];
                     l->contents[i-1] = temp;
@@ -138,9 +138,9 @@ void printUser(ListUser l, int i, int role){
     int digits = 0, n = 0;
     // print ID
     printf("%d", ID(l, i));
-    if(ID(l, i) < 10) n = 2;
-    else if(ID(l, i) >= 10 && ID(l, i) < 100) n = 1;
-    else n = 0;
+    if(ID(l, i) < 10) n = 3;
+    else if(ID(l, i) >= 10 && ID(l, i) < 100) n = 2;
+    else n = 1;
     printSpace(n);
     
     // print nama
@@ -162,7 +162,8 @@ void printUser(ListUser l, int i, int role){
         if(!strcmp(ROLE(l, i), "Dokter")){
             printf("-");
         }else if(!strcmp(ROLE(l, i), "Pasien")){
-            printf("%s", PENYAKIT(l, i));
+            if(strcmp(PENYAKIT(l,i), MARK_STR) == 0) printf("-");
+            else printf("%s", PENYAKIT(l, i));
         }
     }
     printf("\n");
@@ -217,7 +218,8 @@ void lihatUser(ListUser l, int role, int currentID){
             lSorted = sortByRole(l, role);
             sortByNama(&lSorted, pil1);
         }
-        printListUser(lSorted, role);
+        if(nEff(lSorted) == 0) printf("User tidak ditemukan");
+        else printListUser(lSorted, role);
     }else{
         printf("Fitur tidak tersedia, anda bukan Manager\n");
     }
@@ -231,6 +233,8 @@ void cariUser(ListUser l, int role, int currentID){
         ListUser lp;
     
         printf("Cari berdasarkan?\n");
+        printf("1. ID\n");
+        printf("2. Nama\n");
         if(role == 0){
             printf(">>Pilihan: ");
             scanf("%d", &pil1);
@@ -263,12 +267,16 @@ void cariUser(ListUser l, int role, int currentID){
             printf("ID  |  Nama            \n");
             printf("---------------------------\n");
         }else if(role == 1){
+            printf("3. Penyakit\n");
+            printf(">>Pilihan: ");
+            scanf("%d", &pil1);
+            printf("\n");
             if(pil1 == 1){
-                printf(">>Masukkan ID dokter: ");
+                printf(">>Masukkan ID pasien: ");
                 scanf("%d", &id);
                 index = userSearchByID(l, id);
             }else if (pil1 == 2){
-                printf(">>Masukkan nama dokter: ");
+                printf(">>Masukkan nama pasien: ");
                 scanf("%s", nama);
                 index = userSearchByName(l, nama);
             }else if (pil1 == 3){
@@ -285,9 +293,12 @@ void cariUser(ListUser l, int role, int currentID){
             printf("------------------------------------\n");
         }
         if(role == 1 && pil1 == 3){
-            printListUser(lp, role);
+            if(nEff(lp) == 0) printf("Tidak ada pasien dengan penyakit %s", penyakit);
+            else printListUser(lp, role);
         }else{
-            printUser(l, index, role);
+            if(index == MARK_INT && pil1 == 1) printf("User dengan ID %d tidak ditemukan", id);
+            else if(index == MARK_INT && pil1 == 2) printf("User dengan nama %s tidak ditemukan", nama);
+            else printUser(l, index, role);
         }
     }else{
         printf("Fitur tidak tersedia, anda bukan Manager\n");

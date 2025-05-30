@@ -67,10 +67,10 @@ void pulangDok(ListObat *Lobat,ListPenyakit *Listp,MapObatPenyakit *Map,ListPeru
             strcpy(L->contents[currentId].riwayatPenyakit, MARK_STR);
             int val;
             nextQueue(&pasienRuangan(M, currentId)->antriPasien,&val);
-            printf("Selamat! Kamu sudah dinyatakan sembuh oleh dokter. Silahkan pulang dan semoga sehat selalu!");
+            printf("Selamat! Kamu sudah dinyatakan sembuh oleh dokter. Silahkan pulang dan semoga sehat selalu!\n");
             return;
         }else{
-            printf("Sabar! Masih ada orang di depanmu.");
+            printf("Sabar! Masih ada orang di depanmu.\n");
             return;
         }
     }   
@@ -174,20 +174,20 @@ void checkUp(ListUser *L, Matrix *M, int currentId){
         while (!found){
             if (number == 1) printf("Pilih dokter (1): ");
             else printf("Pilih dokter (1-%d): ",number);
-            int max = number;
-            scanf("%d",&number);   
-            while (number < 1 || number > max){
+            int option;
+            scanf("%d",&option);   
+            while (option < 1 || option > number){
                 printf("Input kembali, pilih dokter yang tersedia : ");
-                scanf("%d",&number);  
+                scanf("%d",&option);  
             }
-            idtemp = arrayDokter[number-1];/*idtemp menjadi id dokter yang dipilih*/
+            idtemp = arrayDokter[option-1];/*idtemp menjadi id dokter yang dipilih*/
             /*Proses menambahkan pasien ke queue*/
             /*Loop untuk mencari indeks ruangan*/
             int antrian; /*Menunjukkan posisi antrian pasien setelah check-up*/
             for (int i=0;i<M->rows && !found;i++){
                 for (int j=0;j<M->cols;j++){
                     if(M->data[i][j].idDoktor==idtemp){
-                        if (queueLength(M->data[i][j].antriPasien)<M->data[i][j].kapasitasAntrian){ 
+                        if (queueLength(M->data[i][j].antriPasien)<(M->data[i][j].kapasitasAntrian+M->data[i][j].kapasitas)){ 
                             addQueue(&M->data[i][j].antriPasien, currentId);
                             antrian = getLast(M->data[i][j].antriPasien);
                             found = true;

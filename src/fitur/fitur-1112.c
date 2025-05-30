@@ -85,22 +85,27 @@ void ngobatin(Matrix m, MapObatPenyakit mOP, ListPenyakit p, ListInventory *inv,
         else{
             int idx = -1;
             for (int i = 0; i < (*inv).nEff; i++){
-                if ((*inv).contents[i].contents[0] == pasienID) idx = i;
+                if ((*inv).contents[i].contents[0] == pasienID){
+                    idx = i;
+                    break;
+                }
             }
             if (idx == -1){
                 int idx = (*inv).nEff;
+                (*inv).nEff++;
                 (*inv).contents[idx].contents[0] = pasienID; 
+                printf("Pasien memiliki penyakit %s\n",(*l).contents[pasienID].riwayatPenyakit);
+                printf("Obat yang harus diberikan:\n");
+                int penyakitID = getPenyakitIDByName(&p, (*l).contents[pasienID].riwayatPenyakit);
+                char (*obat)[MAX_NAME] = mapGetListObatName(&mOP, penyakitID);
+                ListValue listObat = mapGetListObatID(&mOP, penyakitID);
+                for (int i = 0; i < listObat.nEff; i++){
+                    insertInventory(l,pasienID, listObat.contents[i]);
+                    printf("%i. %s", i+1,obat[i]);
+                }
+                printf("\n");
             }
-            printf("Pasien memiliki penyakit %s\n",(*l).contents[pasienID].riwayatPenyakit);
-            printf("Obat yang harus diberikan:\n");
-            int penyakitID = getPenyakitIDByName(&p, (*l).contents[pasienID].riwayatPenyakit);
-            char (*obat)[MAX_NAME] = mapGetListObatName(&mOP, penyakitID);
-            ListValue listObat = mapGetListObatID(&mOP, penyakitID);
-            for (int i = 0; i < listObat.nEff; i++){
-                (*inv).contents[idx].contents[i+1] = listObat.contents[i];
-                printf("%i. %s", i+1,obat[i]);
-            }
-            printf("\n");
+            else printf("Pasien sudah diobati! Silakan imbau untuk minum obat!\n\n");
             return;
         }
 

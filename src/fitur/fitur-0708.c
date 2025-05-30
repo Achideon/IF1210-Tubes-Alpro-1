@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "fitur-0708.h"
 
-void sortbyNama(ListUser *l, int sort){
+void sortByNama(ListUser *l, int sort){
     User temp;
     int pass = 0;
     boolean tukar = true;
@@ -34,7 +34,7 @@ void sortbyNama(ListUser *l, int sort){
     }
 }
 
-void sortbyID(ListUser *l, int sort){
+void sortByID(ListUser *l, int sort){
     User temp;
     int pass = 0;
     boolean tukar = true;
@@ -67,7 +67,7 @@ void sortbyID(ListUser *l, int sort){
     }
 }
 
-ListUser lihatUserbyName(ListUser l1, int role, int sort){
+ListUser lihatUserByName(ListUser l1, int role, int sort){
     // role 0 = user, 1 = pasien, 2 = dokter
     ListUser l2;
     createListUser(&l2);
@@ -92,11 +92,11 @@ ListUser lihatUserbyName(ListUser l1, int role, int sort){
             }
         }
     }
-    sortbyNama(&l2, sort);
+    sortByNama(&l2, sort);
     return l2;
 }
 
-ListUser lihatUserbyID(ListUser l1, int role, int sort){
+ListUser lihatUserByID(ListUser l1, int role, int sort){
     // role 0 = user, 1 = pasien, 2 = dokter
     ListUser l2;
     createListUser(&l2);
@@ -121,7 +121,7 @@ ListUser lihatUserbyID(ListUser l1, int role, int sort){
             }
         }
     }
-    sortbyID(&l2,sort);
+    sortByID(&l2,sort);
     return l2;
 }
 
@@ -138,9 +138,9 @@ ListUser lihatUserByPenyakit(ListUser l1, int sortby, int sort, char* penyakit){
         }
     }
     if(sortby == 1){
-        sortbyID(&l2, sort);
+        sortByID(&l2, sort);
     }else if(sortby == 2){
-        sortbyNama(&l2, sort);
+        sortByNama(&l2, sort);
     }
     return l2;
 }
@@ -234,7 +234,7 @@ void lihatUser(ListUser l, int role, int currentID){
         }
         
         if(pil1 == 1){
-            lSorted = lihatUserbyID(l, role, pil2);
+            lSorted = lihatUserByID(l, role, pil2);
         }else if(pil1 == 2){
             lSorted = lihatUserbyName(l, role, pil2);
         }

@@ -16,7 +16,7 @@ void minumObat(ListInventory *inventory, ListPerut *perut, MapObatPenyakit *mapO
         return;
     }
 
-    int keyPenyakit = getPenyakitIDByName(&listpenyakit,getRiwayatByID(listuser,userID));
+    int keyPenyakit = getPenyakitIDByName(listpenyakit,getRiwayatByID(listuser,userID));
 
     printf("Daftar obat yang tersedia:\n");
     for (int i = 0; i < inventory[userID].nEff; i++) {
@@ -63,7 +63,7 @@ void minumPenawar(ListInventory *inventory, ListPerut *perut, MapObatPenyakit *m
         return;
     }
 
-    int keyPenyakit = getPenyakitIDByName(&listpenyakit,getRiwayatByID(listuser,userID));
+    int keyPenyakit = getPenyakitIDByName(listpenyakit,getRiwayatByID(listuser,userID));
     
     popObat(perut, userID, &salahObat);
     

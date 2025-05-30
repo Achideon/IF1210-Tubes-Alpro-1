@@ -4,6 +4,9 @@
 #include "fitur/fitur-021018.h"
 #include "fitur/fitur-060915.h"
 #include "fitur/fitur-0708.h"
+#include "fitur/fitur-1617.h"
+#include "fitur/fitur-1112.h"
+#include "fitur/fitur-1314.h"
 #include "adt/user-list.h"
 #include "adt/matrix-denah.h"
 #include "adt/queue.h"
@@ -93,6 +96,16 @@ int main(int argc, char *argv[]){
             diagnosis(M, lp, &l, currentID);
         }else if(strcmp(input, "NGOBATIN") == 0){
             ngobatin(M,mop,lp,&inv,&l,currentID);
+        }else if(strcmp(input, "PULANGDOK") == 0){
+            pulangDok(&lo, &lp, &lop, &lpe, &l, &M, &inv, currentID);
+        }else if(strcmp(input, "DAFTAR_CHECKUP") == 0){
+            checkUp(&l, &M, currentID);
+        }else if(strcmp(input, "ANTRIAN") == 0){
+            antrianSaya(M, l, currentID);
+        }else if(strcmp(input, "MINUM_OBAT") == 0){
+            minumObat(&inv, &lpe, &lop, currentID, &lp, l);
+        }else if(strcmp(input, "PENAWAR") == 0){
+            minumPenawar(&inv, &lpe, &lop, currentID, &lp, l);
         }else if(strcmp(input, "EXIT") == 0){
             ext(&status, l, M, inv, lpe);
         }else{

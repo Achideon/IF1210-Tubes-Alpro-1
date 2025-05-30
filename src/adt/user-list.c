@@ -165,7 +165,8 @@ boolean isValidUsername(ListUser l, char * username)
 
 boolean isValidPassword(ListUser l, char * password, int currentID)
 {
-    if (!(strcmp(PASSWORD(l,currentID), password))) return true;
+    int id = userSearchByID(l,currentID);
+    if (!(strcmp(PASSWORD(l,id), password))) return true;
     return false;
 }
 

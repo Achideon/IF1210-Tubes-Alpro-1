@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <strings.h>
+#include <ctype.h>
 #include "read-file.h"
 
 void parsing(char *input, char *format, int dataCount, ...){
@@ -45,7 +47,7 @@ void readFileUser(ListUser *l, char * path)
     FILE *file = fopen(path, "r");
 
     char line[MAX_LINE_LENGTH];
-    int idxUser = 1;
+    int idxUser = 0;
     
     // Pengecekan apakah file ada atau tidak
     if (!(file)) 
@@ -87,10 +89,10 @@ void readFileUser(ListUser *l, char * path)
         KOLESTEROL(*l, idxUser) = kolesterol;
         TROMBOSIT(*l, idxUser) = trombosit;
         nEff(*l) += 1;
+        if (!(strcasecmp(role,"pasien"))) strcpy(ROLE(*l, idxUser), "Pasien");
+        else if (!(strcasecmp(role,"manager"))) strcpy(ROLE(*l, idxUser), "Manager");
+        else if (!(strcasecmp(role,"dokter"))) strcpy(ROLE(*l, idxUser), "Dokter");
         idxUser++;
-        if (!(strcasecmp(role,"Pasien"))) strcpy(ROLE(*l, idxUser), "Pasien");
-        else if (!(strcasecmp(role,"Manager"))) strcpy(ROLE(*l, idxUser), "Manager");
-        else if (!(strcasecmp(role,"Dokter"))) strcpy(ROLE(*l, idxUser), "Dokter");
     } 
     
     else
@@ -113,7 +115,6 @@ void readFileUser(ListUser *l, char * path)
         strcpy(USERNAME(*l, idxUser), username);
         strcpy(PENYAKIT(*l, idxUser), riwayatPenyakit);
         strcpy(PASSWORD(*l, idxUser), password);
-        strcpy(ROLE(*l, idxUser), role);
         SUHU(*l, idxUser) = suhu;
         TSISTOLIK(*l, idxUser) = sistolik;
         DSISTOLIK(*l, idxUser) = diastolik;
@@ -126,6 +127,9 @@ void readFileUser(ListUser *l, char * path)
         TROMBOSIT(*l, idxUser) = trombosit;
         nEff(*l) += 1;
         idxUser++;
+        if (!(strcasecmp(role,"pasien"))) strcpy(ROLE(*l, idxUser), "Pasien");
+        else if (!(strcasecmp(role,"manager"))) strcpy(ROLE(*l, idxUser), "Manager");
+        else if (!(strcasecmp(role,"dokter"))) strcpy(ROLE(*l, idxUser), "Dokter");
     }
 
     fclose(file);

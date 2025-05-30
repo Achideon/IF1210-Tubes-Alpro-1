@@ -100,7 +100,7 @@ void ngobatin(Matrix m, MapObatPenyakit mOP, ListPenyakit p, ListInventory *inv,
                 char (*obat)[MAX_NAME] = mapGetListObatName(&mOP, penyakitID);
                 ListValue listObat = mapGetListObatID(&mOP, penyakitID);
                 for (int i = 0; i < listObat.nEff; i++){
-                    insertInventory(l,pasienID, listObat.contents[i]);
+                    insertInventory(inv,pasienID, listObat.contents[i]);
                     printf("%i. %s", i+1,obat[i]);
                 }
                 printf("\n");

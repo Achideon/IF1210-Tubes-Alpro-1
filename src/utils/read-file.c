@@ -76,8 +76,9 @@ void readFileUser(ListUser *l, char * path)
         parsing(line, "issssfiiififiiii", 15, &id, username, password, role, riwayatPenyakit, &suhu, &sistolik, &diastolik, &detak, &oksigen, &kadarGula, &berat, &tinggi, &kolesterol, &trombosit);
         ID(*l, idxUser) = id;
         strcpy(USERNAME(*l, idxUser), username);
-        strcpy(PENYAKIT(*l, idxUser), riwayatPenyakit);
         strcpy(PASSWORD(*l, idxUser), password);
+        if(strlen(riwayatPenyakit) == 0 || !(strcmp(riwayatPenyakit,"KOSONG"))) strcpy(PENYAKIT(*l, idxUser), "KOSONG");
+        else strcpy(PENYAKIT(*l, idxUser), riwayatPenyakit);
         SUHU(*l, idxUser) = suhu;
         TSISTOLIK(*l, idxUser) = sistolik;
         DSISTOLIK(*l, idxUser) = diastolik;
@@ -113,8 +114,9 @@ void readFileUser(ListUser *l, char * path)
         parsing(line, "issssfiiififiiii", 15, &id, username, password, role, riwayatPenyakit, &suhu, &sistolik, &diastolik, &detak, &oksigen, &kadarGula, &berat, &tinggi, &kolesterol, &trombosit);
         ID(*l, idxUser) = id;
         strcpy(USERNAME(*l, idxUser), username);
-        strcpy(PENYAKIT(*l, idxUser), riwayatPenyakit);
         strcpy(PASSWORD(*l, idxUser), password);
+        if(strlen(riwayatPenyakit) == 0 || !(strcmp(riwayatPenyakit,"KOSONG"))) strcpy(PENYAKIT(*l, idxUser), "KOSONG");
+        else strcpy(PENYAKIT(*l, idxUser), riwayatPenyakit);
         SUHU(*l, idxUser) = suhu;
         TSISTOLIK(*l, idxUser) = sistolik;
         DSISTOLIK(*l, idxUser) = diastolik;

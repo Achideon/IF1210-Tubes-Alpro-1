@@ -71,6 +71,7 @@ void insertInventory(ListInventory *l, int userID, int obatID){
             (*l).contents[now].nEff = 0;
         }
         int id = (*l).contents[now].nEff + 1;
+        (*l).contents[now].nEff++;
         (*l).contents[now].contents[id] = obatID;
     }
 }

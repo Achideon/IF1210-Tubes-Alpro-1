@@ -75,11 +75,11 @@ void ngobatin(Matrix m, MapObatPenyakit mOP, ListPenyakit p, ListInventory *inv,
         }
         int pasienID = getFirst(m.data[rowNow][colNow].antriPasien);
         if (!(strcmp(getRiwayatByID(*l, pasienID),"KOSONG"))){
-            printf("Pasien %s tidak memiliki penyakit!\n Pasien belum di diagnosis!\n", getUsernameByID(*l,pasienID));
+            printf("Pasien %s tidak memiliki penyakit!\nPasien belum di diagnosis!\n", getUsernameByID(*l,pasienID));
             return;
         }
         else if (!strcmp(getRiwayatByID(*l, pasienID), SEHAT)){
-            printf("%s tidak terdiagnosis penyakit apapun!\n Pasien sehat!\n", getUsernameByID(*l,pasienID));
+            printf("%s tidak terdiagnosis penyakit apapun!\nPasien sehat!\n", getUsernameByID(*l,pasienID));
             return;
         }
         else{

@@ -76,7 +76,6 @@ void readFileUser(ListUser *l, char * path)
         strcpy(USERNAME(*l, idxUser), username);
         strcpy(PENYAKIT(*l, idxUser), riwayatPenyakit);
         strcpy(PASSWORD(*l, idxUser), password);
-        strcpy(ROLE(*l, idxUser), role);
         SUHU(*l, idxUser) = suhu;
         TSISTOLIK(*l, idxUser) = sistolik;
         DSISTOLIK(*l, idxUser) = diastolik;
@@ -89,6 +88,10 @@ void readFileUser(ListUser *l, char * path)
         TROMBOSIT(*l, idxUser) = trombosit;
         nEff(*l) += 1;
         idxUser++;
+        strcpy(ROLE(*l, idxUser), role);
+        if (!(strcasecmp(role,"Pasien"))) strcpy(ROLE(*l, idxUser), "Pasien");
+        else if (!(strcasecmp(role,"Manager"))) strcpy(ROLE(*l, idxUser), "Manager");
+        else if (!(strcasecmp(role,"Dokter"))) strcpy(ROLE(*l, idxUser), "Dokter");
     } 
     
     else

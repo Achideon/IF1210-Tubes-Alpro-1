@@ -8,11 +8,9 @@ void sortByNama(ListUser *l, int sort);
 
 void sortByID(ListUser *l, int sort);
 
-ListUser lihatUserByName(ListUser l1, int role, int sort);
+ListUser sortByRole(ListUser l1, int role);
 
-ListUser lihatUserByID(ListUser l1, int role, int sort);
-
-ListUser lihatUserByPenyakit(ListUser l1, int sortby, int sort, char* penyakit);
+ListUser sortByPenyakit(ListUser l1, int sortby, int sort, char* penyakit);
 
 void printSpace(int n);
 

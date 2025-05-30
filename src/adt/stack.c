@@ -46,7 +46,13 @@ void addUserPerut(ListPerut *l, int userID){
 }
 
 void pushObat(ListPerut *l, int userID, int obatID) {
-    for (int i = 0; i < MAX_USERS; i++) {
+    if(l->nEff == 0){
+        (*l).contents[0].contents[0] = userID;
+        (*l).contents[0].contents[1] = obatID;
+        (*l).contents[0].top = 1;
+        (*l).nEff++;
+    }
+    for (int i = 0; i < l->nEff; i++) {
         if ((*l).contents[i].contents[0] == userID) {
             if ((*l).contents[i].top == STACK_CAPACITY - 1) { //perut penuh
                 return;
@@ -55,10 +61,11 @@ void pushObat(ListPerut *l, int userID, int obatID) {
             (*l).contents[i].contents[(*l).contents[i].top] = obatID; //memasukkan obat ke index paling atas    
             return;
         }
-        if ((*l).contents[i].contents[0] == MARK_OBAT) {
-            (*l).nEff++;  
-        }
     }
+    (*l).contents[(*l).nEff].contents[0] = userID;
+    (*l).contents[(*l).nEff].contents[1] = obatID;
+    (*l).contents[(*l).nEff].top = 1;
+    (*l).nEff++;
 }
 
 void popObat(ListPerut *l, int userID, int *outObatID) {

@@ -6,21 +6,29 @@ void minumObat(ListInventory *inventory, ListPerut *perut, MapObatPenyakit *mapO
     int obatID;
     char namaObat[MAX_NAME];
 
+    int idxUser;
+    for (int i=0; i<(*inventory).nEff; i++){
+        if((*inventory).contents[i].contents[0] == userID){
+            idxUser = i;
+        }
+    }
+
     if (strcmp(getRoleByID(listuser,userID),"Pasien")){
         printf("Anda bukan Pasien!\n");
         return;
     }
 
-    if (isListInventoryEmpty(inventory[userID])) {
-        printf("Obat belum tersedia!\n");
+    if (isInventoryEmpty(*inventory, userID)) {
+        printf("Tidak ada obat untuk diminum!\n");
         return;
     }
 
     int keyPenyakit = getPenyakitIDByName(listpenyakit,getRiwayatByID(listuser,userID));
 
     printf("Daftar obat yang tersedia:\n");
-    for (int i = 0; i < inventory[userID].nEff; i++) {
-        strcpy(namaObat, mapObatNameByID(mapObat, keyPenyakit, (*inventory).contents[userID].contents[i]));
+    for (int i = 1; i <= inventory->contents[idxUser].nEff; i++) {
+        strcpy(namaObat, mapObatNameByID(mapObat, keyPenyakit, (*inventory).contents[idxUser].contents[i]));
+        namaObat[strlen(namaObat) - 1] = 0;
         printf("%d. %s\n", i, namaObat);
     }
 
@@ -28,22 +36,22 @@ void minumObat(ListInventory *inventory, ListPerut *perut, MapObatPenyakit *mapO
         printf(">>> Pilih nomor obat yang akan diminum: ");
         scanf("%d", &choice);
 
-        if (choice < 1 || choice > inventory[userID].nEff) {
+        if (choice < 1 || choice > inventory->contents[idxUser].nEff) {
             printf("Tidak ada obat dengan nomor tersebut\n");
         }
         else {
-            obatID = inventory->contents[userID].contents[choice-1];
+            obatID = inventory->contents[idxUser].contents[choice];
             break;
         }
     }
 
     if (!isUserPerutFull(perut, userID)) {
         pushObat(perut, userID, obatID);
-
-        strcpy(namaObat, mapObatNameByID(mapObat, obatID, obatID));
+        strcpy(namaObat, mapObatNameByID(mapObat, keyPenyakit, obatID));
+        namaObat[strlen(namaObat) - 1] = 0;
         printf("GLEKGLEKGLEK... %s berhasil diminum!!!\n", namaObat);
-        
-        useInventory(inventory, userID, obatID, &obatID);
+        int val;
+        useInventory(inventory, userID, obatID, &val);
     } else {
         printf("Perut sudah penuh! Tidak bisa minum obat lagi.\n");
     }
@@ -68,6 +76,7 @@ void minumPenawar(ListInventory *inventory, ListPerut *perut, MapObatPenyakit *m
     popObat(perut, userID, &salahObat);
     
     strcpy(namaObat, mapObatNameByID(mapObat, keyPenyakit, salahObat));
+    namaObat[strlen(namaObat) - 1] = 0;
     insertInventory(inventory, userID, salahObat);
     printf("Uwekkk!!! obat %s keluar dan kembali ke inventory\n", namaObat);
 }

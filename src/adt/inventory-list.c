@@ -29,6 +29,14 @@ boolean isListInventoryFull(ListInventory l){
     return ((l).nEff == MAX_USERS - 1);
 }
 
+boolean isInventoryEmpty(ListInventory l, int userID){
+    for (int i=0; i<l.nEff; i++){
+        if(l.contents[i].contents[0] == userID){
+            return l.contents[i].nEff == 0;
+        }
+    }
+}
+
 void useInventory(ListInventory *l, int userID, int obatID, int *outObatID){
     int idxUser;
     for (int i=0; i<(*l).nEff; i++){
@@ -37,7 +45,7 @@ void useInventory(ListInventory *l, int userID, int obatID, int *outObatID){
         }
     }
 
-    for (int i=0; i<(*l).contents[idxUser].nEff; i++)
+    for (int i = 1; i <= (*l).contents[idxUser].nEff; i++)
     {
         if ((*l).contents[idxUser].contents[i]==obatID) 
         {

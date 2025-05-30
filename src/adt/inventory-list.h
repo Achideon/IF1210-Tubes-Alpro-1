@@ -46,6 +46,10 @@ boolean isListInventoryEmpty(ListInventory l);
 boolean isListInventoryFull(ListInventory l);
 // Mengecek apakah list penuh
 
+/* *** Inventory kosong *** */
+boolean isInventoryEmpty(ListInventory l, int userID);
+// Mengecek apakah inventory user kosong
+
 void useInventory(ListInventory *l, int userID, int obatID, int *outObatID);
 // Menggunakan obat dengan urutan tertentu
 

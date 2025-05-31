@@ -80,7 +80,10 @@ void checkUp(ListUser *L, Matrix *M, int currentId){
     if (strcmp(getRoleByID(*L, currentId),"Pasien")!=0) return;    
     if ((strcmp(getRoleByID(*L,currentId), "Pasien") == 0) && (!cekPasienQueue(M,currentId))){  
         /*Syaratnya adalah ketika pasien dengan id "currentId" belum terdaftar di antrian apa pun (Dengan arti lain adalah dia tidak berada di matrix denah juga.)*/
-        int idx=currentId;    /*indeks diakses berdasarkan id*/
+        int idx;
+        for(int i = 0; i < L->nEff; i++){
+            if(L->contents[i].id == currentId) idx = i;
+        }
         printf("Silahkan masukkan data check-up Anda: \n");
 
         printf("Suhu Tubuh (Celcius): ");

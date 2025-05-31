@@ -54,7 +54,7 @@ int main(int argc, char *argv[]){
     }
 
 /* ----------- PROGRAM UTAMA -----------*/
-    sortByID(&l,2);
+    sortByID(&l,1);
     if(status) printf("Selamat datang di sistem informasi rumah sakit!\n");
     while(status){
         printf(">>>>");

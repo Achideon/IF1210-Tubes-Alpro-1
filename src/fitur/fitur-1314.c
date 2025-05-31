@@ -203,11 +203,17 @@ void checkUp(ListUser *L, Matrix *M, int currentId){
         int number=1,idtemp;    /*number berfungsi untuk penomoran dan idtemp berfungsi untuk penomoran id dokter agar lebih mudah*/
         int row = M->rows, col = M->cols;
         int arrayDokter[row*col];   /*Menyimpan id dokter yang tersedia*/
+        int antri; /*Menyimpan jumlah antrian sementara*/
         for (int i=0;i<M->rows;i++){
             for (int j=0;j<M->cols;j++){
                 idtemp = M->data[i][j].idDoktor;
                 if(idtemp!=MARK_INT){
-                    printf("%d. Dr. %s - Ruangan %s (Antrian: %d orang)\n",number,getUsernameByID(*L,idtemp),getRoomByDoctor(*M,idtemp), queueLength(M->data[i][j].antriPasien));
+                    if (queueLength(M->data[i][j].antriPasien) <= M->data[i][j].kapasitas) {
+                        antri = 0;
+                    }else {
+                        antri= (queueLength(M->data[i][j].antriPasien) - M->data[i][j].kapasitas);
+                    }
+                    printf("%d. Dr. %s - Ruangan %s (Antrian: %d orang)\n",number,getUsernameByID(*L,idtemp),getRoomByDoctor(*M,idtemp), antri);
                     arrayDokter[number-1] = M->data[i][j].idDoktor;
                     number += 1;
                 }
@@ -233,7 +239,11 @@ void checkUp(ListUser *L, Matrix *M, int currentId){
                         if (queueLength(M->data[i][j].antriPasien)<(M->data[i][j].kapasitasAntrian+M->data[i][j].kapasitas)){ 
                             if (queueLength(M->data[i][j].antriPasien)==0) createQueue(&M->data[i][j].antriPasien);
                             addQueue(&M->data[i][j].antriPasien, currentId);
-                            antrian = queueLength(M->data[i][j].antriPasien);
+                            if (queueLength(M->data[i][j].antriPasien) <= M->data[i][j].kapasitas) {
+                                antrian = queueLength(M->data[i][j].antriPasien);
+                            }else{
+                                antrian =(queueLength(M->data[i][j].antriPasien) - M->data[i][j].kapasitas);
+                            }
                             found = true;
                             break;  
                         }

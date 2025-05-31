@@ -99,7 +99,7 @@ int main(int argc, char *argv[]){
         }else if(strcmp(input, "NGOBATIN") == 0){
             ngobatin(M,mop,lp,&inv,&l,currentID);
         }else if(strcmp(input, "PULANGDOK") == 0){
-            pulangDok(&lo, &lp, &lop, &lpe, &l, &M, &inv, currentID);
+            pulangDok(&lo, &lp, &mop, &lpe, &l, &M, &inv, currentID);
         }else if(strcmp(input, "DAFTAR_CHECKUP") == 0){
             checkUp(&l, &M, currentID);
         }else if(strcmp(input, "ANTRIAN") == 0){

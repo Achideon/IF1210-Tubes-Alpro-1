@@ -24,7 +24,7 @@ void pulangDok(ListObat *Lobat,ListPenyakit *Listp,MapObatPenyakit *Map,ListPeru
         printf("Dokter sedang memeriksa keadaanmu...\n");
         printf("Masih ada obat yang belum kamu habiskan, minum semuanya dulu yukk!\n");
         return;
-    }else if (!urutanBenar(*Perut,*Listp, *Map, getRiwayatByID(*L, currentId), currentId)){ /*Obat salah susunan*/
+    }else if (!urutanBenar(*Perut,*Listp, *Map, PENYAKIT(*L, userSearchByID(*L, currentId)), currentId)){ /*Obat salah susunan*/
         printf("Dokter sedang memeriksa keadaanmu... \n");
         printf("Maaf, tapi kamu masih belum bisa pulang!\n");
         printf("Urutan peminuman obat yang diharapkan: \n");
@@ -192,7 +192,7 @@ void checkUp(ListUser *L, Matrix *M, int currentId){
                     if(M->data[i][j].idDoktor==idtemp){
                         if (queueLength(M->data[i][j].antriPasien)<(M->data[i][j].kapasitasAntrian+M->data[i][j].kapasitas)){ 
                             addQueue(&M->data[i][j].antriPasien, currentId);
-                            antrian = getLast(M->data[i][j].antriPasien);
+                            antrian = queueLength(M->data[i][j].antriPasien);
                             found = true;
                             break;
                         }

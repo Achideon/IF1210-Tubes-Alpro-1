@@ -16,6 +16,7 @@ boolean urutanBenar (ListPerut L1, ListPenyakit L2, MapObatPenyakit M, char * pe
 }
 
 void pulangDok(ListObat *Lobat,ListPenyakit *Listp,MapObatPenyakit *Map,ListPerut *Perut,ListUser *L, Matrix *M, ListInventory *I, int currentId){
+    int idx;
     if (strcmp(getRoleByID(*L, currentId),"Pasien")!=0) return;
     if (strcmp(getRiwayatByID(*L,currentId),MARK_STR) == 0){/*Belum didiagnosis*/
         printf("Anda masih belum didiagnosis!\n");
@@ -25,6 +26,13 @@ void pulangDok(ListObat *Lobat,ListPenyakit *Listp,MapObatPenyakit *Map,ListPeru
         printf("Masih ada obat yang belum kamu habiskan, minum semuanya dulu yukk!\n");
         return;
     }else if (!urutanBenar(*Perut,*Listp, *Map, PENYAKIT(*L, userSearchByID(*L, currentId)), currentId)){ /*Obat salah susunan*/
+        /*Mencari indeks, tempat currentId berada*/
+        for (int k=0;k<Perut->nEff;k++){
+            if (Perut->contents[k].contents[0] == currentId) {
+                idx = k;
+                break;
+            }
+        }
         printf("Dokter sedang memeriksa keadaanmu... \n");
         printf("Maaf, tapi kamu masih belum bisa pulang!\n");
         printf("Urutan peminuman obat yang diharapkan: \n");
@@ -41,7 +49,7 @@ void pulangDok(ListObat *Lobat,ListPenyakit *Listp,MapObatPenyakit *Map,ListPeru
         ListPerut dummyPerut = *Perut;
         ListValue obatPerut;
         for (int i=0;i<obat.nEff;i++){
-            obatPerut.contents[i] = dummyPerut.contents[currentId].contents[dummyPerut.contents[currentId].top];
+            obatPerut.contents[i] = dummyPerut.contents[idx].contents[dummyPerut.contents[idx].top];
             int obatOut;
             popObat(&dummyPerut, currentId, &obatOut);
         }   /*Pengisian ListValue obatPerut dari yang terbaru dimakan sampai yang terlama dimakan*/
@@ -52,19 +60,26 @@ void pulangDok(ListObat *Lobat,ListPenyakit *Listp,MapObatPenyakit *Map,ListPeru
         printf("Silahkan kunjungi dokter untuk meminta penawar yang sesuai !\n");
         return;
     }else { 
+        /*Mencari indeks tempat ID berada*/
+        for (int i=0;i<=L->nEff;i++){
+            if (L->contents[i].id==currentId) {
+                idx = i;
+                break;
+            }
+        }
         printf("Dokter sedang memeriksa keadaanmu... \n");
         if ((getFirst(pasienRuangan(M, currentId)->antriPasien)) == currentId){
-            L->contents[currentId].suhuTubuh          = MARK_F;
-            L->contents[currentId].tekananSistolik    = MARK_INT;
-            L->contents[currentId].tekananDiastolik   = MARK_INT;
-            L->contents[currentId].detakJantung       = MARK_INT;
-            L->contents[currentId].saturasiOksigen    = MARK_F;
-            L->contents[currentId].kadarGulaDarah     = MARK_INT;
-            L->contents[currentId].beratBadan         = MARK_F;
-            L->contents[currentId].tinggiBadan        = MARK_INT;
-            L->contents[currentId].kadarKolesterol    = MARK_INT;
-            L->contents[currentId].trombosit          = MARK_INT;
-            strcpy(L->contents[currentId].riwayatPenyakit, MARK_STR);
+            L->contents[idx].suhuTubuh          = MARK_F;
+            L->contents[idx].tekananSistolik    = MARK_INT;
+            L->contents[idx].tekananDiastolik   = MARK_INT;
+            L->contents[idx].detakJantung       = MARK_INT;
+            L->contents[idx].saturasiOksigen    = MARK_F;
+            L->contents[idx].kadarGulaDarah     = MARK_INT;
+            L->contents[idx].beratBadan         = MARK_F;
+            L->contents[idx].tinggiBadan        = MARK_INT;
+            L->contents[idx].kadarKolesterol    = MARK_INT;
+            L->contents[idx].trombosit          = MARK_INT;
+            strcpy(L->contents[idx].riwayatPenyakit, MARK_STR);
             int val;
             nextQueue(&pasienRuangan(M, currentId)->antriPasien,&val);
             printf("Selamat! Kamu sudah dinyatakan sembuh oleh dokter. Silahkan pulang dan semoga sehat selalu!\n");
@@ -81,8 +96,11 @@ void checkUp(ListUser *L, Matrix *M, int currentId){
     if ((strcmp(getRoleByID(*L,currentId), "Pasien") == 0) && (!cekPasienQueue(M,currentId))){  
         /*Syaratnya adalah ketika pasien dengan id "currentId" belum terdaftar di antrian apa pun (Dengan arti lain adalah dia tidak berada di matrix denah juga.)*/
         int idx;
-        for(int i = 0; i < L->nEff; i++){
-            if(L->contents[i].id == currentId) idx = i;
+        for(int i = 0; i <= L->nEff; i++){
+            if(L->contents[i].id == currentId) {
+                idx = i;
+                break;
+            }
         }
         printf("Silahkan masukkan data check-up Anda: \n");
 
@@ -176,7 +194,7 @@ void checkUp(ListUser *L, Matrix *M, int currentId){
         boolean found = false;
         while (!found){
             if (number == 1) printf("Pilih dokter (1): ");
-            else printf("Pilih dokter (1-%d): ",number);
+            else printf("Pilih dokter (1-%d): ",number-1);
             int option;
             scanf("%d",&option);   
             while (option < 1 || option > number){
@@ -191,10 +209,11 @@ void checkUp(ListUser *L, Matrix *M, int currentId){
                 for (int j=0;j<M->cols;j++){
                     if(M->data[i][j].idDoktor==idtemp){
                         if (queueLength(M->data[i][j].antriPasien)<(M->data[i][j].kapasitasAntrian+M->data[i][j].kapasitas)){ 
+                            if (queueLength(M->data[i][j].antriPasien)==0) createQueue(&M->data[i][j].antriPasien);
                             addQueue(&M->data[i][j].antriPasien, currentId);
                             antrian = queueLength(M->data[i][j].antriPasien);
                             found = true;
-                            break;
+                            break;  
                         }
                     }
                 }

@@ -4,11 +4,17 @@ boolean urutanBenar (ListPerut L1, ListPenyakit L2, MapObatPenyakit M, char * pe
     ListValue obat = mapGetListObatID(&M, getPenyakitIDByName(&L2, penyakit));
     ListPerut dummyPerut = L1;
     int idxobat = obat.nEff-1;
-    while(dummyPerut.contents[currentId].top != IDX_UNDEF){
-        if (obat.contents[idxobat] != dummyPerut.contents[currentId].contents[dummyPerut.contents[currentId].top]){
+    int idx;
+    for (int k=0;k<dummyPerut.nEff;k++){
+        if (dummyPerut.contents[k].contents[0] == currentId) {
+            idx = k;
+            break;
+        }
+    }
+    for(idxobat=obat.nEff-1; idxobat>=0; idxobat--){
+        if (obat.contents[idxobat] != dummyPerut.contents[idx].contents[dummyPerut.contents[idx].top]){
             return false;
         }
-        idxobat -= 1;
         int obatOut;
         popObat(&dummyPerut, currentId, &obatOut);
     }
@@ -47,6 +53,7 @@ void pulangDok(ListObat *Lobat,ListPenyakit *Listp,MapObatPenyakit *Map,ListPeru
         /*Buat salinan ListPerut *Perut supaya tidak mengubah-ubah isi Perut. Lalu, ada ListValue obatPerut memuat obat-obat yang ada di perut dengan pengurutan sesuai indeks.*/
         printf("Urutan obat yang kamu minum\n");
         ListPerut dummyPerut = *Perut;
+        dummyPerut.nEff = Perut->nEff;
         ListValue obatPerut;
         for (int i=0;i<obat.nEff;i++){
             obatPerut.contents[i] = dummyPerut.contents[idx].contents[dummyPerut.contents[idx].top];

@@ -91,7 +91,7 @@ void addNewUser(ListUser *l, char * username, char * password)
 {
     if (!(isListUserFull(*l)))
     {
-        int lastIdx = nEff(*l) + 1;
+        int lastIdx = nEff(*l);
         ID(*l, lastIdx) = (*l).maxID + 1;
         strcpy(USERNAME(*l, lastIdx), username);
         strcpy(PENYAKIT(*l, lastIdx), MARK_STR);
@@ -118,7 +118,7 @@ void addNewUser(ListUser *l, char * username, char * password)
 
 int getIDByUsername(ListUser l, char * username)
 {
-    for(int i = 0; i <= nEff(l); i++)
+    for(int i = 0; i < nEff(l); i++)
     {
         if (!(strcmp(USERNAME(l,i), username))) return ID(l,i);
     }
@@ -156,7 +156,7 @@ boolean isUserLoggedIn(int currentID)
 
 boolean isValidUsername(ListUser l, char * username)
 {
-    for(int i = 0; i <= nEff(l); i++)
+    for(int i = 0; i < nEff(l); i++)
     {
         if (!(strcmp(USERNAME(l,i), username))) return true;
     }
@@ -172,7 +172,7 @@ boolean isValidPassword(ListUser l, char * password, int currentID)
 
 boolean isUniqueUser(ListUser l, char * username)
 {
-    for(int i = 0; i <= nEff(l); i++)
+    for(int i = 0; i < nEff(l); i++)
     {
         if (!(strcasecmp(USERNAME(l,i), username))) return false;
     }
@@ -201,7 +201,7 @@ int userSearchByID(ListUser l, int x){
 }
 
 int userSearchByName(ListUser l, char *x){
-    for(int i = 0; i <= l.nEff; i++){
+    for(int i = 0; i < l.nEff; i++){
         if(!strcasecmp(l.contents[i].username, x)){
             return i;
         }

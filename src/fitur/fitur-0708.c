@@ -41,7 +41,7 @@ void sortByID(ListUser *l, int sort){
     if(sort == 1){
         while(pass < nEff(*l) && tukar){
             tukar = false;
-            for(int i = nEff(*l); i > pass; i--){
+            for(int i = nEff(*l) - 1; i > pass; i--){
                 if(ID(*l, i) < ID(*l, i-1)){
                     temp =  l->contents[i];
                     l->contents[i] = l->contents[i-1];
@@ -54,7 +54,7 @@ void sortByID(ListUser *l, int sort){
     }else if(sort == 2){
         while(pass < nEff(*l) && tukar){
             tukar = false;
-            for(int i = nEff(*l); i > pass; i--){
+            for(int i = nEff(*l) - 1; i > pass; i--){
                 if(ID(*l, i) > ID(*l, i-1)){
                     temp =  l->contents[i];
                     l->contents[i] = l->contents[i-1];

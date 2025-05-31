@@ -135,7 +135,6 @@ void readFileUser(ListUser *l, char * path)
         if(id > l->maxID) l->maxID = id;
         idxUser++;
     }
-
     fclose(file);
     return;
 }
@@ -418,7 +417,7 @@ void readConfig(Matrix *M, ListInventory *Li, ListPerut *Lp, char * path){
             createQueue(&M->data[i][j].antriPasien);
             while(k < capacityDalam + capacityLuar && chr == ' '){
                 readDigits(config, &number, &chr);
-                addQueue(&M->data[i][j].antriPasien, number);
+                if(number != 0) addQueue(&M->data[i][j].antriPasien, number);
                 k++;
             }
         }

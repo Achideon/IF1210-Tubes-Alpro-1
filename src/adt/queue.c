@@ -7,7 +7,6 @@ void createQueue(Queue *Q){
 
 int queueLength (Queue Q){
     if(isLinkedListEmpty(Q.head)) return 0;
-    else if(Q.head->info == 0) return 0;
     int k = 0;
     Address temp = Q.head;
     while(temp != Q.tail){

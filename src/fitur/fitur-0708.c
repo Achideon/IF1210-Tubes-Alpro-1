@@ -152,7 +152,7 @@ void printUser(ListUser l, int i, int role){
 
     // print Role untuk LIHAT_USER
     if(role == 0){
-        printf("| ");
+        printf("|  ");
         printf("%s  ", ROLE(l, i));
     }
 
@@ -171,7 +171,9 @@ void printUser(ListUser l, int i, int role){
 
 void lihatUser(ListUser l, int role, int currentID){
     // role 0 = user, 1 = pasien, 2 = dokter
-    if(!strcmp(getRoleByID(l, currentID), "Manager")){
+    if (currentID == -1){ 
+        printf("Anda belum login! Silakan login terlebih dahulu!\n");
+    }else if(!strcmp(getRoleByID(l, currentID), "Manager")){
         int pil1, pil2;
         ListUser lSorted;
         printf("Urutkan berdasarkan?\n");
@@ -202,13 +204,13 @@ void lihatUser(ListUser l, int role, int currentID){
         }
         if(role == 0){
             printf("ID  |  Nama            |  Role    |  Penyakit \n");
-            printf("---------------------------------------\n");
+            printf("===============================================\n");
         }else if(role == 1){
             printf("ID  |  Nama            |  Penyakit \n");
-            printf("------------------------------------\n");
+            printf("====================================\n");
         }else if(role == 2){
             printf("ID  |  Nama            \n");
-            printf("---------------------------\n");
+            printf("==========================\n");
         }
         
         if(pil1 == 1){
@@ -226,7 +228,9 @@ void lihatUser(ListUser l, int role, int currentID){
 }
 
 void cariUser(ListUser l, int role, int currentID){
-    if(!strcmp(getRoleByID(l, currentID), "Manager")){
+    if (currentID == -1){ 
+        printf("Anda belum login! Silakan login terlebih dahulu!\n");
+    }else if(!strcmp(getRoleByID(l, currentID), "Manager")){
         int pil1, pil2, id, index;
         char nama[MAX_USERNAME_LENGTH];
         char penyakit[200];
@@ -249,7 +253,7 @@ void cariUser(ListUser l, int role, int currentID){
                 index = userSearchByName(l, nama);
             }
             printf("ID  |  Nama            |  Role    |  Penyakit \n");
-            printf("---------------------------------------\n");
+            printf("===============================================\n");
             
         }else if(role == 2){
             printf(">>Pilihan: ");
@@ -265,7 +269,7 @@ void cariUser(ListUser l, int role, int currentID){
                 index = userSearchByName(l, nama);
             }
             printf("ID  |  Nama            \n");
-            printf("---------------------------\n");
+            printf("=========================\n");
         }else if(role == 1){
             printf("3. Penyakit\n");
             printf(">>Pilihan: ");
@@ -290,7 +294,7 @@ void cariUser(ListUser l, int role, int currentID){
                 lp = sortByPenyakit(l, pil1, pil2, penyakit);
             }
             printf("ID  |  Nama            |  Penyakit \n");
-            printf("------------------------------------\n");
+            printf("====================================\n");
         }
         if(role == 1 && pil1 == 3){
             if(nEff(lp) == 0) printf("Tidak ada pasien dengan penyakit %s", penyakit);

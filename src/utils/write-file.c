@@ -65,7 +65,7 @@ void writeFileConfig(Matrix *M, ListInventory *Li, ListPerut *Lp, char* filepath
                         temp = temp->next;
                     } fprintf(file, " %d", temp->info);
                 } else {
-                    fprintf(file, "0");
+                    fprintf(file, " 0");
                 }
                 fprintf(file, "\n");
             }

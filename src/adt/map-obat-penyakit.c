@@ -19,10 +19,10 @@ void createMapObatPenyakit (ListObat l1, ListObatPenyakit l2, MapObatPenyakit *m
         
         // Apabila tidak ada (bernilai -1), maka program akan mencari penyakitID yang sesuai
         if (idx == -1) {
-            m->length++;
             idx = m->length;
             m->contents[idx].keyPenyakit = penyakitID;
             m->contents[idx].valueListID.nEff = 0;
+            m->length++;
         }
         
         // Append atau tambahkan obat ke list
@@ -59,7 +59,7 @@ char * mapObatNameByID(MapObatPenyakit *m, int keyPenyakit, int obatID){
     for (int i = 0; i < m->length; i++) {
         if (m->contents[i].keyPenyakit == keyPenyakit) {
             for(int j = 0; j < 20; j++){
-                if(m->contents[i].valueListID.contents[j] = obatID) return m->contents[i].valueListName[j];
+                if(m->contents[i].valueListID.contents[j] == obatID) return m->contents[i].valueListName[j];
             }
         }
     }

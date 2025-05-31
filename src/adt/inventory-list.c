@@ -45,13 +45,12 @@ void useInventory(ListInventory *l, int userID, int obatID, int *outObatID){
             idxUser = i;
         }
     }
-
     for (int i = 1; i <= (*l).contents[idxUser].nEff; i++)
     {
         if ((*l).contents[idxUser].contents[i]==obatID) 
         {
             *outObatID = obatID;
-            for (int j = i; j < (*l).contents[idxUser].nEff - 1; j++) 
+            for (int j = i; j < (*l).contents[idxUser].nEff; j++) 
             {
                 (*l).contents[idxUser].contents[j] = (*l).contents[idxUser].contents[j + 1];
             }

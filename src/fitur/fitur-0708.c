@@ -8,7 +8,7 @@ void sortByNama(ListUser *l, int sort){
     if(sort == 1){
         while(pass < nEff(*l) && tukar){
             tukar = false;
-            for(int i = nEff(*l); i > pass; i--){
+            for(int i = nEff(*l) - 1; i > pass; i--){
                 if(strcasecmp(USERNAME(*l, i), USERNAME(*l, i-1)) < 0){
                     temp =  l->contents[i];
                     l->contents[i] = l->contents[i-1];
@@ -21,7 +21,7 @@ void sortByNama(ListUser *l, int sort){
     }else if(sort == 2){
         while(pass < nEff(*l) && tukar){
             tukar = false;
-            for(int i = nEff(*l); i > pass; i--){
+            for(int i = nEff(*l) - 1; i > pass; i--){
                 if(strcasecmp(USERNAME(*l, i), USERNAME(*l, i-1)) > 0){
                     temp =  l->contents[i];
                     l->contents[i] = l->contents[i-1];
@@ -213,10 +213,10 @@ void lihatUser(ListUser l, int role, int currentID){
         
         if(pil1 == 1){
             lSorted = sortByRole(l, role);
-            sortByID(&lSorted, pil1);
+            sortByID(&lSorted, pil2);
         }else if(pil1 == 2){
             lSorted = sortByRole(l, role);
-            sortByNama(&lSorted, pil1);
+            sortByNama(&lSorted, pil2);
         }
         if(nEff(lSorted) == 0) printf("User tidak ditemukan");
         else printListUser(lSorted, role);

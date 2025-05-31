@@ -22,7 +22,14 @@ boolean urutanBenar (ListPerut L1, ListPenyakit L2, MapObatPenyakit M, char * pe
 }
 
 void pulangDok(ListObat *Lobat,ListPenyakit *Listp,MapObatPenyakit *Map,ListPerut *Perut,ListUser *L, Matrix *M, ListInventory *I, int currentId){
-    int idx;
+    int idx, idxPerut;
+    for (int k=0;k<Perut->nEff;k++){
+        if (Perut->contents[k].contents[0] == currentId) {
+            idxPerut = k;
+            break;
+        }
+    }
+
     if (strcmp(getRoleByID(*L, currentId),"Pasien")!=0) return;
     if (strcmp(getRiwayatByID(*L,currentId),MARK_STR) == 0){/*Belum didiagnosis*/
         printf("Anda masih belum didiagnosis!\n");
@@ -45,7 +52,10 @@ void pulangDok(ListObat *Lobat,ListPenyakit *Listp,MapObatPenyakit *Map,ListPeru
         /*List obat yang benar*/
         ListValue obat = mapGetListObatID(Map, getPenyakitIDByName(Listp, getRiwayatByID(*L,currentId)));
         for (int i=0;i<obat.nEff;i++){
-            printf("%s", getNameByObatID(Lobat, obat.contents[i]));
+            char obatName[50];
+            strcpy(obatName, getNameByObatID(Lobat, obat.contents[i]));
+            obatName[strlen(obatName) - 1] = 0;
+            printf("%s", obatName);
             if (i!=obat.nEff-1) printf(" -> ");
         }/*Penulisan : dari yang pertama dimakan sampai terakhir dimakan*/
         printf("\n");
@@ -55,16 +65,21 @@ void pulangDok(ListObat *Lobat,ListPenyakit *Listp,MapObatPenyakit *Map,ListPeru
         ListPerut dummyPerut = *Perut;
         dummyPerut.nEff = Perut->nEff;
         ListValue obatPerut;
-        for (int i=0;i<obat.nEff;i++){
-            obatPerut.contents[i] = dummyPerut.contents[idx].contents[dummyPerut.contents[idx].top];
-            int obatOut;
-            popObat(&dummyPerut, currentId, &obatOut);
+        obatPerut.nEff = 0;
+
+        while(dummyPerut.contents[idxPerut].top != 0){
+            popObat(&dummyPerut, currentId, &obatPerut.contents[obatPerut.nEff]);
+            obatPerut.nEff++;
         }   /*Pengisian ListValue obatPerut dari yang terbaru dimakan sampai yang terlama dimakan*/
-        for (int i=obat.nEff-1;i>=0;i--){
-            printf("%s", getNameByObatID(Lobat, obatPerut.contents[i]) );
+        for (int i=obatPerut.nEff-1;i>=0;i--){
+            char obatName[50];
+            strcpy(obatName, getNameByObatID(Lobat, obatPerut.contents[i]));
+            obatName[strlen(obatName) - 1] = 0;
+            printf("%s", obatName);
             if (i!=0) printf(" -> ");
         }
-        printf("Silahkan kunjungi dokter untuk meminta penawar yang sesuai !\n");
+        printf("\n");
+        printf("Silahkan kunjungi dokter untuk meminta penawar yang sesuai!\n");
         return;
     }else { 
         /*Mencari indeks tempat ID berada*/

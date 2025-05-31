@@ -21,7 +21,7 @@ boolean isListPerutFull(ListPerut l) {
 }
 
 boolean isUserPerutEmpty(ListPerut *l, int userID) {
-    for (int i = 0; i < MAX_USERS; i++) {
+    for (int i = 0; i < l->nEff; i++) {
         if ((*l).contents[i].contents[0] == userID) {
             return ((*l).contents[i].top == 0);
         }
@@ -30,7 +30,7 @@ boolean isUserPerutEmpty(ListPerut *l, int userID) {
 }
 
 boolean isUserPerutFull(ListPerut *l, int userID) {
-    for (int i = 0; i < MAX_USERS; i++) {
+    for (int i = 0; i < l->nEff; i++) {
         if ((*l).contents[i].contents[0] == userID) {
             return ((*l).contents[i].top == STACK_CAPACITY - 1);
         }

@@ -204,7 +204,7 @@ void checkUp(ListUser *L, Matrix *M, int currentId){
             else printf("Pilih dokter (1-%d): ",number-1);
             int option;
             scanf("%d",&option);   
-            while (option < 1 || option > number){
+            while (option < 1 || option > number-1){
                 printf("Input kembali, pilih dokter yang tersedia : ");
                 scanf("%d",&option);  
             }

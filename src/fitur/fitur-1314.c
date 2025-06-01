@@ -40,6 +40,25 @@ void pulangDok(ListObat *Lobat,ListPenyakit *Listp,MapObatPenyakit *Map,ListPeru
         printf("Anda masih belum didiagnosis!\n\n");
         return;
     }else if (strcmp(getRiwayatByID(*L,currentId),SEHAT) == 0){ /*Tidak ada penyakit yang cocok*/
+        for (int i=0;i<=L->nEff;i++){
+            if (L->contents[i].id==currentId) {
+                idx = i;
+                break;
+            }
+        }
+        L->contents[idx].suhuTubuh          = MARK_F;
+        L->contents[idx].tekananSistolik    = MARK_INT;
+        L->contents[idx].tekananDiastolik   = MARK_INT;
+        L->contents[idx].detakJantung       = MARK_INT;
+        L->contents[idx].saturasiOksigen    = MARK_F;
+        L->contents[idx].kadarGulaDarah     = MARK_INT;
+        L->contents[idx].beratBadan         = MARK_F;
+        L->contents[idx].tinggiBadan        = MARK_INT;
+        L->contents[idx].kadarKolesterol    = MARK_INT;
+        L->contents[idx].trombosit          = MARK_INT;
+        strcpy(L->contents[idx].riwayatPenyakit, MARK_STR);
+        int val;
+        nextQueue(&pasienRuangan(M, currentId)->antriPasien,&val);
         printf("Selamat anda dinyatakan Sehat dan tidak terkena penyakit apa-apa!\n");
         return;
     }else if (!isInventoryEmpty(*I, currentId)){ 

@@ -104,13 +104,12 @@ void pulangDok(ListObat *Lobat,ListPenyakit *Listp,MapObatPenyakit *Map,ListPeru
             strcpy(L->contents[idx].riwayatPenyakit, MARK_STR);
             int val;
             nextQueue(&pasienRuangan(M, currentId)->antriPasien,&val);
-            printf("Selamat! Kamu sudah dinyatakan sembuh oleh dokter. Silahkan pulang dan semoga sehat selalu!\n");
+            printf("Selamat! Kamu sudah dinyatakan sembuh oleh dokter. Silahkan pulang dan semoga sehat selalu!\n\n");
             return;
         }else{
-            printf("Sabar! Masih ada orang di depanmu.\n");
+            printf("Sabar! Masih ada orang di depanmu.\n\n");
             return;
         }
-        printf("\n");
     }   
 }
 

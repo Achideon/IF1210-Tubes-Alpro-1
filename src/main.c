@@ -62,7 +62,7 @@ int main(int argc, char *argv[]){
         printf("\033[5m██████   \033[25m|    -| | |     | .'|   |  |__   | .'| '_| |  _|  | | | | |     | . |   |_ -|   \033[5m██████    \033[25m\n");
         printf("\033[5m  ██     \033[25m|__|__|___|_|_|_|__,|_|_|  |_____|__,|_,_|_|_|    |_|___|_|_|_|_|___|_|_|___|   \033[5m  ██       \033[25m\n");
         printf("\n\n");
-        printf("Selamat datang di sistem informasi rumah sakit!\nApa yang bisa dibantu?\n\n");
+        printf("Selamat datang di sistem informasi rumah sakit!\nApakah ada yang bisa kami bantu?\n\n");
     }
     while(status){
         printf(">>>> ");

@@ -57,6 +57,7 @@ void printSemuaAntrian(Matrix M, ListUser dataUser, int currentID){
         return;
     }
     printDenah(M);
+    printf("\n");
     for(int i = 0; i < M.rows; i++){
         for(int j = 0; j < M.cols; j++){
             if(M.data[i][j].idDoktor > 0){

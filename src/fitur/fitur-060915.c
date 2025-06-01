@@ -64,6 +64,7 @@ void printSemuaAntrian(Matrix M, ListUser dataUser, int currentID){
                 printf("============ %c%d ============\n", i+65, j+1);
                 printf("Kapasitas: %d\n", M.data[i][j].kapasitas);
                 printf("Doktor   : %s\n", getUsernameByID(dataUser, M.data[i][j].idDoktor)); // dataUser == placeholder list user
+                printf("Jumlah pasien dalam dan luar ruangan: %d\n", queueLength(M.data[i][j].antriPasien));
                 printf("Pasien di dalam ruangan:\n");
                 int k = 1;
                 Address temp = M.data[i][j].antriPasien.head;
@@ -75,8 +76,8 @@ void printSemuaAntrian(Matrix M, ListUser dataUser, int currentID){
                     } printf("   %d. %s\n", k, getUsernameByID(dataUser, temp->info)); // print tail queue
                 } else printf("   Tidak ada pasien di dalam ruangan saat ini\n");
                 printf("Pasien di antrian:\n");
-                temp = temp->next;
                 if(queueLength(M.data[i][j].antriPasien) > M.data[i][j].kapasitas){
+                    temp = temp->next;
                     while(temp != M.data[i][j].antriPasien.tail && k < M.data[i][j].kapasitas + M.data[i][j].kapasitasAntrian){
                         printf("   %d. %s\n", k - M.data[i][j].kapasitas + 1, getUsernameByID(dataUser, temp->info));
                         k++;

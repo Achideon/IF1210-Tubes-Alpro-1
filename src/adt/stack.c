@@ -51,6 +51,7 @@ void pushObat(ListPerut *l, int userID, int obatID) {
         (*l).contents[0].contents[1] = obatID;
         (*l).contents[0].top = 1;
         (*l).nEff++;
+        return;
     }
     for (int i = 0; i < l->nEff; i++) {
         if ((*l).contents[i].contents[0] == userID) {

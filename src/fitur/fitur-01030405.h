@@ -38,4 +38,8 @@ void lupaPassword(ListUser *l, int *currentID);
 
 void menuHelp(ListUser *l, int *currentID);
 
+void printLogin();
+
+void printLogout();
+
 #endif

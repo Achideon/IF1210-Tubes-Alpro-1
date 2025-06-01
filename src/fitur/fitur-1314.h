@@ -21,8 +21,11 @@ boolean urutanBenar (ListPerut L1, ListPenyakit L2, MapObatPenyakit M, char * pe
 void pulangDok(ListObat *Lobat,ListPenyakit *Listp,MapObatPenyakit *Map,ListPerut *Perut,ListUser *L, Matrix *M, ListInventory *I, int currentId);
 /*F13 : Mengecek apakah pasien sudah diperbolehkan pulang atau belum dengan syarat : */
 /*Berada di posisi antrian pertama, sudah meminum semua obat/sembuh, dan tidak ada obat yang salah*/
+
 void checkUp(ListUser *L, Matrix *M, int currentId);
 /*F14 : Melakukan pendaftaran pasien ke dokter oleh pasien. Selain itu, ada proses pengisian data check-up.*/
 /*Listuser L adalah data akun yang berasal dari user.csv, Matrix M adalah Matrix Denah Rumah Sakit, dan int CurrentId adalah ID akun yang sedang login*/
+
+void printASCIIPulangDok();
 
 #endif

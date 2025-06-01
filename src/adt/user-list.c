@@ -79,6 +79,16 @@ void setRole(ListUser *l, int currentID, char * role){
     strcpy(ROLE(*l, idx), role);
 }
 
+void setColor(ListUser l, int currentID){
+    if(strcmp(getRoleByID(l, currentID), "Manager") == 0){
+        printf("\033[38;5;111m"); 
+    }else if(strcmp(getRoleByID(l, currentID), "Dokter") == 0){
+        printf("\033[38;5;75m"); 
+    }else if(strcmp(getRoleByID(l, currentID), "Pasien") == 0){
+        printf("\033[38;5;150m"); 
+    } else printf("\033[38;5;229m"); 
+}
+
 void setRiwayatPenyakit(ListUser *l, int currentID, char * namaPenyakit){
     int idx = userSearchByID(*l,currentID);
     strcpy(PENYAKIT(*l,idx), namaPenyakit);

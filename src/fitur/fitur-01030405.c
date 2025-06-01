@@ -119,63 +119,64 @@ void lupaPassword(ListUser *l, int *currentID){
 }
 
 void menuHelp(ListUser *l, int *currentID){
-    printf("===================HELP===================\n");
+    printf("=================== HELP ===================\n");
 
     if(isUserLoggedIn(*currentID) == 0){
         printf("Kamu belum login sebagai role apapun. Silahkan login terlebih dahulu.!\n\n");
-        printf("===================MENU===================\n");
-        printf("    1. LOGIN: Masuk ke dalam akun yang sudah terdaftar\n");
-        printf("    2. REGISTER: Membuat akun baru\n");
-        printf("    3. LUPA_PASSWORD: Mengganti password yang sudah tersimpan saat ini\n");
+        printf("=================== MENU ===================\n");
+        printf("    1. \033[38;5;51mLOGIN\033[38;5;229m: Masuk ke dalam akun yang sudah terdaftar\n");
+        printf("    2. \033[38;5;51mREGISTER\033[38;5;229m: Membuat akun baru\n");
+        printf("    3. \033[38;5;51mLUPA_PASSWORD\033[38;5;229m: Mengganti password yang sudah tersimpan saat ini\n");
+        printf("    4. \033[38;5;51mCIRNO_SPIN\033[38;5;229m: Hehehe...\n");
     }else{
         if(strcmp(getRoleByID(*l, *currentID), "Manager") == 0){
-            printf("Kamu sudah login sebagai Manager!\n\n");
-            printf("===================MENU===================\n");
-            printf("    1. LOGOUT: Keluar dari akun yang sedang digunakan\n");
-            printf("    2. LUPA PASSWORD: Mengganti password yang lupa\n");
-            printf("    3. LIHAT_USER: Menampilkan data seluruh pengguna (pasien dan dokter)\n");
-            printf("    4. LIHAT_PASIEN: Menampilkan data seluruh pasien\n");
-            printf("    5. LIHAT_DOKTER: Menampilkan data seluruh dokter\n");
-            printf("    6. CARI_USER: Mencari data pengguna (pasien dan dokter) berdasarkan ID atau username\n");
-            printf("    7. CARI_PASIEN: Mencari data pasien berdasarkan ID atau username\n");
-            printf("    8. CARI_DOKTER: Mencari data dokter berdasarkan ID atau username\n");
-            printf("    9. TAMBAH_DOKTER: Menambahkan jumlah dokter pada rumah sakit\n");
-            printf("    10. ASSIGN_DOKTER: Melakukan assign ruangan ke dokter tertentu yang belum memiliki ruangan\n");
-            printf("    11. LIHAT_DENAH: Menampilkan denah rumah sakit secara keseluruhan\n");
-            printf("    12. LIHAT_RUANGAN: Menampilkan informasi kapasitas, jumlah pasien, dan jumlah dokter pada ruangan tertentu berdasarkan ID ruangan\n");
-            printf("    13. LIHAT_SEMUA_ANTRIAN: Menampilkan seluruh antrian pasien beserta kapasitas, jumlah pasien, dan dokter dari tiap ruangan\n");
-            printf("    14. EXIT: Keluar dari rumah sakit\n");
-            printf("    15. SAVE: Menyimpan kondisi rumah sakit saat ini\n");
+            printf("Halo Manager \033[38;5;51m%s\033[38;5;111m!\n\n", getUsernameByID(*l, *currentID));
+            printf("=================== MENU ===================\n");
+            printf("    1. \033[38;5;51mLOGOUT\033[38;5;111m: Keluar dari akun yang sedang digunakan\n");
+            printf("    2. \033[38;5;51mLUPA PASSWORD\033[38;5;111m: Mengganti password yang lupa\n");
+            printf("    3. \033[38;5;51mLIHAT_USER\033[38;5;111m: Menampilkan data seluruh pengguna (pasien dan dokter)\n");
+            printf("    4. \033[38;5;51mLIHAT_PASIEN\033[38;5;111m: Menampilkan data seluruh pasien\n");
+            printf("    5. \033[38;5;51mLIHAT_DOKTER\033[38;5;111m: Menampilkan data seluruh dokter\n");
+            printf("    6. \033[38;5;51mCARI_USER\033[38;5;111m: Mencari data pengguna (pasien dan dokter) berdasarkan ID atau username\n");
+            printf("    7. \033[38;5;51mCARI_PASIEN\033[38;5;111m: Mencari data pasien berdasarkan ID atau username\n");
+            printf("    8. \033[38;5;51mCARI_DOKTER\033[38;5;111m: Mencari data dokter berdasarkan ID atau username\n");
+            printf("    9. \033[38;5;51mTAMBAH_DOKTER\033[38;5;111m: Menambahkan jumlah dokter pada rumah sakit\n");
+            printf("    10.\033[38;5;51m ASSIGN_DOKTER\033[38;5;111m: Melakukan assign ruangan ke dokter tertentu yang belum memiliki ruangan\n");
+            printf("    11.\033[38;5;51m LIHAT_DENAH\033[38;5;111m: Menampilkan denah rumah sakit secara keseluruhan\n");
+            printf("    12.\033[38;5;51m LIHAT_RUANGAN\033[38;5;111m: Menampilkan informasi kapasitas, jumlah pasien, dan jumlah dokter pada ruangan tertentu berdasarkan ID ruangan\n");
+            printf("    13.\033[38;5;51m LIHAT_SEMUA_ANTRIAN\033[38;5;111m: Menampilkan seluruh antrian pasien beserta kapasitas, jumlah pasien, dan dokter dari tiap ruangan\n");
+            printf("    14.\033[38;5;51m EXIT\033[38;5;111m: Keluar dari rumah sakit\n");
+            printf("    15.\033[38;5;51m SAVE\033[38;5;111m: Menyimpan kondisi rumah sakit saat ini\n");
             
         }else if(strcmp(getRoleByID(*l, *currentID), "Dokter") == 0){
-            printf("Halo Dokter %s!\n\n", USERNAME(*l, *currentID));
-            printf("===================MENU===================\n");
-            printf("    1. LOGOUT: Keluar dari akun yang sedang digunakan\n");
-            printf("    2. LUPA PASSWORD: Mengganti password yang lupa\n");
-            printf("    3. DIAGNOSIS: Melakukan pengecekan penyakit pasien\n");
-            printf("    4. NGOBATIN: Memberi obat kepada pasien sesuai hasil diagnosis\n");
-            printf("    5. LIHAT_DENAH: Menampilkan denah rumah sakit secara keseluruhan\n");
-            printf("    6. LIHAT_RUANGAN: Menampilkan informasi kapasitas, jumlah pasien, dan jumlah dokter pada ruangan tertentu berdasarkan ID ruangan\n");
-            printf("    7. EXIT: Keluar dari rumah sakit\n");
-            printf("    8. SAVE: Menyimpan kondisi rumah sakit saat ini\n");
+            printf("Halo Dokter \033[38;5;51m%s\033[38;5;75m!\n\n", getUsernameByID(*l, *currentID));
+            printf("=================== MENU ===================\n");
+            printf("    1. \033[38;5;51mLOGOUT\033[38;5;75m: Keluar dari akun yang sedang digunakan\n");
+            printf("    2. \033[38;5;51mLUPA PASSWORD\033[38;5;75m: Mengganti password yang lupa\n");
+            printf("    3. \033[38;5;51mDIAGNOSIS\033[38;5;75m: Melakukan pengecekan penyakit pasien\n");
+            printf("    4. \033[38;5;51mNGOBATIN\033[38;5;75m: Memberi obat kepada pasien sesuai hasil diagnosis\n");
+            printf("    5. \033[38;5;51mLIHAT_DENAH\033[38;5;75m: Menampilkan denah rumah sakit secara keseluruhan\n");
+            printf("    6. \033[38;5;51mLIHAT_RUANGAN\033[38;5;75m: Menampilkan informasi kapasitas, jumlah pasien, dan jumlah dokter pada ruangan tertentu berdasarkan ID ruangan\n");
+            printf("    7. \033[38;5;51mEXIT\033[38;5;75m: Keluar dari rumah sakit\n");
+            printf("    8. \033[38;5;51mSAVE\033[38;5;75m: Menyimpan kondisi rumah sakit saat ini\n");
             
         }else if(strcmp(getRoleByID(*l, *currentID), "Pasien") == 0){
-            printf("Kamu sudah login sebagai Pasien!\n\n");
-            printf("===================MENU===================\n");
-            printf("    1. LOGOUT: Keluar dari akun yang sedang digunakan\n");
-            printf("    2. LUPA PASSWORD: Mengganti password yang lupa\n");
-            printf("    3. DAFTAR_CHECKUP: Mendaftar untuk melakukan check-up dengan dokter\n");
-            printf("    4. ANTRIAN: Melihat status antrian\n");
-            printf("    5. MINUM_OBAT: Mengambil obat dan meminumnya\n");
-            printf("    6. PENAWAR: Meminum penawar setelah salah minum obat\n");
-            printf("    7. PULANGDOK: Memeriksa kembali kondisi ke dokter, sudah cukup baik untuk pulang atau belum.\n");
-            printf("    8. LIHAT_DENAH: Menampilkan denah rumah sakit secara keseluruhan\n");
-            printf("    9. LIHAT_RUANGAN: Menampilkan informasi kapasitas, jumlah pasien, dan jumlah dokter pada ruangan tertentu berdasarkan ID ruangan\n");
-            printf("    10. EXIT: Keluar dari rumah sakit\n");
-            printf("    11. SAVE: Menyimpan kondisi rumah sakit saat ini\n");
+            printf("Halo Pasien \033[38;5;51m%s\033[38;5;150m!\n\n", getUsernameByID(*l, *currentID));
+            printf("=================== MENU ===================\n");
+            printf("    1. \033[38;5;51mLOGOUT\033[38;5;150m: Keluar dari akun yang sedang digunakan\n");
+            printf("    2. \033[38;5;51mLUPA PASSWORD\033[38;5;150m: Mengganti password yang lupa\n");
+            printf("    3. \033[38;5;51mDAFTAR_CHECKUP\033[38;5;150m: Mendaftar untuk melakukan check-up dengan dokter\n");
+            printf("    4. \033[38;5;51mANTRIAN\033[38;5;150m: Melihat status antrian\n");
+            printf("    5. \033[38;5;51mMINUM_OBAT\033[38;5;150m: Mengambil obat dan meminumnya\n");
+            printf("    6. \033[38;5;51mPENAWAR\033[38;5;150m: Meminum penawar setelah salah minum obat\n");
+            printf("    7. \033[38;5;51mPULANGDOK\033[38;5;150m: Memeriksa kembali kondisi ke dokter, sudah cukup baik untuk pulang atau belum.\n");
+            printf("    8. \033[38;5;51mLIHAT_DENAH\033[38;5;150m: Menampilkan denah rumah sakit secara keseluruhan\n");
+            printf("    9. \033[38;5;51mLIHAT_RUANGAN\033[38;5;150m: Menampilkan informasi kapasitas, jumlah pasien, dan jumlah dokter pada ruangan tertentu berdasarkan ID ruangan\n");
+            printf("    10. \033[38;5;51mEXIT\033[38;5;150m: Keluar dari rumah sakit\n");
+            printf("    11. \033[38;5;51mSAVE\033[38;5;150m: Menyimpan kondisi rumah sakit saat ini\n");
         }
     }
-    printf("Footnote:\n");
+    printf("\nFootnote:\n");
     printf("    1. Untuk menggunakan aplikasi, silahkan masukkan nama fungsi yang terdaftar\n");
     printf("    2. Jangan lupa untuk memasukkan input yang valid\n\n");
 }

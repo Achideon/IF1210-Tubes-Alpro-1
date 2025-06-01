@@ -105,6 +105,8 @@ void setRole(ListUser *l, int currentID, char * role);
 // I.S. l, currentID, role terdefinisi
 // F.S. Menghasilkan l baru di mana role pengguna berhasil diganti
 
+void setColor(ListUser l, int currentID);
+
 void setRiwayatPenyakit(ListUser *l, int currentID, char * namaPenyakit);
 // I.S. l, currentID, namaPenyakit terdefinisi
 // F.S. Menghasilkan l baru di mana riwayatPengguna pengguna berhasil diganti

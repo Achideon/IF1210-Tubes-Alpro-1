@@ -25,7 +25,7 @@ Format Denah:
    +-----+-----+-----+-----+
 */
 
-void printRuangan(Matrix M, char * ruangan, ListUser dataUser);
+void printRuangan(Matrix M, char * ruangan, ListUser dataUser, int currentId);
 /* I.S. M dan ruangan terdefinisi */
 /* F.S. Mencetak data kapasitas, dokter, dan pasien ke layar */
 

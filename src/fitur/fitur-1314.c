@@ -34,6 +34,9 @@ void pulangDok(ListObat *Lobat,ListPenyakit *Listp,MapObatPenyakit *Map,ListPeru
     if (strcmp(getRiwayatByID(*L,currentId),MARK_STR) == 0){/*Belum didiagnosis*/
         printf("Anda masih belum didiagnosis!\n\n");
         return;
+    }else if (strcmp(getRiwayatByID(*L,currentId),SEHAT) == 0){ /*Tidak ada penyakit yang cocok*/
+        printf("Selamat anda dinyatakan Sehat dan tidak terkena penyakit apa-apa!\n");
+        return;
     }else if (!isInventoryEmpty(*I, currentId)){ 
         printf("Dokter sedang memeriksa keadaanmu...\n");
         printf("Masih ada obat yang belum kamu habiskan, minum semuanya dulu yukk!\n\n");
@@ -236,17 +239,20 @@ void checkUp(ListUser *L, Matrix *M, int currentId){
             idtemp = arrayDokter[option-1];/*idtemp menjadi id dokter yang dipilih*/
             /*Proses menambahkan pasien ke queue*/
             /*Loop untuk mencari indeks ruangan*/
-            int antrian; /*Menunjukkan posisi antrian pasien setelah check-up*/
-            for (int i=0;i<M->rows && !found;i++){
-                for (int j=0;j<M->cols;j++){
+            int antrian, i, j; /*Menunjukkan posisi antrian pasien setelah check-up*/
+            boolean dalam; /*Boolean untuk menunjukkan posisi pasien di dalam atau luar ruangan*/
+            for (i=0;i<M->rows && !found;i++){
+                for (j=0;j<M->cols;j++){
                     if(M->data[i][j].idDoktor==idtemp){
                         if (queueLength(M->data[i][j].antriPasien)<(M->data[i][j].kapasitasAntrian+M->data[i][j].kapasitas)){ 
                             if (queueLength(M->data[i][j].antriPasien)==0) createQueue(&M->data[i][j].antriPasien);
                             addQueue(&M->data[i][j].antriPasien, currentId);
                             if (queueLength(M->data[i][j].antriPasien) <= M->data[i][j].kapasitas) {
                                 antrian = queueLength(M->data[i][j].antriPasien);
+                                dalam = true;
                             }else{
                                 antrian =(queueLength(M->data[i][j].antriPasien) - M->data[i][j].kapasitas);
+                                dalam = false;
                             }
                             found = true;
                             break;  
@@ -257,7 +263,8 @@ void checkUp(ListUser *L, Matrix *M, int currentId){
             if (found){
                 printf("\nPendaftaran check-up berhasil!\n");
                 printf("Anda terdaftar pada antrian Dr. %s di ruangan %s.\n", getUsernameByID(*L, idtemp), getRoomByDoctor(*M, idtemp));
-                printf("Posisi antrian Anda: %d\n", antrian);
+                if (dalam) printf("Posisi antrian Anda: %d ( di dalam ruangan) \n", antrian);
+                else if (!dalam)  printf("Posisi antrian Anda: %d ( di luar ruangan) \n", antrian);
             }else if (!found){
                 printf("\nMohon maaf antrian sudah penuh!\n");
                 printf("Mohon pilih ulang dokter yang berbeda!\n");

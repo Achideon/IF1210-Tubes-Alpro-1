@@ -4,9 +4,9 @@
 
 /* Implementasi DIAGNOSIS */
 void diagnosis(Matrix m, ListPenyakit p, ListUser *l, int currentID){
-    if (currentID == -1) printf("Anda belum login! Silakan login terlebih dahulu!\n");
+    if (currentID == -1) printf("Anda belum login! Silakan login terlebih dahulu!\n\n");
     else if (strcmp(getRoleByID(*l,currentID),"Dokter")){
-        printf("Anda bukanlah seorang Dokter!\n");
+        printf("Anda bukanlah seorang Dokter!\n\n");
         return;
     }
     else{
@@ -58,11 +58,11 @@ void diagnosis(Matrix m, ListPenyakit p, ListUser *l, int currentID){
 
 void ngobatin(Matrix m, MapObatPenyakit mOP, ListPenyakit p, ListInventory *inv, ListUser *l, int currentID){
     if (strcmp(getRoleByID(*l,currentID),"Dokter")){
-        printf("Anda bukanlah seorang Dokter!\n");
+        printf("Anda bukanlah seorang Dokter!\n\n");
         return;
     }
     else{
-        printf("Dokter sedang mengobati pasien!\n");
+        printf("Dokter sedang mengobati pasien!\n\n");
         int rowNow, colNow;
         for (int i=0;i<m.rows;i++){
             for (int j=0;j<m.cols;j++){
@@ -75,11 +75,11 @@ void ngobatin(Matrix m, MapObatPenyakit mOP, ListPenyakit p, ListInventory *inv,
         }
         int pasienID = getFirst(m.data[rowNow][colNow].antriPasien);
         if (!(strcmp(getRiwayatByID(*l, pasienID),"KOSONG"))){
-            printf("Pasien %s tidak memiliki penyakit!\nPasien belum di diagnosis!\n", getUsernameByID(*l,pasienID));
+            printf("Pasien %s tidak memiliki penyakit!\nPasien belum di diagnosis!\n\n", getUsernameByID(*l,pasienID));
             return;
         }
         else if (!strcmp(getRiwayatByID(*l, pasienID), SEHAT)){
-            printf("%s tidak terdiagnosis penyakit apapun!\nPasien sehat!\n", getUsernameByID(*l,pasienID));
+            printf("%s tidak terdiagnosis penyakit apapun!\nPasien sehat!\n\n", getUsernameByID(*l,pasienID));
             return;
         }
         else{

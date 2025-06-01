@@ -123,7 +123,7 @@ void printObat(){
     printf("    /     \\\n");
     printf("   /       \\\n");
     printf("   |`-...-'|\n");
-    printf("   |  OBAT |\n");  
+    printf("   |  MEDS |\n");  
     printf(" _ |`-...-'|    _\n");
     printf("(\\)`-.___.(I) _(/)\n");
     printf("  (I)  (/)(I)(\\)\n");

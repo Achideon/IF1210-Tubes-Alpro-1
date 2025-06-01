@@ -31,23 +31,24 @@ void diagnosis(Matrix m, ListPenyakit p, ListUser *l, int currentID){
         }
         else{
             int lengthOP = p.nEff;
+            int idx = userSearchByID(*l,pasienID);
             for (int i = 0; i < lengthOP; i++){
-                if (((*l).contents[pasienID].suhuTubuh >= p.contents[i].suhuTubuhMin && (*l).contents[pasienID].suhuTubuh <= p.contents[i].suhuTubuhMax) 
-                        && ((*l).contents[pasienID].tekananSistolik >= p.contents[i].tekananSistolikMin && (*l).contents[pasienID].tekananSistolik <= p.contents[i].tekananSistolikMax) 
-                        && ((*l).contents[pasienID].tekananDiastolik >= p.contents[i].tekananDiastolikMin && (*l).contents[pasienID].tekananDiastolik <= p.contents[i].tekananDiastolikMax) &&((*l).contents[pasienID].detakJantung >= p.contents[i].detakJantungMin && (*l).contents[pasienID].detakJantung <= p.contents[i].detakJantungMax) 
-                        && ((*l).contents[pasienID].saturasiOksigen >= p.contents[i].saturasiOksigenMin && (*l).contents[pasienID].saturasiOksigen <= p.contents[i].saturasiOksigenMax) 
-                        && ((*l).contents[pasienID].kadarGulaDarah >= p.contents[i].kadarGulaDarahMin && (*l).contents[pasienID].kadarGulaDarah <= p.contents[i].kadarGulaDarahMax)
-                        && ((*l).contents[pasienID].beratBadan >= p.contents[i].beratBadanMin && (*l).contents[pasienID].beratBadan <= p.contents[i].beratBadanMax) 
-                        && ((*l).contents[pasienID].tinggiBadan >= p.contents[i].tinggiBadanMin && (*l).contents[pasienID].tinggiBadan <= p.contents[i].tinggiBadanMax) 
-                        && ((*l).contents[pasienID].kadarKolesterol >= p.contents[i].kadarKolesterolMin && (*l).contents[pasienID].kadarKolesterol <= p.contents[i].kadarKolesterolMax)
-                        && ((*l).contents[pasienID].trombosit >= p.contents[i].trombositMin && (*l).contents[pasienID].trombosit <= p.contents[i].trombositMax)){
-                            strcpy((*l).contents[pasienID].riwayatPenyakit,p.contents[i].namaPenyakit);
-                            printf("%s terdiagnosa penyakit %s\n",getUsernameByID(*l,pasienID), p.contents[i].namaPenyakit);
+                if (((*l).contents[idx].suhuTubuh >= p.contents[i].suhuTubuhMin && (*l).contents[idx].suhuTubuh <= p.contents[i].suhuTubuhMax) 
+                        && ((*l).contents[idx].tekananSistolik >= p.contents[i].tekananSistolikMin && (*l).contents[idx].tekananSistolik <= p.contents[i].tekananSistolikMax) 
+                        && ((*l).contents[idx].tekananDiastolik >= p.contents[i].tekananDiastolikMin && (*l).contents[idx].tekananDiastolik <= p.contents[i].tekananDiastolikMax) &&((*l).contents[pasienID].detakJantung >= p.contents[i].detakJantungMin && (*l).contents[pasienID].detakJantung <= p.contents[i].detakJantungMax) 
+                        && ((*l).contents[idx].saturasiOksigen >= p.contents[i].saturasiOksigenMin && (*l).contents[idx].saturasiOksigen <= p.contents[i].saturasiOksigenMax) 
+                        && ((*l).contents[idx].kadarGulaDarah >= p.contents[i].kadarGulaDarahMin && (*l).contents[idx].kadarGulaDarah <= p.contents[i].kadarGulaDarahMax)
+                        && ((*l).contents[idx].beratBadan >= p.contents[i].beratBadanMin && (*l).contents[idx].beratBadan <= p.contents[i].beratBadanMax) 
+                        && ((*l).contents[idx].tinggiBadan >= p.contents[i].tinggiBadanMin && (*l).contents[idx].tinggiBadan <= p.contents[i].tinggiBadanMax) 
+                        && ((*l).contents[idx].kadarKolesterol >= p.contents[i].kadarKolesterolMin && (*l).contents[idx].kadarKolesterol <= p.contents[i].kadarKolesterolMax)
+                        && ((*l).contents[idx].trombosit >= p.contents[i].trombositMin && (*l).contents[idx].trombosit <= p.contents[i].trombositMax)){
+                            strcpy((*l).contents[idx].riwayatPenyakit,p.contents[i].namaPenyakit);
+                            printf("%s terdiagnosa penyakit %s\n\n",getUsernameByID(*l,pasienID), p.contents[i].namaPenyakit);
                             return;
                         }
             }
             printf("Tidak ada penyakit yang cocok! Pasien sehat.\n\n");
-            strcpy((*l).contents[pasienID].riwayatPenyakit,SEHAT);
+            strcpy((*l).contents[idx].riwayatPenyakit,SEHAT);
             return;
         }
     
@@ -74,6 +75,7 @@ void ngobatin(Matrix m, MapObatPenyakit mOP, ListPenyakit p, ListInventory *inv,
             }
         }
         int pasienID = getFirst(m.data[rowNow][colNow].antriPasien);
+        int idxUser = userSearchByID(*l,pasienID);
         if (!(strcmp(getRiwayatByID(*l, pasienID),"KOSONG"))){
             printf("Pasien %s tidak memiliki penyakit!\nPasien belum di diagnosis!\n\n", getUsernameByID(*l,pasienID));
             return;
@@ -95,9 +97,9 @@ void ngobatin(Matrix m, MapObatPenyakit mOP, ListPenyakit p, ListInventory *inv,
                 int idx = (*inv).nEff;
                 (*inv).nEff++;
                 (*inv).contents[idx].contents[0] = pasienID; 
-                printf("Pasien memiliki penyakit %s\n",(*l).contents[pasienID].riwayatPenyakit);
+                printf("Pasien memiliki penyakit %s\n",(*l).contents[idxUser].riwayatPenyakit);
                 printf("Obat yang harus diberikan:\n");
-                int penyakitID = getPenyakitIDByName(&p, (*l).contents[pasienID].riwayatPenyakit);
+                int penyakitID = getPenyakitIDByName(&p, (*l).contents[idxUser].riwayatPenyakit);
                 char (*obat)[MAX_NAME] = mapGetListObatName(&mOP, penyakitID);
                 ListValue listObat = mapGetListObatID(&mOP, penyakitID);
                 for (int i = 0; i < listObat.nEff; i++){

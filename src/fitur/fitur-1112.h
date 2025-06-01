@@ -12,3 +12,6 @@ void diagnosis(Matrix m, ListPenyakit p, ListUser *l, int currentID);
 
 /* Implementasi NGOBATIN */
 void ngobatin(Matrix m, MapObatPenyakit mOP, ListPenyakit p, ListInventory *inv, ListUser *l, int currentID);
+
+/* ASCII Art untuk Obat */
+void printObat();

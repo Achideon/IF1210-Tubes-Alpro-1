@@ -106,6 +106,7 @@ void ngobatin(Matrix m, MapObatPenyakit mOP, ListPenyakit p, ListInventory *inv,
                     insertInventory(inv, pasienID, listObat.contents[i]);
                     printf("%i. %s", i+1,obat[i]);
                 }
+                printObat();
                 printf("\n\n");
             }
             else printf("Pasien sudah diobati! Silakan imbau untuk minum obat!\n\n");
@@ -115,3 +116,17 @@ void ngobatin(Matrix m, MapObatPenyakit mOP, ListPenyakit p, ListInventory *inv,
     }
 }
 
+void printObat(){
+    printf("\n\n     _____\n");
+    printf("    [IIIII]\n");
+    printf("     )\"\"\"(\n");
+    printf("    /     \\\n");
+    printf("   /       \\\n");
+    printf("   |`-...-'|\n");
+    printf("   |  OBAT |\n");  
+    printf(" _ |`-...-'|    _\n");
+    printf("(\\)`-.___.(I) _(/)\n");
+    printf("  (I)  (/)(I)(\\)\n");
+    printf("     (I)        \n");
+    return;
+}

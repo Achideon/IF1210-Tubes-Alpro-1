@@ -16,7 +16,7 @@ F13 : Pulang Dok -> Untuk pasien yang sudah melakukan check-up dan mendapat obat
 F14 : Daftar Check-Up -> Untuk Pasien yang belum mendaftar, pasien bisa melakukan daftar dengan 
 memasukkan data dan memilih dokter.
 */
-boolean urutanBenar (ListPerut L1, ListPenyakit L2, MapObatPenyakit M, char * penyakit, int currentId);
+boolean urutanBenar (ListPerut L1, ListPenyakit L2, MapObatPenyakit M, char * penyakit, int currentId, boolean rightOrder[]);
 
 void pulangDok(ListObat *Lobat,ListPenyakit *Listp,MapObatPenyakit *Map,ListPerut *Perut,ListUser *L, Matrix *M, ListInventory *I, int currentId);
 /*F13 : Mengecek apakah pasien sudah diperbolehkan pulang atau belum dengan syarat : */

@@ -1,5 +1,6 @@
 #include "fitur-1314.h"
-boolean urutanBenar (ListPerut L1, ListPenyakit L2, MapObatPenyakit M, char * penyakit, int currentId){
+boolean urutanBenar (ListPerut L1, ListPenyakit L2, MapObatPenyakit M, char * penyakit, int currentId, boolean rightOrder[]){
+    boolean order = true;
     printf("Cek urutan...\n");
     ListValue obat = mapGetListObatID(&M, getPenyakitIDByName(&L2, penyakit));
     ListPerut dummyPerut = L1;
@@ -12,23 +13,27 @@ boolean urutanBenar (ListPerut L1, ListPenyakit L2, MapObatPenyakit M, char * pe
         }
     }
     for(idxobat=obat.nEff-1; idxobat>=0; idxobat--){
+        rightOrder[obat.nEff - 1 - idxobat] = true;
         if (obat.contents[idxobat] != dummyPerut.contents[idx].contents[dummyPerut.contents[idx].top]){
-            return false;
+            order = false;
+            rightOrder[obat.nEff - 1 - idxobat] = false;
         }
         int obatOut;
         popObat(&dummyPerut, currentId, &obatOut);
     }
-    return true;
+    return order;
 }
 
 void pulangDok(ListObat *Lobat,ListPenyakit *Listp,MapObatPenyakit *Map,ListPerut *Perut,ListUser *L, Matrix *M, ListInventory *I, int currentId){
-    int idx, idxPerut;
+    int idx, idxPerut, nEffPerut;
     for (int k=0;k<Perut->nEff;k++){
         if (Perut->contents[k].contents[0] == currentId) {
             idxPerut = k;
+            nEffPerut = Perut->contents[k].top;
             break;
         }
     }
+    boolean rightOrder[nEffPerut];
 
     if (strcmp(getRoleByID(*L, currentId),"Pasien")!=0) return;
     if (strcmp(getRiwayatByID(*L,currentId),MARK_STR) == 0){/*Belum didiagnosis*/
@@ -41,7 +46,7 @@ void pulangDok(ListObat *Lobat,ListPenyakit *Listp,MapObatPenyakit *Map,ListPeru
         printf("Dokter sedang memeriksa keadaanmu...\n");
         printf("Masih ada obat yang belum kamu habiskan, minum semuanya dulu yukk!\n\n");
         return;
-    }else if (!urutanBenar(*Perut,*Listp, *Map, PENYAKIT(*L, userSearchByID(*L, currentId)), currentId)){ /*Obat salah susunan*/
+    }else if (!urutanBenar(*Perut,*Listp, *Map, PENYAKIT(*L, userSearchByID(*L, currentId)), currentId, rightOrder)){ /*Obat salah susunan*/
         /*Mencari indeks, tempat currentId berada*/
         for (int k=0;k<Perut->nEff;k++){
             if (Perut->contents[k].contents[0] == currentId) {
@@ -50,7 +55,7 @@ void pulangDok(ListObat *Lobat,ListPenyakit *Listp,MapObatPenyakit *Map,ListPeru
             }
         }
         printf("Dokter sedang memeriksa keadaanmu... \n");
-        printf("Maaf, tapi kamu masih belum bisa pulang!\n");
+        printf("Maaf, tapi kamu masih belum bisa pulang!\n\n");
         printf("Urutan peminuman obat yang diharapkan: \n");
         /*List obat yang benar*/
         ListValue obat = mapGetListObatID(Map, getPenyakitIDByName(Listp, getRiwayatByID(*L,currentId)));
@@ -61,7 +66,7 @@ void pulangDok(ListObat *Lobat,ListPenyakit *Listp,MapObatPenyakit *Map,ListPeru
             printf("%s", obatName);
             if (i!=obat.nEff-1) printf(" -> ");
         }/*Penulisan : dari yang pertama dimakan sampai terakhir dimakan*/
-        printf("\n");
+        printf("\n====================================================\n");
         /*Setelah sudah diprint list obat yang benar*/
         /*Buat salinan ListPerut *Perut supaya tidak mengubah-ubah isi Perut. Lalu, ada ListValue obatPerut memuat obat-obat yang ada di perut dengan pengurutan sesuai indeks.*/
         printf("Urutan obat yang kamu minum\n");
@@ -78,10 +83,20 @@ void pulangDok(ListObat *Lobat,ListPenyakit *Listp,MapObatPenyakit *Map,ListPeru
             char obatName[50];
             strcpy(obatName, getNameByObatID(Lobat, obatPerut.contents[i]));
             obatName[strlen(obatName) - 1] = 0;
-            printf("%s", obatName);
+            if(rightOrder[i]){
+                printf("\033[38;5;46m");
+                printf("%s", obatName);
+                printf("\033[38;5;150m"); 
+            }
+            else{ 
+                printf("\033[38;5;196m\033[5m"); 
+                printf("%s", obatName);
+                printf("\033[0m");
+                printf("\033[38;5;150m"); 
+            }
             if (i!=0) printf(" -> ");
         }
-        printf("\n");
+        printf("\n\n");
         printf("Silahkan kunjungi dokter untuk meminta penawar yang sesuai!\n\n");
         return;
     }else { 

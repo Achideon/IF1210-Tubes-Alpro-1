@@ -263,8 +263,8 @@ void checkUp(ListUser *L, Matrix *M, int currentId){
             if (found){
                 printf("\nPendaftaran check-up berhasil!\n");
                 printf("Anda terdaftar pada antrian Dr. %s di ruangan %s.\n", getUsernameByID(*L, idtemp), getRoomByDoctor(*M, idtemp));
-                if (dalam) printf("Posisi antrian Anda: %d ( di dalam ruangan) \n", antrian);
-                else if (!dalam)  printf("Posisi antrian Anda: %d ( di luar ruangan) \n", antrian);
+                if (dalam) printf("Posisi antrian Anda: %d ( di dalam ruangan ) \n", antrian);
+                else if (!dalam)  printf("Posisi antrian Anda: %d ( di luar ruangan ) \n", antrian);
             }else if (!found){
                 printf("\nMohon maaf antrian sudah penuh!\n");
                 printf("Mohon pilih ulang dokter yang berbeda!\n");

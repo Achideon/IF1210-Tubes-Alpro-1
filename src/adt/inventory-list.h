@@ -1,6 +1,6 @@
-/* SYSTEM LIST INVENTORY */
-/* Berisi definisi dan primitif pemrosesan list dinamis */
-/* Penempatan elemen selalu rapat kiri dan secara implisit */
+/* ADT LIST INVENTORY */
+/* Berisi definisi dan primitif pemrosesan list statik */
+/* Penempatan elemen selalu rapat kiri dan  */
 
 #ifndef INVENTORY_H
 #define INVENTORY_H
@@ -51,10 +51,10 @@ boolean isInventoryEmpty(ListInventory l, int userID);
 // Mengecek apakah inventory user kosong
 
 void useInventory(ListInventory *l, int userID, int obatID, int *outObatID);
-// Menggunakan obat dengan urutan tertentu
+// Menggunakan obat pada inventory dengan urutan tertentu
 
 void insertInventory(ListInventory *l, int userID, int obatID);
-// Menambahkan obat pada indeks terakhir
+// Menambahkan obat pada indeks terakhir inventory
 
 int getLastIdxInventory(ListInventory l, int userID);
 // Menghasilkan nilai terakhir dari suatu inventory dari user

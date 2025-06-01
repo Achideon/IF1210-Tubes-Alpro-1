@@ -102,8 +102,12 @@ void setPassword(ListUser *l, int currentID, char * password);
 // F.S. Menghasilkan l baru di mana password pengguna berhasil diganti
 
 void setRole(ListUser *l, int currentID, char * role);
+// I.S. l, currentID, role terdefinisi
+// F.S. Menghasilkan l baru di mana role pengguna berhasil diganti
 
 void setRiwayatPenyakit(ListUser *l, int currentID, char * namaPenyakit);
+// I.S. l, currentID, namaPenyakit terdefinisi
+// F.S. Menghasilkan l baru di mana riwayatPengguna pengguna berhasil diganti
 
 /* ********** OPERASI DASAR PENGGUNA ********** */
 
@@ -135,9 +139,10 @@ boolean isValidPassword(ListUser l, char * password, int currentID);
 boolean isUniqueUser(ListUser l, char * username);
 // Mengecek apakah Username yang akan diregister unik
 
-
 int userSearchByID(ListUser l, int x);
+// Mencari indeks pengguna berdasarkan ID
 
 int userSearchByName(ListUser l, char *x);
+// Mencari indeks pengguna berdasarkan username
 
 #endif

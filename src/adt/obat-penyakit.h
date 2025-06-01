@@ -1,6 +1,6 @@
-/* SYSTEM LIST DINAMIS OBATPENYAKIT */
-/* Berisi definisi dan primitif pemrosesan list dinamis */
-/* Penempatan elemen selalu rapat kiri dan secara implisit */
+/* ADT LIST OBATPENYAKIT */
+/* Berisi definisi dan primitif pemrosesan list statik */
+/* Penempatan elemen selalu rapat kiri dan secara eksplisit */
 
 #ifndef OBATPENYAKIT_H
 #define OBATPENYAKIT_H
@@ -78,21 +78,21 @@ typedef struct{
     int nEff; /* Nilai efektif dari suatu list */
 } ListObatPenyakit;
 
-/* ********** OPERASI DASAR LIST PENGGUNA ********** */
+/* ********** OPERASI DASAR LIST ********** */
 
 /* ********** KONSTRUKTOR ********** */
 /* Konstruktor : Create List kosong  */
 void createListObat(ListObat *l);
 // I.S. l tidak terdefinisi
-// F.S. Menghasilkan l sebagai list pengguna
+// F.S. Menghasilkan l sebagai list obat
 
 void createListPenyakit(ListPenyakit *l);
 // I.S. l tidak terdefinisi
-// F.S. Menghasilkan l sebagai list pengguna
+// F.S. Menghasilkan l sebagai list penyakit
 
 void createListObatPenyakit(ListObatPenyakit *l);
 // I.S. l tidak terdefinisi
-// F.S. Menghasilkan l sebagai list pengguna
+// F.S. Menghasilkan l sebagai list obatpenyakit
 
 /* ********** SELEKTOR ********** */
 

@@ -1,6 +1,6 @@
-/* SYSTEM MAP OBAT-PENYAKIT */
-/* Berisi definisi dan primitif pemrosesan list dinamis */
-/* Penempatan elemen selalu rapat kiri dan secara implisit */
+/* ADT MAP OBAT-PENYAKIT */
+/* Berisi definisi dan primitif pemrosesan map */
+/* Penempatan elemen selalu rapat kiri dan secara eksplisit */
 
 #ifndef MAP_OBATPENYAKIT_H
 #define MAP_OBATPENYAKIT_H
@@ -53,13 +53,13 @@ char * mapObatNameByID(MapObatPenyakit *m, int keyPenyakit, int obatID);
 // Fungsi yang mencari nama obat berdasarkan letak id 
 
 char * mapObatNameByUrutan(MapObatPenyakit *m, int keyPenyakit, int urutan);
-// Mencari nama berdasarkan urutan dan id penyakit
+// Fungsi yang mencari nama berdasarkan urutan dan id penyakit
 
 /* ***** OPERASI TAMBAHAN ***** */
 char * getNameByObatID (ListObat *l, int obatID);
 // Fungsi yang mencari nama dari suatu ID Obat
 
 int getPenyakitIDByName (ListPenyakit *l, char * name);
-// Mencari ID dengan Nama Penyakit
+// Fungsi yang mencari ID dengan Nama Penyakit
 
 #endif

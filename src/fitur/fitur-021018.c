@@ -19,6 +19,7 @@ void regist(ListUser *l, int currentId){
             printf("Registrasi pasien berhasil!\n");
         }
         printf("\n");
+        printAddUser();
     } else {
         printf("Maaf, Anda sudah login!\n\n");
         return;
@@ -26,7 +27,7 @@ void regist(ListUser *l, int currentId){
 }
 
 /*Realisasi Prosedur TAMBAHDOKTER atau Fitur F10*/
-void addDoctor(ListUser *l, int currentId){
+void addUsertor(ListUser *l, int currentId){
     if (strcmp(getRoleByID(*l,currentId), "Manager") == 0){
         char username[MAX_USERNAME_LENGTH];
         char pass[MAX_PASSWORD_LENGTH];
@@ -44,6 +45,7 @@ void addDoctor(ListUser *l, int currentId){
             printf("Dokter berhasil ditambahkan\n");
         }
         printf("\n");
+        printAddUser();
     }else {
         printf("Maaf, Anda bukan seorang Manager!\n\n");
         return;
@@ -51,7 +53,7 @@ void addDoctor(ListUser *l, int currentId){
 }
 
 /*Realisasi Prosedur ASSIGNDOKTER*/
-void assignDoctor(ListUser *l, int currentId, Matrix *M){
+void assignUsertor(ListUser *l, int currentId, Matrix *M){
     if (strcmp(getRoleByID(*l,currentId), "Manager") == 0){
         char username[MAX_USERNAME_LENGTH];
         char ruang[MAX_PASSWORD_LENGTH];
@@ -62,16 +64,16 @@ void assignDoctor(ListUser *l, int currentId, Matrix *M){
         if(!isRoomValid(*M, ruang)){
             printf("Tidak ada ruangan %s, tidak bisa menempatkan Dokter %s\n\n", ruang, username);
         }
-        else if ((isDoctorAssigned(*M, getIDByUsername(*l,username))) && (isRoomAssigned(*M,ruang))){
+        else if ((isUsertorAssigned(*M, getIDByUsername(*l,username))) && (isRoomAssigned(*M,ruang))){
             /*Jika dokter sudah di assign ke ruangan lain dan ruangan yang dituju sudah ada dokter lain.*/
-            printf("Dokter %s sudah menempati ruangan %s\n", username, getRoomByDoctor(*M,getIDByUsername(*l,username)));
-            printf("Ruangan %s juga sudah ditempati dokter %s\n",ruang,getDoctorByRoom(*M,ruang,*l));
+            printf("Dokter %s sudah menempati ruangan %s\n", username, getRoomByUsertor(*M,getIDByUsername(*l,username)));
+            printf("Ruangan %s juga sudah ditempati dokter %s\n",ruang,getUsertorByRoom(*M,ruang,*l));
         }
-        else if (isDoctorAssigned(*M, getIDByUsername(*l,username))){
+        else if (isUsertorAssigned(*M, getIDByUsername(*l,username))){
             /*Jika dokter sudah diassign*/
-            printf("Doker %s sudah diassign ke ruangan %s!\n",username,getRoomByDoctor(*M,getIDByUsername(*l,username)));
+            printf("Doker %s sudah diassign ke ruangan %s!\n",username,getRoomByUsertor(*M,getIDByUsername(*l,username)));
         }else if (isRoomAssigned(*M,ruang)){
-            printf("Dokter %s sudah menempati ruangan %s\n", getDoctorByRoom(*M,ruang,*l),ruang);
+            printf("Dokter %s sudah menempati ruangan %s\n", getUsertorByRoom(*M,ruang,*l),ruang);
             printf("Silahkan cari ruangan lain untuk dokter %s.\n",username);
         }else{
             /*Jika ruangan kosong dan dokter belum di assign ke manapun.*/
@@ -107,4 +109,24 @@ void ext(boolean *kondisi, ListUser l, Matrix m, ListInventory Li, ListPerut Lp)
         save(m, l, Li, Lp);
     }
     
+}
+
+void printAddUser(){
+    printf("⠀⠀⠀⠀⠀⣀⣤⣤⣤⣀⣀⣤⣤⢤⣀⡀⠀⠀⠀⠀\n");
+    printf("⠀⠀⠀⢠⣾⠿⠟⠉⠁⠀⠀⠈⠉⠛⠶⢽⣆⠀⠀⠀\n");
+    printf("⠀⠀⢀⡟⠁⣀⣀⣀⣀⠀⠀⢀⣀⣀⣀⠀⠻⡄⠀⠀\n");
+    printf("⠀⠀⡼⢠⢞⠵⠒⠒⢮⡳⣞⡽⠒⠒⠪⡝⣆⢳⠀⠀\n");
+    printf("⠀⠀⡇⡏⡏⠀⣼⠉⣧⢳⢸⢼⠉⣳⠀⢹⢸⢸⠀⠀\n");
+    printf("⠀⠀⡇⢳⡹⣄⡈⢉⣡⢫⣟⣎⡉⢁⣠⢞⡼⢸⠀⠀\n");
+    printf("⠀⠀⡇⠀⠉⠒⠯⠽⠚⠁⠈⠓⠿⠽⠖⠋⠀⢸⠀⠀\n");
+    printf("⠀⢀⡇⠀⠀⠀⢀⣀⣀⠀⠀⣀⣀⠀⠀⠀⠀⢸⡀⠀\n");
+    printf("⠀⢸⡙⢦⡀⠀⠀⠀⠉⠉⠉⠉⠀⠀⠀⢀⡤⢊⡇⠀\n");
+    printf("⠀⡼⡟⢦⡙⢿⡛⠒⠒⠒⠒⠒⠒⠛⡿⢋⡴⢻⢳⠀\n");
+    printf("⢰⡇⡇⠀⣿⠛⠀⢰⠒⠒⠒⠲⡆⠀⠙⢻⠀⢸⠸⡆\n");
+    printf("⢸⠀⡷⢤⣿⠀⠀⠸⣄⠀⠀⣰⠃⠀⠀⢸⡤⢼⠀⡇\n");
+    printf("⢸⣆⣿⡴⠋⠀⠀⠀⠈⠉⠉⠀⠀⠀⠀⠘⢦⣼⣠⡇\n");
+    printf("⢸⠀⠘⠿⡖⢶⡶⠖⠲⠶⠶⠲⠒⢶⡶⢲⡿⠃⠀⡇\n");
+    printf("⠘⠶⣄⡶⠃⠀⣳⠤⠤⡏⢹⠤⠤⣼⠀⠘⢶⣡⠴⠃\n");
+    printf("⠀⠀⠀⠀⠀⠀⠓⠒⠒⠃⠛⠒⠒⠚⠀⠀⠀⠀⠀⠀\n\n");
+    return;
 }

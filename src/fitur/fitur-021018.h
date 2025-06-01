@@ -21,4 +21,6 @@ void assignDoctor(ListUser *l, int currentId, Matrix *M);
 void ext(boolean *kondisi, ListUser l, Matrix m, ListInventory Li, ListPerut Lp);
 /*F18 : Prosedur untuk menghentikan program yang sedang berlangsung. Kemudian, akan ada opsi untuk dipilih antara save semua progress yang ada atau tidak save.*/
 
+void printAddUser();
+
 #endif

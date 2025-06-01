@@ -25,12 +25,15 @@ void login(ListUser *l, int *currentID){
             scanf("%s", password);
         }
         *currentID = getIDByUsername(*l, username);
-
+        printf("\n");
         if(strcmp(getRoleByID(*l, *currentID), "Manager") == 0){
+            printf("\033[38;5;111m"); 
             printf("Selamat datang Manager %s!\n\n", username);
         }else if(strcmp(getRoleByID(*l, *currentID), "Dokter") == 0){
+            printf("\033[38;5;75m"); 
             printf("Selamat datang Dokter %s!\n\n", username);
         }else if(strcmp(getRoleByID(*l, *currentID), "Pasien") == 0){
+            printf("\033[38;5;150m"); 
             printf("Selamat datang %s! Ada keluhan apa nih?\n\n", username);
         }
         printLogin();
@@ -44,6 +47,7 @@ void logout(ListUser *l, int *currentID){
         printf("Sampai Jumpa!\n\n");
         printLogout();
         *currentID = MARK_INT;
+        printf("\033[38;5;229m"); 
     }
 }
 
@@ -210,5 +214,4 @@ void printLogout(){
     printf("⠀⠀⠀⠀⡀⡀⢑⠤⠄⠀⣀⣀⡀⠀⢀⣀⣂⣀⣄⣀⠼⠁⠀⠀⠀⠀⠀\n");
     printf("⠀⠀⠀⠀⠣⣌⠓⠤⡀⢠⠊⠀⠀⠈⠁⢢⣀⢀⡹⠀⠀⠀⠀⠀⠀⠀⠀\n");
     printf("⠀⠀⠀⠀⠀⠀⠈⠑⠚⠁⠀⠀⠀⠀⠀⠘⠠⠀⠃⠀⠀⣶⠖⠶⠄⠀⠀\n\n");
-    return;
 }

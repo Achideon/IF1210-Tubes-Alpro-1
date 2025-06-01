@@ -12,13 +12,13 @@ void login(ListUser *l, int *currentID){
         printf("Password: ");
         scanf("%s", password);
         while(isValidUsername(*l, username) == 0){
-            printf("Tidak ada Manager, Dokter, atau pun Pasien yang bernama %s!\n", username);
+            printf("Tidak ada Manager, Dokter, atau pun Pasien yang bernama %s!\n\n", username);
             printf("Username: ");
             scanf("%s", username);
             printf("Password: ");
             scanf("%s", password);
         }while(isValidPassword(*l, password, getIDByUsername(*l, username)) == 0){
-            printf("Password salah untuk pengguna yang bernama %s!\n", username);
+            printf("Password salah untuk pengguna yang bernama %s!\n\n", username);
             printf("Username: ");
             scanf("%s", username);
             printf("Password: ");
@@ -56,7 +56,7 @@ void lupaPassword(ListUser *l, int *currentID){
     scanf("%s", unique);
     
     while(isValidUsername(*l, username) == 0){
-        printf("Tidak ada Manager, Dokter, atau pun Pasien yang bernama %s!\n", username);
+        printf("Tidak ada Manager, Dokter, atau pun Pasien yang bernama %s!\n\n", username);
         printf("Username: ");
         scanf("%s", username);
         printf("Kode Unik: ");
@@ -167,5 +167,5 @@ void menuHelp(ListUser *l, int *currentID){
     }
     printf("Footnote:\n");
     printf("    1. Untuk menggunakan aplikasi, silahkan masukkan nama fungsi yang terdaftar\n");
-    printf("    2. Jangan lupa untuk memasukkan input yang valid\n");
+    printf("    2. Jangan lupa untuk memasukkan input yang valid\n\n");
 }

@@ -49,11 +49,11 @@ void printRuangan(Matrix M, char * ruangan, ListUser dataUser){
 
 void printSemuaAntrian(Matrix M, ListUser dataUser, int currentID){
     if (currentID == -1){ 
-        printf("Anda belum login! Silakan login terlebih dahulu!\n");
+        printf("Anda belum login! Silakan login terlebih dahulu!\n\n");
         return;
     }
     else if (strcmp(getRoleByID(dataUser,currentID),"Manager")){
-        printf("Anda bukanlah seorang Manager!\n");
+        printf("Anda bukanlah seorang Manager!\n\n");
         return;
     }
     printDenah(M);
@@ -91,7 +91,7 @@ void printSemuaAntrian(Matrix M, ListUser dataUser, int currentID){
 void antrianSaya(Matrix M, ListUser dataUser, int userID){
     if (userID == -1) printf("Anda belum login! Silakan login terlebih dahulu!\n");
     else if (strcmp(getRoleByID(dataUser,userID),"Pasien")){
-        printf("Anda bukanlah seorang Pasien!\n");
+        printf("Anda bukanlah seorang Pasien!\n\n");
         return;
     }
     Ruangan *lokasi;
@@ -118,10 +118,10 @@ void antrianSaya(Matrix M, ListUser dataUser, int userID){
 			printf("Status antrian anda:\n");
 			printf("Dokter: %s\n", getUsernameByID(dataUser, lokasi->idDoktor));
 			printf("Ruangan: %c%d\n", i+65, j+1);
-			printf("Posisi antrian: %d dari %d\n", idx - lokasi->kapasitas + 1, lokasi->kapasitasAntrian);
+			printf("Posisi antrian: %d dari %d\n\n", idx - lokasi->kapasitas + 1, lokasi->kapasitasAntrian);
 		}
     } else {
 		printf("Anda belum terdaftar dalam antrian check-up!\n");
-		printf("Silakan daftar terlebih dahulu dengan command DAFTAR_CHECKUP\n");
+		printf("Silakan daftar terlebih dahulu dengan command DAFTAR_CHECKUP\n\n");
     }
 }

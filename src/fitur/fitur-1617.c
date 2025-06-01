@@ -14,12 +14,12 @@ void minumObat(ListInventory *inventory, ListPerut *perut, MapObatPenyakit *mapO
     }
 
     if (strcmp(getRoleByID(listuser,userID),"Pasien")){
-        printf("Anda bukan Pasien!\n");
+        printf("Anda bukan Pasien!\n\n");
         return;
     }
 
     if (isInventoryEmpty(*inventory, userID)) {
-        printf("Tidak ada obat untuk diminum!\n");
+        printf("Tidak ada obat untuk diminum!\n\n");
         return;
     }
 
@@ -49,11 +49,11 @@ void minumObat(ListInventory *inventory, ListPerut *perut, MapObatPenyakit *mapO
         pushObat(perut, userID, obatID);
         strcpy(namaObat, mapObatNameByID(mapObat, keyPenyakit, obatID));
         namaObat[strlen(namaObat) - 1] = 0;
-        printf("GLEKGLEKGLEK... %s berhasil diminum!!!\n", namaObat);
+        printf("GLEKGLEKGLEK... %s berhasil diminum!!!\n\n", namaObat);
         int val;
         useInventory(inventory, userID, obatID, &val);
     } else {
-        printf("Perut sudah penuh! Tidak bisa minum obat lagi.\n");
+        printf("Perut sudah penuh! Tidak bisa minum obat lagi.\n\n");
     }
 }
 
@@ -62,12 +62,12 @@ void minumPenawar(ListInventory *inventory, ListPerut *perut, MapObatPenyakit *m
     char namaObat[MAX_NAME];
     
     if (strcmp(getRoleByID(listuser,userID),"Pasien")){
-        printf("Anda bukan Pasien!\n");
+        printf("Anda bukan Pasien!\n\n");
         return;
     }
     
     if (isUserPerutEmpty(perut, userID)) {
-        printf("Perut kosong! Belum ada obat yang dimakan.\n");
+        printf("Perut kosong! Belum ada obat yang dimakan.\n\n");
         return;
     }
 
@@ -78,5 +78,5 @@ void minumPenawar(ListInventory *inventory, ListPerut *perut, MapObatPenyakit *m
     strcpy(namaObat, mapObatNameByID(mapObat, keyPenyakit, salahObat));
     namaObat[strlen(namaObat) - 1] = 0;
     insertInventory(inventory, userID, salahObat);
-    printf("Uwekkk!!! obat %s keluar dan kembali ke inventory\n", namaObat);
+    printf("Uwekkk!!! obat %s keluar dan kembali ke inventory\n\n", namaObat);
 }

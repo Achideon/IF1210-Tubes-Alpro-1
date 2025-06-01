@@ -1,6 +1,6 @@
 #include "fitur-1314.h"
 boolean urutanBenar (ListPerut L1, ListPenyakit L2, MapObatPenyakit M, char * penyakit, int currentId){
-    printf("cek urutan...\n");
+    printf("Cek urutan...\n");
     ListValue obat = mapGetListObatID(&M, getPenyakitIDByName(&L2, penyakit));
     ListPerut dummyPerut = L1;
     int idxobat = obat.nEff-1;
@@ -32,11 +32,11 @@ void pulangDok(ListObat *Lobat,ListPenyakit *Listp,MapObatPenyakit *Map,ListPeru
 
     if (strcmp(getRoleByID(*L, currentId),"Pasien")!=0) return;
     if (strcmp(getRiwayatByID(*L,currentId),MARK_STR) == 0){/*Belum didiagnosis*/
-        printf("Anda masih belum didiagnosis!\n");
+        printf("Anda masih belum didiagnosis!\n\n");
         return;
     }else if (!isInventoryEmpty(*I, currentId)){ 
         printf("Dokter sedang memeriksa keadaanmu...\n");
-        printf("Masih ada obat yang belum kamu habiskan, minum semuanya dulu yukk!\n");
+        printf("Masih ada obat yang belum kamu habiskan, minum semuanya dulu yukk!\n\n");
         return;
     }else if (!urutanBenar(*Perut,*Listp, *Map, PENYAKIT(*L, userSearchByID(*L, currentId)), currentId)){ /*Obat salah susunan*/
         /*Mencari indeks, tempat currentId berada*/
@@ -79,7 +79,7 @@ void pulangDok(ListObat *Lobat,ListPenyakit *Listp,MapObatPenyakit *Map,ListPeru
             if (i!=0) printf(" -> ");
         }
         printf("\n");
-        printf("Silahkan kunjungi dokter untuk meminta penawar yang sesuai!\n");
+        printf("Silahkan kunjungi dokter untuk meminta penawar yang sesuai!\n\n");
         return;
     }else { 
         /*Mencari indeks tempat ID berada*/
@@ -110,11 +110,15 @@ void pulangDok(ListObat *Lobat,ListPenyakit *Listp,MapObatPenyakit *Map,ListPeru
             printf("Sabar! Masih ada orang di depanmu.\n");
             return;
         }
+        printf("\n");
     }   
 }
 
 void checkUp(ListUser *L, Matrix *M, int currentId){
-    if (strcmp(getRoleByID(*L, currentId),"Pasien")!=0) return;    
+    if (strcmp(getRoleByID(*L, currentId),"Pasien")!=0){
+        printf("Maaf, Anda bukanlah seorang Pasien.\n\n");
+        return;
+    }
     if ((strcmp(getRoleByID(*L,currentId), "Pasien") == 0) && (!cekPasienQueue(M,currentId))){  
         /*Syaratnya adalah ketika pasien dengan id "currentId" belum terdaftar di antrian apa pun (Dengan arti lain adalah dia tidak berada di matrix denah juga.)*/
         int idx;
@@ -199,7 +203,7 @@ void checkUp(ListUser *L, Matrix *M, int currentId){
         }
 
         /*Setelah pengisian data pasien, maka selanjutnya adalah proses untuk memilih dokter.*/
-        printf("Berikut adalah dokter yang tersedia: \n");
+        printf("\nBerikut adalah dokter yang tersedia: \n");
         int number=1,idtemp;    /*number berfungsi untuk penomoran dan idtemp berfungsi untuk penomoran id dokter agar lebih mudah*/
         int row = M->rows, col = M->cols;
         int arrayDokter[row*col];   /*Menyimpan id dokter yang tersedia*/
@@ -220,6 +224,7 @@ void checkUp(ListUser *L, Matrix *M, int currentId){
             }
         }
         boolean found = false;
+        printf("\n");
         while (!found){
             if (number == 1) printf("Pilih dokter (1): ");
             else printf("Pilih dokter (1-%d): ",number-1);
@@ -251,18 +256,19 @@ void checkUp(ListUser *L, Matrix *M, int currentId){
                 }
             }
             if (found){
-                printf("Pendaftaran check-up berhasil!\n");
+                printf("\nPendaftaran check-up berhasil!\n");
                 printf("Anda terdaftar pada antrian Dr. %s di ruangan %s.\n", getUsernameByID(*L, idtemp), getRoomByDoctor(*M, idtemp));
                 printf("Posisi antrian Anda: %d\n", antrian);
             }else if (!found){
-                printf("Mohon maaf antrian sudah penuh!\n");
+                printf("\nMohon maaf antrian sudah penuh!\n");
                 printf("Mohon pilih ulang dokter yang berbeda!\n");
             }
             /*Pesan terakhir*/
+            printf("\n");
         }
     }else if ((cekPasienQueue(M,currentId))){   
         printf("Anda sudah terdaftar dalam antrian check-up!\n");
-        printf("Silakan selesaikan check-up yang sudah terdaftar terlebih dahulu.\n");
+        printf("Silakan selesaikan check-up yang sudah terdaftar terlebih dahulu.\n\n");
     }
 }
 

@@ -10,16 +10,17 @@ void regist(ListUser *l, int currentId){
         printf("Password: ");
         scanf("%s",pass);  /*Memasukkan password dari akun yang ingin didaftarkan.*/
         if (!(isUniqueUser(*l, username))){
-            printf("Registrasi pasien gagal! %s dengan nama %s sudah terdaftar.\n", getRoleByID(*l,getIDByUsername(*l, username)), username); 
+            printf("Registrasi pasien gagal! %s dengan nama %s sudah terdaftar.\n\n", getRoleByID(*l,getIDByUsername(*l, username)), username); 
             /*Sudah ada pasien yang teregristasi dengan nama yang sama.*/
         }else{
             addNewUser(l, username, pass); /*Menambah akun pasien baru*/
             setRole(l, getIDByUsername(*l, username), "Pasien");
             /*Setelah berhasil mendaftar, pasien akan otomatis terdaftar sebagai pasien*/
+            printf("Registrasi pasien berhasil!\n");
         }
         printf("\n");
     } else {
-        printf("Maaf, Anda sudah login!");
+        printf("Maaf, Anda sudah login!\n\n");
         return;
     }
 }
@@ -40,10 +41,11 @@ void addDoctor(ListUser *l, int currentId){
             /*Menambah akun dokter baru*/
             setRole(l, getIDByUsername(*l, username), "Dokter");
             /*Setelah berhasil mendaftar, dokter akan otomatis terdaftar sebagai dokter*/
+            printf("Dokter berhasil ditambahkan\n");
         }
         printf("\n");
     }else {
-        printf("Maaf, Anda bukan seorang Manager!");
+        printf("Maaf, Anda bukan seorang Manager!\n\n");
         return;
     }
 }
@@ -58,7 +60,7 @@ void assignDoctor(ListUser *l, int currentId, Matrix *M){
         printf("Ruangan: ");
         scanf("%s",ruang);
         if(!isRoomValid(*M, ruang)){
-            printf("Tidak ada ruangan %s, tidak bisa menempatkan Dokter %s\n", ruang, username);
+            printf("Tidak ada ruangan %s, tidak bisa menempatkan Dokter %s\n\n", ruang, username);
         }
         else if ((isDoctorAssigned(*M, getIDByUsername(*l,username))) && (isRoomAssigned(*M,ruang))){
             /*Jika dokter sudah di assign ke ruangan lain dan ruangan yang dituju sudah ada dokter lain.*/
@@ -84,7 +86,7 @@ void assignDoctor(ListUser *l, int currentId, Matrix *M){
         printf("\n");
         /*tercatat di matrix bahwa ada dokter di ruangan tersebut.*/
     }else {
-        printf("Maaf, Anda bukan seorang Manager!");
+        printf("Maaf, Anda bukan seorang Manager!\n\n");
         return;
     }
 }

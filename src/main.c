@@ -55,9 +55,17 @@ int main(int argc, char *argv[]){
 
 /* ----------- PROGRAM UTAMA -----------*/
     sortByID(&l,1);
-    if(status) printf("Selamat datang di sistem informasi rumah sakit!\n");
+    if(status) {
+        printf("\n");
+        printf("\033[5m         \033[25m _____               _      _____     _   _ _      _____ _                   \n");
+        printf("\033[5m  ██     \033[25m| __  |_ _ _____ ___| |_   |   __|___| |_|_| |_   |   | |_|_____ ___ ___ ___    \033[5m  ██       \033[25m \n");
+        printf("\033[5m██████   \033[25m|    -| | |     | .'|   |  |__   | .'| '_| |  _|  | | | | |     | . |   |_ -|   \033[5m██████    \033[25m\n");
+        printf("\033[5m  ██     \033[25m|__|__|___|_|_|_|__,|_|_|  |_____|__,|_,_|_|_|    |_|___|_|_|_|_|___|_|_|___|   \033[5m  ██       \033[25m\n");
+        printf("\n\n");
+        printf("Selamat datang di sistem informasi rumah sakit!\nApa yang bisa dibantu?\n\n");
+    }
     while(status){
-        printf(">>>>");
+        printf(">>>> ");
         scanf("%s", input);
         if(strcmp(input, "LOGIN") == 0){
             login(&l, &currentID);

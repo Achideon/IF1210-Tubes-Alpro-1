@@ -117,12 +117,14 @@ void menuHelp(ListUser *l, int *currentID){
 
     if(isUserLoggedIn(*currentID) == 0){
         printf("Kamu belum login sebagai role apapun. Silahkan login terlebih dahulu.!\n\n");
+        printf("===================MENU===================\n");
         printf("    1. LOGIN: Masuk ke dalam akun yang sudah terdaftar\n");
         printf("    2. REGISTER: Membuat akun baru\n");
         printf("    3. LUPA_PASSWORD: Mengganti password yang sudah tersimpan saat ini\n");
     }else{
         if(strcmp(getRoleByID(*l, *currentID), "Manager") == 0){
             printf("Kamu sudah login sebagai Manager!\n\n");
+            printf("===================MENU===================\n");
             printf("    1. LOGOUT: Keluar dari akun yang sedang digunakan\n");
             printf("    2. LUPA PASSWORD: Mengganti password yang lupa\n");
             printf("    3. LIHAT_USER: Menampilkan data seluruh pengguna (pasien dan dokter)\n");
@@ -141,6 +143,7 @@ void menuHelp(ListUser *l, int *currentID){
             
         }else if(strcmp(getRoleByID(*l, *currentID), "Dokter") == 0){
             printf("Halo Dokter %s!\n\n", USERNAME(*l, *currentID));
+            printf("===================MENU===================\n");
             printf("    1. LOGOUT: Keluar dari akun yang sedang digunakan\n");
             printf("    2. LUPA PASSWORD: Mengganti password yang lupa\n");
             printf("    3. DIAGNOSIS: Melakukan pengecekan penyakit pasien\n");
@@ -152,6 +155,7 @@ void menuHelp(ListUser *l, int *currentID){
             
         }else if(strcmp(getRoleByID(*l, *currentID), "Pasien") == 0){
             printf("Kamu sudah login sebagai Pasien!\n\n");
+            printf("===================MENU===================\n");
             printf("    1. LOGOUT: Keluar dari akun yang sedang digunakan\n");
             printf("    2. LUPA PASSWORD: Mengganti password yang lupa\n");
             printf("    3. DAFTAR_CHECKUP: Mendaftar untuk melakukan check-up dengan dokter\n");

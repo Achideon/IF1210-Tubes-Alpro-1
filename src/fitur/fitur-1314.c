@@ -65,6 +65,9 @@ void pulangDok(ListObat *Lobat,ListPenyakit *Listp,MapObatPenyakit *Map,ListPeru
         printf("Dokter sedang memeriksa keadaanmu...\n");
         printf("Masih ada obat yang belum kamu habiskan, minum semuanya dulu yukk!\n\n");
         return;
+    }else if(isUserPerutEmpty(Perut, currentId)){
+        printf("Kamu belum diberikan obat!\n");
+        return;
     }else if (!urutanBenar(*Perut,*Listp, *Map, PENYAKIT(*L, userSearchByID(*L, currentId)), currentId, rightOrder)){ /*Obat salah susunan*/
         /*Mencari indeks, tempat currentId berada*/
         for (int k=0;k<Perut->nEff;k++){

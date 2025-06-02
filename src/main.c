@@ -12,7 +12,6 @@
 #include "adt/queue.h"
 #include "utils/write-file.h"
 #include "utils/read-file.h"
-#include "utils/cirnospin.h"
 #include "fitur/fitur-1112.h"
 #include "adt/map-obat-penyakit.h"
 #include "adt/inventory-list.h"
@@ -125,10 +124,6 @@ int main(int argc, char *argv[]){
             save(M, l, inv, lpe);
         }else if(strcmp(input, "EXIT") == 0){
             ext(&status, l, M, inv, lpe);
-        }else if(strcmp(input, "CIRNO_SPIN") == 0){
-            for(int i = 0; i < 10; i++){
-                PlayCirno();
-            }
         }else{
             printf("Fungsi tidak terdaftar!\n\n");
         }

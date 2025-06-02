@@ -54,62 +54,57 @@ void logout(ListUser *l, int *currentID){
 void lupaPassword(ListUser *l, int *currentID){
     char username[MAX_USERNAME_LENGTH], unique[MAX_USERNAME_LENGTH], rle[MAX_USERNAME_LENGTH], password[MAX_PASSWORD_LENGTH];
     char present;
-    int count = 1, idx = 0;
+    int count = 1;
     
     printf("Username anda: ");
     scanf("%s", username);
     printf("Kode unik: ");
     scanf("%s", unique);
     
-    while(isValidUsername(*l, username) == 0){
-        printf("Tidak ada Manager, Dokter, atau pun Pasien yang bernama %s!\n\n", username);
+    while(1){
+        /* --------- RLE --------- */
+        int idx = 0;
+        int len = strlen(username);
+        present = username[0];
+        for (int i = 1; i < len; i++){
+            char c = username[i];
+            if(present == c){
+                count++;
+                if(i == (len - 1)){
+                    count += 48;
+                    rle[idx] = (char)count;
+                    idx++;
+                    rle[idx] = present;
+                    idx++;
+                }
+            }else{
+                if (count > 1){
+                    count += 48;
+                    rle[idx] = (char)count;
+                    idx++;
+                    rle[idx] = present;
+                    idx++;
+                }else{
+                    rle[idx] = present;
+                    idx++;
+                }
+                if (i == len - 1){
+                    rle[idx] = c;
+                    idx++;
+                }
+                present = c;
+                count = 1;
+            }
+        }rle[idx] = '\0';
+        /* END OF RLE */
+        if(isValidUsername(*l, username) == 0) printf("Tidak ada Manager, Dokter, atau pun Pasien yang bernama \033[38;5;51m%s\033[38;5;229m!\n\n", username);
+        else if(strcmp(rle, unique) != 0) printf("Kode unik \033[38;5;196msalah\033[38;5;229m!\n\n");
+        else break;
         printf("Username: ");
         scanf("%s", username);
         printf("Kode Unik: ");
         scanf("%s", unique);
     }//username valid, asumsi seterusnya juga valid
-    /* --------- RLE --------- */
-    int len = strlen(username);
-    present = username[0];
-    for (int i = 1; i < len; i++){
-        char c = username[i];
-        if(present == c){
-            count++;
-            if(i == (len - 1)){
-                count += 48;
-                rle[idx] = (char)count;
-                idx++;
-                rle[idx] = present;
-                idx++;
-            }
-        }else{
-            if (count > 1){
-                count += 48;
-                rle[idx] = (char)count;
-                idx++;
-                rle[idx] = present;
-                idx++;
-            }else{
-                rle[idx] = present;
-                idx++;
-            }
-            if (i == len - 1){
-                rle[idx] = c;
-                idx++;
-            }
-            present = c;
-            count = 1;
-        }
-    }rle[idx] = '\0';
-    /* END OF RLE */
-
-    while(strcmp(rle, unique) != 0){
-        printf("Kode unik salah!\n\n");
-        printf("Username: ");
-        scanf("%s", username);
-        printf("Kode Unik: ");
-        scanf("%s", unique);
-    }// kode unik valid, lanjut masukkan password baru
 
     printf("Halo %s %s silakan daftarkan ulang password anda!\n>>>> ", getRoleByID(*l, getIDByUsername(*l, username)) ,username);
     scanf("%s", password);
@@ -127,7 +122,6 @@ void menuHelp(ListUser *l, int *currentID){
         printf("    1. \033[38;5;51mLOGIN\033[38;5;229m: Masuk ke dalam akun yang sudah terdaftar\n");
         printf("    2. \033[38;5;51mREGISTER\033[38;5;229m: Membuat akun baru\n");
         printf("    3. \033[38;5;51mLUPA_PASSWORD\033[38;5;229m: Mengganti password yang sudah tersimpan saat ini\n");
-        printf("    4. \033[38;5;51mCIRNO_SPIN\033[38;5;229m: Hehehe...\n");
     }else{
         if(strcmp(getRoleByID(*l, *currentID), "Manager") == 0){
             printf("Halo Manager \033[38;5;51m%s\033[38;5;111m!\n\n", getUsernameByID(*l, *currentID));

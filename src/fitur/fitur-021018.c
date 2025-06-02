@@ -36,7 +36,7 @@ void addDoctor(ListUser *l, int currentId){
         printf("Password: ");
         scanf("%s",pass);
         if (!(isUniqueUser(*l,username))){
-            printf("Dokter %s sudah ada", username);
+            printf("Dokter %s sudah ada\n", username);
         }else{
             addNewUser(l,username,pass);
             /*Menambah akun dokter baru*/

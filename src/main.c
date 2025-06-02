@@ -105,7 +105,7 @@ int main(int argc, char *argv[]){
             if(!isRoomValid(M, ruangan)){
                 printf("Ruangan tidak ada! Coba cari ruangan lain\n");
             }else printRuangan(M, ruangan, l, currentID);
-        }else if(strcmp(input, "LIHAT_SEMUA_RUANGAN") == 0){
+        }else if(strcmp(input, "LIHAT_SEMUA_ANTRIAN") == 0){
             printSemuaAntrian(M, l, currentID);
         }else if(strcmp(input, "DIAGNOSIS") == 0){
             diagnosis(M, lp, &l, currentID);

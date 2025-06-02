@@ -26,9 +26,10 @@ Program dijalankan menggunakan wsl di root folder. Pastikan gcc dan makefile sud
 make
 ```
 
-### Run Program
+### Run + Load Program
 ```bash
-make run
+cd build
+main <<folder name>>
 ```
 
 <h2 id="command">Daftar Command</h2>
@@ -40,7 +41,21 @@ Berikut merupakan command yang tersedia untuk fitur-fitur Rumah Sakit Digital.  
 * Command HELP untuk menampilkan layar menu bantuan.  <br/>
 * Command LIHAT_DENAH untuk melihat denah rumah sakit.  <br/>
 * Command LIHAT_RUANGAN [IDRuangan] untuk melihat kapasitas, jumlah pasien, dan dokter pada IDRuangan.  <br/>
+* Command LIHAT_USER untuk menampilkan data seluruh pengguna.  <br/>
+* Command LIHAT_PASIEN untuk menampilkan data seluruh pasien.  <br/>
+* Command LIHAT_DOKTER untuk menampilkan data seluruh dokter.  <br/>
+* Command CARI_USER untuk mencari data pengguna berdasarkan ID atau username.  <br/>
+* Command CARI_PASIEN untuk mencari data pasien berdasarkan ID atau username.  <br/>
+* Command CARI_DOKTER untuk mencari data dokter berdasarkan ID atau username.  <br/>
+* Command LIHAT_SEMUA_ANTRIAN untuk menampilkan seluruh antrian pasien beserta kapasitas, jumlah pasien, dan dokter dari tiap ruangan.  <br/>
 * Command SAVE untuk menyimpan pada folder data dengan nama tertentu.  <br/>
 * Command TAMBAH_DOKTER untuk menambahkan jumlah dokter pada rumah sakit.<br/>
 * Command ASSIGN_DOKTER untuk melakukan assign ruangan ke dokter tertentu yang belum mempunyai ruangan.<br/>
+* Command DIAGNOSIS untuk melakukan pengecekan penyakit pasien.  <br/>
+* Command NGOBATIN untuk memberi obat kepada pasien sesuai hasil diagnosis.  <br/>
+* Command DAFTAR_CHECKUP untuk mendaftar untuk melakukan check-up dengan dokter.  <br/>
+* Command ANTRIAN untuk melihat status antrian.  <br/>
+* Command MINUM_OBAT untuk mengambil obat dan meminumnya.  <br/>
+* Command PENAWAR untuk meminum penawar setelah salah minum obat.  <br/>
+* Command PULANGDOK untuk memeriksa kembali kondisi ke dokter, sudah cukup baik untuk pulang atau belum.  <br/>
 * Command EXIT memberi opsi kepada pengguna untuk menyimpan file atau tidak dan keluar dari program.  <br/>

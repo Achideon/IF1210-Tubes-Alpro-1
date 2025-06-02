@@ -142,6 +142,10 @@ void pulangDok(ListObat *Lobat,ListPenyakit *Listp,MapObatPenyakit *Map,ListPeru
             L->contents[idx].kadarKolesterol    = MARK_INT;
             L->contents[idx].trombosit          = MARK_INT;
             strcpy(L->contents[idx].riwayatPenyakit, MARK_STR);
+            while(Perut->contents[idxPerut].top != 0){
+                int val;
+                popObat(Perut, currentId, &val);
+            } 
             int val;
             nextQueue(&pasienRuangan(M, currentId)->antriPasien,&val);
             printf("Selamat! Kamu sudah dinyatakan sembuh oleh dokter. Silahkan pulang dan semoga sehat selalu!\n\n");

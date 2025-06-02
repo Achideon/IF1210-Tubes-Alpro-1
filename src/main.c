@@ -66,7 +66,7 @@ int main(int argc, char *argv[]){
         printf("\n");
         printf("\033[38;5;215m====================================================================================================\n\n");
         printf("\033[38;5;215mSelamat datang di sistem informasi rumah sakit!\nApakah ada yang bisa kami bantu?\033[0m");
-        printf("\033[38;5;215m\nSebelum memulai, silahkan ketik \"HELP\"\n\n\033[0m");
+        printf("\033[38;5;215m\nApabila terdapat kebingungan, silakan ketik \"HELP\".\n\n\033[0m");
     }
     while(status){
         setColor(l, currentID);

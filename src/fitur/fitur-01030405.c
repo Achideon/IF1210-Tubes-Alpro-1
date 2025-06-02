@@ -42,7 +42,7 @@ void login(ListUser *l, int *currentID){
 
 void logout(ListUser *l, int *currentID){
     if(isUserLoggedIn(*currentID) == 0){
-        printf("Login gagal!\nLogin dulu baru bisa logout\n\n");
+        printf("Logout gagal!\nAnda belum login, silahkan login terlebih dahulu sebelum melakukan logout.\n\n");
     }else{
         printf("Sampai Jumpa!\n\n");
         printLogout();
@@ -111,7 +111,7 @@ void lupaPassword(ListUser *l, int *currentID){
         scanf("%s", unique);
     }// kode unik valid, lanjut masukkan password baru
 
-    printf("Halo %s %s silakan daftarkan ulang password anda!\n", getRoleByID(*l, getIDByUsername(*l, username)) ,username);
+    printf("Halo %s %s silakan daftarkan ulang password anda!\n>>>> ", getRoleByID(*l, getIDByUsername(*l, username)) ,username);
     scanf("%s", password);
     printf("Password baru anda adalah: %s\n", password);
     setPassword(l, getIDByUsername(*l, username), password);

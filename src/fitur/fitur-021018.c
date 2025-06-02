@@ -16,10 +16,10 @@ void regist(ListUser *l, int currentId){
             addNewUser(l, username, pass); /*Menambah akun pasien baru*/
             setRole(l, getIDByUsername(*l, username), "Pasien");
             /*Setelah berhasil mendaftar, pasien akan otomatis terdaftar sebagai pasien*/
-            printf("Registrasi pasien berhasil!\n");
+            printf("Registrasi pasien berhasil!\n\n");
+            printAddUser();
         }
         printf("\n");
-        printAddUser();
     } else {
         printf("Maaf, Anda sudah login!\n\n");
         return;
@@ -42,10 +42,10 @@ void addDoctor(ListUser *l, int currentId){
             /*Menambah akun dokter baru*/
             setRole(l, getIDByUsername(*l, username), "Dokter");
             /*Setelah berhasil mendaftar, dokter akan otomatis terdaftar sebagai dokter*/
-            printf("Dokter berhasil ditambahkan\n");
+            printf("Dokter berhasil ditambahkan\n\n");
+            printAddUser();
         }
         printf("\n");
-        printAddUser();
     }else {
         printf("Maaf, Anda bukan seorang Manager!\n\n");
         return;
@@ -127,6 +127,6 @@ void printAddUser(){
     printf("⢸⣆⣿⡴⠋⠀⠀⠀⠈⠉⠉⠀⠀⠀⠀⠘⢦⣼⣠⡇\n");
     printf("⢸⠀⠘⠿⡖⢶⡶⠖⠲⠶⠶⠲⠒⢶⡶⢲⡿⠃⠀⡇\n");
     printf("⠘⠶⣄⡶⠃⠀⣳⠤⠤⡏⢹⠤⠤⣼⠀⠘⢶⣡⠴⠃\n");
-    printf("⠀⠀⠀⠀⠀⠀⠓⠒⠒⠃⠛⠒⠒⠚⠀⠀⠀⠀⠀⠀\n\n");
+    printf("⠀⠀⠀⠀⠀⠀⠓⠒⠒⠃⠛⠒⠒⠚⠀⠀⠀⠀⠀⠀\n");
     return;
 }

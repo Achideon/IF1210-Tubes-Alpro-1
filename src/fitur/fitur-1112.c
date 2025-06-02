@@ -10,6 +10,10 @@ void diagnosis(Matrix m, ListPenyakit p, ListUser *l, int currentID){
         return;
     }
     else{
+        if(!isDoctorAssigned(m, currentID)){
+            printf("Anda belum masuk ruangan!\n\n");
+            return;
+        }
         int rowNow, colNow;
         for (int i=0;i<m.rows;i++){
             for (int j=0;j<m.cols;j++){
@@ -19,6 +23,10 @@ void diagnosis(Matrix m, ListPenyakit p, ListUser *l, int currentID){
                 break;
                 }
             }
+        }
+        if(queueLength(m.data[rowNow][colNow].antriPasien) == 0){
+            printf("Tidak ada pasien di ruangan!\n\n");
+            return;
         }
         int pasienID = getFirst(m.data[rowNow][colNow].antriPasien);
         if (strcmp(getRiwayatByID(*l, pasienID),"KOSONG")){
@@ -63,6 +71,10 @@ void ngobatin(Matrix m, MapObatPenyakit mOP, ListPenyakit p, ListInventory *inv,
         return;
     }
     else{
+        if(!isDoctorAssigned(m, currentID)){
+            printf("Anda belum masuk ruangan!\n\n");
+            return;
+        }
         printf("Dokter sedang mengobati pasien!\n\n");
         int rowNow, colNow;
         for (int i=0;i<m.rows;i++){
@@ -76,6 +88,10 @@ void ngobatin(Matrix m, MapObatPenyakit mOP, ListPenyakit p, ListInventory *inv,
         }
         int pasienID = getFirst(m.data[rowNow][colNow].antriPasien);
         int idxUser = userSearchByID(*l,pasienID);
+        if(queueLength(m.data[rowNow][colNow].antriPasien) == 0){
+            printf("Tidak ada pasien di ruangan!\n\n");
+            return;
+        }
         if (!(strcmp(getRiwayatByID(*l, pasienID),"KOSONG"))){
             printf("Pasien %s tidak memiliki penyakit!\nPasien belum di diagnosis!\n\n", getUsernameByID(*l,pasienID));
             return;

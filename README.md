@@ -29,8 +29,9 @@ make
 ### Run + Load Program
 ```bash
 cd build
-main <<folder name>>
+./main folder_name
 ```
+(folder tersimpan di ../data/)
 
 <h2 id="command">Daftar Command</h2>
 Berikut merupakan command yang tersedia untuk fitur-fitur Rumah Sakit Digital.  <br/>

@@ -85,8 +85,10 @@ void writeFileConfig(Matrix *M, ListInventory *Li, ListPerut *Lp, char* filepath
     fprintf(file, "%d\n", Lp->nEff);
     for(int i  = 0; i < Lp->nEff; i++){
         fprintf(file, "%d", Lp->contents[i].contents[0]);
-        for(int j = 0; j < Lp->contents[i].top; j++){
-            fprintf(file, " %d", Lp->contents[i].contents[j+1]);
+        while(Lp->contents[i].top != 0){
+            int number;
+            popObat(Lp, Lp->contents[i].contents[0], &number);
+            fprintf(file, " %d", number);
         }
         fprintf(file, "\n");
     }

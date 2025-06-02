@@ -441,13 +441,18 @@ void readConfig(Matrix *M, ListInventory *Li, ListPerut *Lp, char * path){
     readDigits(config, &number, &chr);
     int m = number;
     for(int i = 0; i < m; i++){
+        ListPerut transferPerut;
         readDigits(config, &number, &chr);
         int k = 1;
         addUserPerut(Lp, number);
         while(chr == ' '){
             readDigits(config, &number, &chr);
-            pushObat(Lp, Lp->contents[i].contents[0], number);
+            pushObat(&transferPerut, transferPerut.contents[i].contents[0], number);    
             k++;
+        }
+        while(transferPerut.contents[i].top != 0){
+            popObat(&transferPerut, transferPerut.contents[i].contents[0], &number);
+            pushObat(Lp, Lp->contents[i].contents[0], number);
         }
     }
     fclose(config);

@@ -1,5 +1,5 @@
 # IF1210-Tubes-01
-
+![](mascot.jpg)
 <h2 id="description">Deskripsi</h2>
 Tugas besar ini meminta untuk mencakup program rumah sakit digital dengan penerapan implementasi ADT untuk masing-masing fiturnya. 
 
@@ -35,28 +35,28 @@ cd build
 
 <h2 id="command">Daftar Command</h2>
 Berikut merupakan command yang tersedia untuk fitur-fitur Rumah Sakit Digital.  <br/>
-* Command LOGIN berfungsi untuk login akun.  <br/>
-* Command REGISTER berfungsi untuk mendaftar akun baru.  <br/>
-* Command LOGOUT berfungsi untuk keluar dari akun.  <br/>
-* Command LUPA_PASSWORD berfungsi untuk mengganti password.  <br/>
-* Command HELP untuk menampilkan layar menu bantuan.  <br/>
-* Command LIHAT_DENAH untuk melihat denah rumah sakit.  <br/>
-* Command LIHAT_RUANGAN [IDRuangan] untuk melihat kapasitas, jumlah pasien, dan dokter pada IDRuangan.  <br/>
-* Command LIHAT_USER untuk menampilkan data seluruh pengguna.  <br/>
-* Command LIHAT_PASIEN untuk menampilkan data seluruh pasien.  <br/>
-* Command LIHAT_DOKTER untuk menampilkan data seluruh dokter.  <br/>
-* Command CARI_USER untuk mencari data pengguna berdasarkan ID atau username.  <br/>
-* Command CARI_PASIEN untuk mencari data pasien berdasarkan ID atau username.  <br/>
-* Command CARI_DOKTER untuk mencari data dokter berdasarkan ID atau username.  <br/>
-* Command LIHAT_SEMUA_ANTRIAN untuk menampilkan seluruh antrian pasien beserta kapasitas, jumlah pasien, dan dokter dari tiap ruangan.  <br/>
-* Command SAVE untuk menyimpan pada folder data dengan nama tertentu.  <br/>
-* Command TAMBAH_DOKTER untuk menambahkan jumlah dokter pada rumah sakit.<br/>
-* Command ASSIGN_DOKTER untuk melakukan assign ruangan ke dokter tertentu yang belum mempunyai ruangan.<br/>
-* Command DIAGNOSIS untuk melakukan pengecekan penyakit pasien.  <br/>
-* Command NGOBATIN untuk memberi obat kepada pasien sesuai hasil diagnosis.  <br/>
-* Command DAFTAR_CHECKUP untuk mendaftar untuk melakukan check-up dengan dokter.  <br/>
-* Command ANTRIAN untuk melihat status antrian.  <br/>
-* Command MINUM_OBAT untuk mengambil obat dan meminumnya.  <br/>
-* Command PENAWAR untuk meminum penawar setelah salah minum obat.  <br/>
-* Command PULANGDOK untuk memeriksa kembali kondisi ke dokter, sudah cukup baik untuk pulang atau belum.  <br/>
-* Command EXIT memberi opsi kepada pengguna untuk menyimpan file atau tidak dan keluar dari program.  <br/>
+* Command <b>LOGIN</b> berfungsi untuk login akun.  <br/>
+* Command <b>REGISTER</b> berfungsi untuk mendaftar akun baru.  <br/>
+* Command <b>LOGOUT</b> berfungsi untuk keluar dari akun.  <br/>
+* Command <b>LUPA_PASSWORD</b> berfungsi untuk mengganti password.  <br/>
+* Command <b>HELP</b> untuk menampilkan layar menu bantuan.  <br/>
+* Command <b>LIHAT_DENAH</b> untuk melihat denah rumah sakit.  <br/>
+* Command <b>LIHAT_RUANGAN</b> [IDRuangan] untuk melihat kapasitas, jumlah pasien, dan dokter pada IDRuangan.  <br/>
+* Command <b>LIHAT_USER</b> untuk menampilkan data seluruh pengguna.  <br/>
+* Command <b>LIHAT_PASIEN</b> untuk menampilkan data seluruh pasien.  <br/>
+* Command <b>LIHAT_DOKTER</b> untuk menampilkan data seluruh dokter.  <br/>
+* Command <b>CARI_USER</b> untuk mencari data pengguna berdasarkan ID atau username.  <br/>
+* Command <b>CARI_PASIEN</b> untuk mencari data pasien berdasarkan ID atau username.  <br/>
+* Command <b>CARI_DOKTER</b> untuk mencari data dokter berdasarkan ID atau username.  <br/>
+* Command <b>LIHAT_SEMUA_ANTRIAN</b> untuk menampilkan seluruh antrian pasien beserta kapasitas, jumlah pasien, dan dokter dari tiap ruangan.  <br/>
+* Command <b>SAVE</b> untuk menyimpan pada folder data dengan nama tertentu.  <br/>
+* Command <b>TAMBAH_DOKTER</b> untuk menambahkan jumlah dokter pada rumah sakit.<br/>
+* Command <b>ASSIGN_DOKTER</b> untuk melakukan assign ruangan ke dokter tertentu yang belum mempunyai ruangan.<br/>
+* Command <b>DIAGNOSIS</b> untuk melakukan pengecekan penyakit pasien.  <br/>
+* Command <b>NGOBATIN</b> untuk memberi obat kepada pasien sesuai hasil diagnosis.  <br/>
+* Command <b>DAFTAR_CHECKUP</b> untuk mendaftar untuk melakukan check-up dengan dokter.  <br/>
+* Command <b>ANTRIAN</b> untuk melihat status antrian.  <br/>
+* Command <b>MINUM_OBAT</b> untuk mengambil obat dan meminumnya.  <br/>
+* Command <b>PENAWAR</b> untuk meminum penawar setelah salah minum obat.  <br/>
+* Command <b>PULANGDOK</b> untuk memeriksa kembali kondisi ke dokter, sudah cukup baik untuk pulang atau belum.  <br/>
+* Command <b>EXIT</b> memberi opsi kepada pengguna untuk menyimpan file atau tidak dan keluar dari program.  <br/>

@@ -1,5 +1,5 @@
 # IF1210-Tubes-01
-![](mascot.jpg)
+![](mascot.webp)
 <h2 id="description">Deskripsi</h2>
 Tugas besar ini meminta untuk mencakup program rumah sakit digital dengan penerapan implementasi ADT untuk masing-masing fiturnya. 
 
